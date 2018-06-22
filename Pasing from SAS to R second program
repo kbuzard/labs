@@ -1,0 +1,102 @@
+Moving Second Program from SAS to R
+
+This are the notes that apper as I move forward. I have the code in a separate document. 
+
+
+line 28 of SAS, I don't know why are we deleting the data that is NOT 1. 
+
+
+To beging the move to R, I'm going to import the following 3 datasets from SAS
+possiblenclass
+citations
+matching
+
+Line 217 - 234, just before the firts iteration I beging to export this dataset to csv files in order to take them to R. 
+
+I added the following code to the second SAS program. 
+
+/*Export the date to csv files in order to continue the next step in R*/
+/* I rename the datasets SASname to distinguish from the ones in SAS*/
+
+proc export data= work.matching dbms=csv
+	outfile= "\\hd.ad.syr.edu\01\e88665\Documents\Desktop\Backup SAS\from SAS to R\SASmatching.csv"
+	replace;
+run;
+
+proc export data= work.citations dbms=csv
+	outfile= "\\hd.ad.syr.edu\01\e88665\Documents\Desktop\Backup SAS\from SAS to R\SAScitations.csv"
+	replace;
+  run;
+
+proc export data= work.possiblenclass dbms=csv
+outfile= "\\hd.ad.syr.edu\01\e88665\Documents\Desktop\Backup SAS\from SAS to R\SASpossiblenclass.csv"
+	replace;
+run;
+
+
+
+In RStudio
+
+#I first beging by opening the working directory in which I'm going to work
+
+> setwd(file.path("//hd.ad.syr.edu","01","e88665","Documents","Desktop","Backup SAS","from SAS to R"))
+
+#Read the data from database matching
+> matching<- file.path("SASmatching.csv")
+> matching<-read.csv("SASmatching.csv")
+
+#Read the data from database citations
+> citations<- file.path("SAScitations.csv")
+> citations<- read.csv("SAScitations.csv")
+
+#Read the data from database possiblenclass
+> possiblenclass <- file.path("SASpossiblenclass.csv")
+> possiblenclass <- read.csv("SASpossiblenclass.csv")
+> View(possiblenclass)
+
+
+# Firts Iteration 
+
+#I replace the control numbers in the variable x_control with the uniform distribution
+> possiblenclass$x_control<-runif(nrow(possiblenclass))
+> View(possiblenclass$x_control)
+
+#After I assign random values I need to sort the dataset possiblenclass
+> possiblenclass[order(possiblenclass$nclass,possiblenclass$x_control),]
+
+# Next step is to create the dataset matching1 
+> matching1<-matching[c("cited","patent")]
+> View(matching1)
+> matching1$binvar<- 1
+
+# Line 233 call the dataset citation and sort it. 
+> citations[order(citations$cited,citations$patent),]
+
+#Line 237
+I'm confuse with this part, the code in SAS is the following 
+data matching2;
+	merge citations (in=a) matching1;
+	by cited patent;
+	if a;
+run;
+So, I'm merging citations with matching1 in=a. 
+Matching1 only has 3 variables "cited", "patent" and "binvar"
+So, given that I'm merging by two variables (by cited patent;) the only thing that I'm adding to the dataset citations is 
+the column binvar with a 1 in the rows that matches (firts two rows that are merging are rows 28 and 29). 
+Then, in the next part of the code Line 233 I'm deleting all the rows in which binvar=1. 
+citations has 192,302 observations
+matching1 has  19,965 observations
+matching2 has 192,302 observations after merging
+
+This means that in Line 233 I'm deleting all the rows or observations that has binvar =1.
+After this stept I ended up with 172,333 observations in matching2.
+Now, 192,302-172,333=19,969. 
+This means that I'm deleting 19,969 rows. 4 more rows or observations than the ones I should have, 
+than the number of observations in the dataset matching1
+
+Why is this happening? Can a patent be counted twice? 
+Because I'm deleting all of the observations I added with merging matching 1 PLUS 4 more than were originally in citations. 
+My answer is that in citations I have 4 observations that were on matching1 that were counted more than twice. 
+
+
+
