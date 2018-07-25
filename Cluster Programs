@@ -1,3 +1,68 @@
+Wednesday 07/25
+
+1) I have review Knitr and the reproducible data in coursera and given that it's implemented in Rstudio, 
+the process to use it should be pretty straight forward, the only problem is that we need to have the entire code running, 
+knitr will process the code and print the results.
+At the moment I haven't begin writing the movement to knitr because I'm still struggling with the optimization of the code.
+
+2) Documentation about the missing values in nclass was unavailable. 
+This variable comes in the original datasets from Harvard Dataverse, it is NOT created in the SAS code. 
+In my opinion, we could drop the NAs in the code, given that we are mainly grouping by nclass and NAs could mean that we are grouping 
+different things (e.g. paring nclass=4 with nclass=400) giving a wrong matching.
+
+3) In the original dataset from Harvard Dataverse you can find the variables Invnum and Invnum_N.
+Invnum: Initial inventor number: Patent + Invseq.
+Invnum_N: Disambiguated inventor number. This function assign a number to each of the individual inventors, 
+this way an inventor with more than one patent will have the same number. 
+In the program, we are using Invnum_N, which later it’s rename to Invnum.
+
+4) Regarding the next part, this is a good page for figuring out which distribution or method we are looking for
+https://berkorbay.github.io/fe522/02_Monte_Carlo_Simulation.html
+Looking the documentation, it said that before choosing a distribution for running the iterations, I need to perform and analysis
+on my dataset first. In this page there is a good starting point. 
+https://www.epa.gov/sites/production/files/2014-11/documents/montecar.pdf
+
+I need to figure this out before use the Monte Carlo function in R.
+This means that, I need to have my merge_patents dataset ready to begin this step. I'm trying to make it work with the small data sets. 
+
+There is a method to calculate the value of Pi using a Monte Carlo, it uses the radius of a circumference and then randomly put dots in
+a square of length 1, then it measure how many dots are inside the circumference and how many outside. 
+I think this could work in our program, if we take the radius as the 5, 10 or 20 miles of the different clusters. 
+
+5) Regarding the R code. 
+I'm looking at this part, creating the t2 vector and replacing as the object in cites_mypatent. When I do this, it doesn't create a matrix, 
+of column x row as you mentioned in Frank's code. I have run the code in the small datasets and I don't get any repeating patent in the cited.
+I'm not sure if using the vector t2 in the cites_mypatent is the correct thing to do yet.
+But if put any additional restriction on the "out" condition the program send warnings of length. 
+
+big_citations <-as.data.table(smallpossiblenclass[,-c(1:9)])
+
+#this changes all NAs in big_citations2 to 0's 
+for(j in seq_along(big_citations)){
+  set(big_citations, i=which(is.na(big_citations[[j]])), j=j, value=0)
+}
+#Here we look run the condition that the cite1 to cite 11 are not in cited or in patent
+t2 <- which(big_citations[,!(smallmatching2$patent %in% big_citations) & (!(smallmatching2$cited %in% big_citations))])
+
+# Function that returns vector of all rows from big that match 'mypatent,' a list with named elements corresponding to small. 
+#(I.e. mypatent will be a row from small)
+
+get_matching_rows <- function(mypatent) {
+  
+  # Indicator (TRUE/FALSE) for patents from big that cite mypatent 
+  cites_mypatent <- unlist(lapply(t2, function(x) mypatent$patent %in% x))
+
+  out <- which((smallpossiblenclass$nclass == mypatent$nclass))
+  return(out)
+}
+For the past few days I've been looking at this part, trying with the rbinds and the data table documentation, 
+I'm sorry I have no better news. 
+
+
+
+--------------------------------------------------------
+
+
 Wednesday 13/06/2018
 
 I begin running the SAS programs.
