@@ -1,3 +1,42 @@
+Monday 07/30
+
+I have re-run the SAS code to look at the merge between matching2 and possiblenclass to explain how the program is making the merge between NAs. 
+What I have next is the first 17 matched patents after merging matching2 with possiblenclass with all the if conditions. 
+The first number correspond to the patent in column "cited". 
+
+5654008 patent in position 9 before the merge its been pared with the control in position 9 possiblenclass
+5662124 patent in position 10 before the merge its been pared with the control in position 10 possiblenclass
+5709896 patent in position 25 before the merge its been pared with the control in position 25 possiblenclass
+5783397 patent in position 50 before the merge its been pared with the control in position 50 possiblenclass
+5790639 patent in position 54 before the merge its been pared with the control in position 54 possiblenclass
+5821757 patent in position 61 before the merge its been pared with the control in position 61 possiblenclass
+5862155 patent in position 77 before the merge its been pared with the control in position 77 possiblenclass
+5913164 patent in position 102 before the merge its been pared with the control in position 102 possiblenclass
+5922601 patent in position 107 before the merge its been pared with the control in position 107 possiblenclass
+5923563 patent in position 108 before the merge its been pared with the control in position 108 possiblenclass
+5923999 patent in position 110 before the merge its been pared with the control in position 110 possiblenclass
+5929007 patent in position 115 before the merge its been pared with the control in position 115 possiblenclass
+5932509 patent in position 117 before the merge its been pared with the control in position 117 possiblenclass
+6058127 patent in position 155 before the merge its been pared with the control in position 155 possiblenclass
+6122400 patent in position 168 before the merge its been pared with the control in position 168 possiblenclass
+6122628 patent in position 169 before the merge its been pared with the control in position 169 possiblenclass
+6154475 patent in position 171 before the merge its been pared with the control in position 171 possiblenclass
+6496704 patent in position 182 before the merge its been pared with the control in position 182 possiblenclass
+
+After that, it pared the cited patent 6496704 with different controls 70 more times. 
+The cited patent 6496704 is the last of the NAs in the matching2 dataset BEFORE the merge. 
+
+Looking at the patents that are not been matched, it's because they don't passed the sasdate condition. 
+
+So, the program is taking the first patent in matching2, running the conditions with the first patent in possiblenclass, 
+if they not passed then it drop it and move to the next line. 
+It does this until the last patent in matching2 (6496704) and then it uses this one to run the rest of the ones in possiblenclass. 
+Possiblenclass is order by nclass only. If I ordered by nclass and control, I expect to get different matchings (its paring by position)
+
+
+
+
+
 Wednesday 07/25
 
 1) I have review Knitr and the reproducible data in coursera and given that it's implemented in Rstudio, 
