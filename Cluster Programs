@@ -1,3 +1,73 @@
+August 6/2018
+Compilation about Documentation
+
+1) Documentation about the missing values in nclass was unavailable. 
+This variable comes in the original datasets from Harvard Dataverse, it is NOT created in the SAS code. 
+Possiblenclass has 911 NAs and Matching2 (before its merge with all the if conditions) has 175 NAs. Once its merge, Matching 2 (running all the if conditions) ends up with 94 NAs.
+Now, here I find something strange, the first 16 matches are different, but the rest 78 is the same patent (same cited and patent) that it's been matched to different controls.
+In the next step of the SAS code, it applys nodupkey, dropping all the NA's. I end up with 17 NA's, after the first iteration.
+The code never deals with the NAs, not even in the third program.
+In my opinion, we could drop the NAs in the code, given that we are mainly grouping by nclass and NAs could mean that we are grouping different things 
+(e.g. paring nclass=4 with nclass=400) giving a wrong matching. This is what Thompson (2005) critic about Jaffee's method when he matched 
+the primary class with out considering the subclasses.
+By looking at the SAS code.
+
+3) In the original dataset from Harvard Dataverse you can find the variables Invnum and Invnum_N. 
+Invnum: Initial inventor number: Patent + Invseq. 
+Invnum_N: Disambiguated inventor number. This function assign a number to each of the individual inventors, this way an inventor with more than one patent will have the same number.  
+In the program, we are using Invnum_N, which later it’s rename to Invnum.
+
+4) Next is presenting the differences between both method of matching, Thompson and Jaffe e.t, in order to determined the one we are using.  
+In Thompson 2005 article the different methods are made clear. 
+Thompson (2005) argue that Jaffe constructed three patents samples: a set of originating patents, a set of citing patents which reference one of the originated patents and a set of control patents matched to each citing patent.  
+Each control patent shared the same technology class it matched citing patent. The experiment compared the probabilities that the citing patent and its matched control patent, 
+were filed by inventors living in the same geographic location as the originating patent. 
+Thompson declares that, controlling for unobservables using matching methods is invariably a dangerous exercise because one can rarely be confident that the control are doing their job.  
+Imperfect matching may simply introduce noise and a corresponding loss of efficiency, but these are not the applications where matching is critical.  
+
+This next part is to check and defined which method are we using.  
+Thompson critics on JTHs method is that: 
+ 
+1) JTH control patents were selected using broad, three-digit technological classification codes of the U.S. Patent and Trademark Office (USPTO), a level of aggregation that surpasses considerable within-class heterogeneity.  
+This means that, if I match the citing patent with the originating patent using the three digits class, it is also likely to fall in the same subclass.  
+In contrast, the control patent is likely to be drawn from a different subclass, and it will fail to control for pre-existing geographic patterns of production.  
+2) Patents typically contain many distinct claims, to each of which a technological classification is assigned.  
+The particular claim in a citing patent that can be associated with a citation to prior art may be quite distinct from the claim that generated the corresponding control patent.  
+This doesn’t ensure the existence of any industrial link between the originating and control patent. 
+ 
+Thompson claims that these two features of the control selection process means there is no guarantee that the control patent has any industrial similarity either to the citing or to the originating patent.  
+
+Thompson’s criteria. 
+1)He select control patents using the technology subclass, a much finer level of disaggregation than the three-digit classification scheme.  
+Instead of using for example class 231, he uses 231.3 
+
+2)It focus on the originating-citing-control triads in which all three patents have at least one subclass in common.  
+
+JTH selected controls in which the primary class of the citing patent matched the primary class of its control patent.  
+   
+In conclusion, Jaffe and us do not use subclasses in the analysis, only worked with the primary 3 digit class.
+We matched the control patents using the primary class (nclass).
+The file pat76_06_ipc.dta only has information about the primary class not the subclasses.
+https://sites.google.com/site/patentdataproject/Home/downloads/patn-data-description
+ 
+4) We are using primary class for the matching. 
+Taken from the NATIONAL BUREAU OF ECONOMIC RESEARCH.
+nclass: US 3-digit current classification (CCL). The variables designated "CCL" are based on the USPTO classification system as of 2008. This means that all the patents on this file will have a consistent classification applied if you use the ccl variables. (I put the excel file with the different classes in the admin folder, called "classification_06 (1)")
+The USPTO has developed over the years a highly elaborate classification system for the technologies to which the patented inventions belong, consisting of about 400 main (3-digit) patent classes,13 and over 120,000 patent subclasses. This 400 classes are aggregated into 36 two-digit technological sub-categories, and these in turn are further aggregated into 6 main categories.
+http://www.nber.org/papers/w8498.pdf
+
+5) File pat76_06_ipc.dta
+Only has nclass as the US 3-digit current classification. We use it to created "control_cites"
+
+The file pat76_06_assg.dta
+Has information about the primary class and the secondary class. We use it to created "possiblenclass".
+Until the second SAS program we are using the primary class cover by nclass in both files. 
+
+Source: https://sites.google.com/site/patentdataproject/Home/downloads/patn-data-description
+
+
+
+
 Wednesday 13/06/2018
 
 I begin running the SAS programs.
