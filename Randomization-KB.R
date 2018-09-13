@@ -18,15 +18,13 @@ setwd("G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE")
 
 
 #Read the data from database citations
-citations<- fread("SAScitations.csv")
+citations <- fread("SAScitations.csv")
 possiblenclass <- fread("SASpossiblenclass.csv")
-clustpatents<-fread("SASclustpatents.csv")
-originating<-fread("SASoriginating.csv")
+clustpatents <- fread("SASclustpatents.csv")
+originating <- fread("SASoriginating.csv")
 
-
-clustpatents<-as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
 citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
-
 
 list_of_matches <- readRDS("list_of_matches")
 
@@ -58,6 +56,7 @@ do_once <- function(xnames) {
 
 
   #Third Program begin
+  clustpatents <- select(clustpatents,one_of("NE_Plots_2",xnames))
   aux_clustpatents<-rename(clustpatents, cited = NE_Plots_2)
 
   #Merged both datatables 
@@ -118,18 +117,10 @@ n=2
 system.time(test <-as.data.table(replicate(n, do_once(xnames))))
 test3 <- as.data.table(rowSums(test)/n)
 
-#test2<-colSums(subset(matching_3[,.(Boston5A,Boston5B,DC5,NY5A,NY5B,NY5C,NY5D,Philly5A,Philly5B,
-#                                    c_sameBoston5A, c_sameBoston5B, c_sameDC5, c_sameNY5A, c_sameNY5B, c_sameNY5C, 
-#                                    c_sameNY5D, c_samePhilly5A,c_samePhilly5B,
-#                                    cc_sameBoston5A, cc_sameBoston5B, cc_sameDC5, cc_sameNY5A, cc_sameNY5B, cc_sameNY5C, 
-#                                    cc_sameNY5D, cc_samePhilly5A, cc_samePhilly5B,
-#                                    Boston10,DC10,NY10,Philly10,c_sameBoston10,c_sameDC10,c_sameNY10,c_samePhilly10,
-#                                    cc_sameBoston10,cc_sameDC10,cc_sameNY10,cc_samePhilly10,
-#                                    DC20,Boston20,NY20,
-#                                    c_sameDC20,c_sameBoston20,c_sameNY20,
-#                                    cc_sameDC20,cc_sameBoston20,cc_sameNY20)]))
 
-
+#---------------------------------------------------------------------------------------
+#   Format Randomized Data into Columns
+#---------------------------------------------------------------------------------------
 columnE_5 <- round(test3[seq(1, by=3, length.out = length(xnames5)),])
 columnF_5 <- round(test3[seq(2, by=3, length.out = length(xnames5)),])
 columnI_5 <- round(test3[seq(3, by=3, length.out = length(xnames5)),])
@@ -174,7 +165,6 @@ final_5_group3[, "columnJ"] <- (final_5_group3[, 3] *100/ final_5_group3[, 2])
 rand_table_5 <- as.data.table(cbind(final_5_group2,final_5_group3))
 rand_table_5[,  c("Cluster3")  := NULL]
 rand_table_5[, "columnK"] <- (rand_table_5[, 4] / rand_table_5[, 7])
-
 
 
 rm(final_5_group2, final_5_group3,Cluster2,Cluster3)
@@ -254,13 +244,13 @@ rand_table_20[, "columnK"] <- (rand_table_20[, 4] / rand_table_20[, 7])
 rm(final_20_group2, final_20_group3, Cluster2, Cluster3)
 
 
-
-#Tables without randomization. Columns A, B, C, D
+#------------------------------------------------------------------------------
+#  Tables without randomization. Columns A, B, C, D
+#------------------------------------------------------------------------------
 
 #Column A (Originating Patents)*/  
 #First Merge originating with clustpatents*/
-clustpatents<-subset(clustpatents[,.(NE_Plots_2,Boston5A,Boston5B,Boston10,DC5,DC10,NY5A,NY5B,NY5C,NY5D,NY10,
-                                     Philly5A, Philly5B, Philly10,DC20, Boston20, NY20)])
+clustpatents <- select(clustpatents,one_of("NE_Plots_2",xnames))
 
 aux_clustpatents<-rename(clustpatents, cited = NE_Plots_2)
 
@@ -281,13 +271,11 @@ citations_colB<-as.data.table(left_join(citations,clustpatents, by="cited"))
 
 #Sort the dataset by citing
 setorder(citations_colB, "citing")
-clustpatents_cit<-setnames(aux_clustpatents,c("Boston5A","Boston5B","Boston10","DC5","DC10","NY5A","NY5B","NY5C","NY5D","NY10", 
-                                              "Philly5A","Philly5B","Philly10","DC20","Boston20","NY20"),
-                           c("cBoston5A","cBoston5B","cBoston10","cDC5","cDC10","cNY5A","cNY5B","cNY5C","cNY5D","cNY10", 
-                             "cPhilly5A","cPhilly5B","cPhilly10","cDC20","cBoston20","cNY20"))
-clustpatents_cit<-rename(clustpatents_cit, citing = cited)
 
-citations_colc<-as.data.table(left_join(citations_colB,clustpatents_cit, by="citing"))
+clustpatents_cit <- setnames(aux_clustpatents,xnames,str_c("c",xnames))
+clustpatents_cit <- rename(clustpatents_cit, citing = cited)
+
+citations_colc <- as.data.table(left_join(citations_colB,clustpatents_cit, by="citing"))
 
 #Transforming NA into 0 to use a binary analysis
 for(j in seq_along(citations_colc)){
@@ -295,33 +283,25 @@ for(j in seq_along(citations_colc)){
 }
 
 
-columnc<-citations_colc[, sameBoston5A := ifelse(Boston5A == 1 & cBoston5A == 1, 1 , 0)]  
-columnc<-citations_colc[, sameBoston5B := ifelse(Boston5B == 1 & cBoston5B == 1, 1 , 0)]
-columnc<-citations_colc[, sameBoston10 := ifelse(Boston10 == 1 & cBoston10 == 1, 1 , 0)]
-columnc<-citations_colc[, sameDC5 := ifelse(DC5 == 1 & cDC5 == 1, 1 , 0)]
-columnc<-citations_colc[, sameDC10 := ifelse(DC10 == 1 & cDC10 == 1, 1 , 0)]
-columnc<-citations_colc[, sameNY5A := ifelse(NY5A == 1 & cNY5A == 1, 1 , 0)]
-columnc<-citations_colc[, sameNY5B := ifelse(NY5B == 1 & cNY5B == 1, 1 , 0)]
-columnc<-citations_colc[, sameNY5C := ifelse(NY5C == 1 & cNY5C == 1, 1 , 0)]
-columnc<-citations_colc[, sameNY5D := ifelse(NY5D == 1 & cNY5D == 1, 1 , 0)]
-columnc<-citations_colc[, sameNY10 := ifelse(NY10 == 1 & cNY10 == 1, 1 , 0)]
-columnc<-citations_colc[, samePhilly5A := ifelse(Philly5A == 1 & cPhilly5A == 1, 1 , 0)]
-columnc<-citations_colc[, samePhilly5B := ifelse(Philly5B == 1 & cPhilly5B == 1, 1 , 0)]
-columnc<-citations_colc[, samePhilly10 := ifelse(Philly10 == 1 & cPhilly10 == 1, 1 , 0)]
-columnc<-citations_colc[, sameDC20 := ifelse(DC20 == 1 & cDC20 == 1, 1 , 0)]
-columnc<-citations_colc[, sameBoston20 := ifelse(Boston20 == 1 & cBoston20 == 1, 1 , 0)]
-columnc<-citations_colc[, sameNY20 := ifelse(NY20 == 1 & cNY20 == 1, 1 , 0)]
+for(i in 1:length(xnames)) {
+  xname <- xnames[i]
+  yname <- paste0('c', xname)
+  outname <- paste0('same', xname)
+  x <- citations_colc[[xname]]
+  y <- citations_colc[[yname]]
+  z <- 1 * (x == 1 & y == 1)
+  citations_colc[[outname]] <- z
+}
 
 
 #Column A (Originating Patents)
-originating_5_colA<-as.data.table(colSums(subset(originating[,.(Boston5A,Boston5B,DC5,NY5A,NY5B,NY5C,NY5D,Philly5A,Philly5B)])))
+originating_5_colA <- as.data.table(colSums(select(originating,one_of(xnames5))))
 
 #Column B (Citations)
-citations_5_colB<-as.data.table(colSums(subset(citations_colB[,.(Boston5A,Boston5B,DC5,NY5A,NY5B,NY5C,NY5D,Philly5A,Philly5B)])))
+citations_5_colB <- as.data.table(colSums(select(citations_colB,one_of(xnames5))))
 
 #Column C (Citations from same cluster as originating)
-citations_columnc_5 <- as.data.table(colSums(subset(columnc[,.(sameBoston5A,sameBoston5B,sameDC5,sameNY5A,sameNY5B,sameNY5C,sameNY5D,samePhilly5A,samePhilly5B)])))
-
+citations_columnc_5 <- as.data.table(colSums(select(citations_colc,one_of(str_c("same",xnames5)))))
 
 #Putting the table together
 final_5_group<-cbind(originating_5_colA, citations_5_colB, citations_columnc_5)
@@ -341,13 +321,13 @@ final_5_group[, "columnD"] <- (final_5_group[, 4] *100/ final_5_group[, 3])
 
 #10 Mile
 #Column A (Originating Patents)
-originating_10_colA<-as.data.table(colSums(subset(originating[,.(Boston10,DC10,NY10,Philly10)])))
+originating_10_colA <- as.data.table(colSums(select(originating,one_of(xnames10))))
 
 #Column B (Citations)
-citations_10_colB<-as.data.table(colSums(subset(citations_colB[,.(Boston10,DC10,NY10,Philly10)])))
+citations_10_colB <- as.data.table(colSums(select(citations_colB,one_of(xnames10))))
 
 #Column C (Citations from same cluster as originating)
-citations_columnc_10 <- as.data.table(colSums(subset(columnc[,.(sameBoston10,sameDC10,sameNY10,samePhilly10)])))
+citations_columnc_10 <- as.data.table(colSums(select(citations_colc,one_of(str_c("same",xnames10)))))
 
 #Putting the table together
 final_10_group<-cbind(originating_10_colA, citations_10_colB, citations_columnc_10)
@@ -355,7 +335,7 @@ names(final_10_group)[1] <- "Originating_Patents"
 names(final_10_group)[2] <- "Citing_Patents"
 names(final_10_group)[3] <- "From_Same_Cluster"
 #Naming the rows
-Cluster<-c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
+Cluster<-clnames10
 final_10_group<-cbind(Cluster, final_10_group)
 final_10_group<-adorn_totals(final_10_group, "row")
 
@@ -365,13 +345,13 @@ final_10_group[, "columnD"] <- final_10_group[, 4] *100/ final_10_group[, 3]
 
 #20 Mile
 #Column A (Originating Patents)
-originating_20_colA<-as.data.table(colSums(subset(originating[,.(DC20,Boston20,NY20)])))
+originating_20_colA <- as.data.table(colSums(select(originating,one_of(xnames20))))
 
 #Column B (Citations)
-citations_20_colB<-as.data.table(colSums(subset(citations_colB[,.(DC20,Boston20,NY20)])))
+citations_20_colB <- as.data.table(colSums(select(citations_colB,one_of(xnames20))))
 
 #Column C (Citations from same cluster as originating)
-citations_columnc_20 <- as.data.table(colSums(subset(columnc[,.(sameDC20,sameBoston20,sameNY20)])))
+citations_columnc_20 <- as.data.table(colSums(select(citations_colc,one_of(str_c("same",xnames20)))))
 
 #Putting the table together
 final_20_group<-cbind(originating_20_colA, citations_20_colB, citations_columnc_20)
@@ -379,15 +359,16 @@ names(final_20_group)[1] <- "Originating_Patents"
 names(final_20_group)[2] <- "Citing_Patents"
 names(final_20_group)[3] <- "From_Same_Cluster"
 #Naming the rows
-Cluster2<-c("Washington, DC","Boston, MA", "New York, NY")
+Cluster2<-clnames20
 final_20_group<-cbind(Cluster2, final_20_group)
 final_20_group<-adorn_totals(final_20_group, "row")
 
 #Columns A to D
 final_20_group[, "columnD"] <- final_20_group[, 4] *100/ final_20_group[, 3]
 
-
-#Table 1a 5 mile Cluster 
+#----------------------------------------------------------------------------------
+#      Table 1a 5 mile Cluster 
+#----------------------------------------------------------------------------------
 Table1a_5<-cbind(final_5_group,rand_table_5)
 Table1a_5[,  c("Cluster2")  := NULL]
 names(Table1a_5)[2] <- "Originating Patents"
@@ -416,20 +397,26 @@ one_format <- function(x){
 percent_format<- function(x){
   sprintf("%.2f %%",x)
 }
-Table1a_5_1<-set_formatter(Table1a_5_1,"Originating Patents" = zero_format,"Citing Patents" = zero_format, "From Same Cluster" = zero_format,
+Table1a_5_1 <- set_formatter(Table1a_5_1,"Originating Patents" = zero_format,"Citing Patents" = zero_format, "From Same Cluster" = zero_format,
                            "Percent (C/B)" = percent_format, "Matched Citing Patents*" = zero_format, "From Same Cluster*"= zero_format, "Percent (F/E)"= percent_format,
                            "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format)
 
 Table1a_5_1 <- add_header(Table1a_5_1,"Cluster"= "Column", "Originating Patents" = "A","Citing Patents" = "B", "From Same Cluster" = "C",
                           "Percent (C/B)" = "D", "Matched Citing Patents*" = "E", "From Same Cluster*"= "F", "Percent (F/E)"= "G",
                           "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", top= TRUE)
-Table1a_5_1<-theme_box(Table1a_5_1)
+Table1a_5_1 <- theme_box(Table1a_5_1)
 Table1a_5_1 <- add_header(Table1a_5_1, "Cluster"=" ","Originating Patents" = " ", "Citing Patents"=" ","From Same Cluster"=" ","Percent (C/B)"=" ",
                           "Matched Citing Patents*"="Treatment Group", "From Same Cluster*"="Treatment Group","Percent (F/E)"="Treatment Group",
                           "Control Patents**"="Control Group", "From Same Cluster**"="Control Group", "Percent (I/H)"="Control Group", 
                           "Location Differential (G/J)" = " ", top = TRUE )
 
 Table1a_5_1 <- merge_h(Table1a_5_1, part = "header")
+Table1a_5_1 <- fontsize(Table1a_5_1, part = "all", size = 7)
+Table1a_5_1 <- width(Table1a_5_1, j = c("Cluster"), width = 2.4)
+Table1a_5_1 <- width(Table1a_5_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", 
+                                        "Matched Citing Patents*", "From Same Cluster*", 
+                                        "Control Patents**","From Same Cluster**", "Location Differential (G/J)"), width = 0.65)
+Table1a_5_1 <- width(Table1a_5_1, j = c("Percent (C/B)", "Percent (F/E)", "Percent (I/H)"), width = 0.55)
 Table1a_5_1 <- width(Table1a_5_1, j = ~ col_1, width = 0.1)
 Table1a_5_1 <- width(Table1a_5_1, j = ~ col_2, width = 0.1)
 Table1a_5_1 <- width(Table1a_5_1, j = ~ col_3, width = 0.1)
@@ -437,14 +424,9 @@ Table1a_5_1 <- width(Table1a_5_1, j = ~ col_3, width = 0.1)
 Table1a_5_1
 
 
-doc <- read_docx()
-doc <- body_add_flextable(doc, value = Table1a_5_1)
-print(doc, target = "G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Table1atest.docx")
-
-
-
-
-#Table 1b 10 mile Cluster 
+#----------------------------------------------------------------------------------
+#      Table 1b 5 mile Cluster 
+#----------------------------------------------------------------------------------
 Table1b_10<-cbind(final_10_group,rand_table_10)
 Table1b_10[,  c("Cluster2")  := NULL]
 names(Table1b_10)[2] <- "Originating Patents"
@@ -478,16 +460,22 @@ Table1b_10_1 <- add_header(Table1b_10_1,  "Cluster"=" ","Originating Patents" = 
                            "Control Patents**"="Control Group", "From Same Cluster**"="Control Group", "Percent (I/H)"="Control Group", 
                            "Location Differential (G/J)" = " ", top = TRUE )
 Table1b_10_1 <- merge_h(Table1b_10_1, part = "header")
+Table1b_10_1 <- fontsize(Table1b_10_1, part = "all", size = 7)
+Table1b_10_1 <- width(Table1b_10_1, j = c("Cluster"), width = 2.4)
+Table1b_10_1 <- width(Table1b_10_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", 
+                                        "Matched Citing Patents*", "From Same Cluster*", 
+                                        "Control Patents**","From Same Cluster**", "Location Differential (G/J)"), width = 0.65)
+Table1b_10_1 <- width(Table1b_10_1, j = c("Percent (C/B)", "Percent (F/E)", "Percent (I/H)"), width = 0.55)
 Table1b_10_1 <- width(Table1b_10_1, j = ~ col_1, width = 0.1)
 Table1b_10_1 <- width(Table1b_10_1, j = ~ col_2, width = 0.1)
 Table1b_10_1 <- width(Table1b_10_1, j = ~ col_3, width = 0.1)
 
 Table1b_10_1
 
-doc <- read_docx()
-doc <- body_add_flextable(doc, value = Table1b_10_1)
-print(doc, target = "G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Table1b.docx")
 
+#----------------------------------------------------------------------------------
+#      Table 3a: 5,10,20 mile Clusters
+#----------------------------------------------------------------------------------
 
 #20 mile Cluster 
 Table1b_20<-cbind(final_20_group,rand_table_20)
@@ -539,8 +527,19 @@ Table3a <- width(Table3a, j = ~ col_2, width = 0.1)
 Table3a
 
 
-doc <- read_docx()
-doc %>% #add_text(title="title") %>% 
-  add_flextable(Table3a, landscape = TRUE) %>% 
-  print(target="G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Table3a.docx")
+#----------------------------------------------------------------------------------
+#      Print to Word Document 
+#----------------------------------------------------------------------------------
 
+doc <- read_docx() %>%
+  body_add_par(value = "Tables", style = "centered") %>%
+  body_end_section_continuous() %>%
+  body_add_par(value = "Table 1a", style = "centered") %>% 
+  body_add_flextable(value = Table1a_5_1) %>%
+  body_add_par(value = "Table 1b", style = "centered") %>% 
+  body_add_flextable(value = Table1b_10_1) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 3", style = "centered") %>% 
+  body_add_flextable(value = Table3a) %>%
+  body_end_section_landscape() %>%
+print(target = "test.docx")  
