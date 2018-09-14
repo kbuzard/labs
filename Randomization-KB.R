@@ -28,12 +28,9 @@ citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
 
 list_of_matches <- readRDS("list_of_matches")
 
-#c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B","Boston10","DC10","NY10","Philly10","Boston20","DC20","NY20")
-
 xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
 xnames10 <- c("Boston10","DC10","NY10","Philly10")
 xnames20 <- c("Boston20","DC20","NY20")
-xnames <- c(xnames5,xnames10,xnames20)
 
 clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham-Woburn, MA", "Silver Spring-Bethesda, MD-McLean, VA",
               "Trenton-Princeton, NJ","Parsippany-Morristown-Union, NJ", "Greenwich-Stamford, CT-Scarsdale, NY","Stratford-Milford-CT",
@@ -41,10 +38,16 @@ clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham
 clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
 clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
 
+n=2
+
 test2 <- data.frame(matrix(0, nrow = 1, ncol = 0))
 
-do_once <- function(xnames) {
 
+
+do_once <- function(xnames5,xnames10,xnames20) {
+
+  xnames <- c(xnames5,xnames10,xnames20)
+  
   #Here I'm receiving list_of_matches.
   random_matches <- sapply(list_of_matches, function(x) ifelse(length(x)==0,NA,sample(x,1)))
 
@@ -113,8 +116,11 @@ do_once <- function(xnames) {
   
 }  
 
-n=2
-system.time(test <-as.data.table(replicate(n, do_once(xnames))))
+randomize <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
+
+  xnames <- c(xnames5,xnames10,xnames20)
+  
+system.time(test <-as.data.table(replicate(n, do_once(xnames5,xnames10,xnames20))))
 test3 <- as.data.table(rowSums(test)/n)
 
 
@@ -366,10 +372,19 @@ final_20_group<-adorn_totals(final_20_group, "row")
 #Columns A to D
 final_20_group[, "columnD"] <- final_20_group[, 4] *100/ final_20_group[, 3]
 
+#sixtables <- list(rand_table_5,rand_table_10,rand_table_20,final_5_group,final_10_group,final_20_group)
+sixtables <- list(final_5_group,rand_table_5)
+return(sixtables)
+
+}
+
+t <- do.call(randomize, b)
+rt5 <- t[1]
+
 #----------------------------------------------------------------------------------
 #      Table 1a 5 mile Cluster 
 #----------------------------------------------------------------------------------
-Table1a_5<-cbind(final_5_group,rand_table_5)
+Table1a_5<-as.data.table(cbind(t[1],t[2]))
 Table1a_5[,  c("Cluster2")  := NULL]
 names(Table1a_5)[2] <- "Originating Patents"
 names(Table1a_5)[3] <- "Citing Patents"
@@ -421,7 +436,6 @@ Table1a_5_1 <- width(Table1a_5_1, j = ~ col_1, width = 0.1)
 Table1a_5_1 <- width(Table1a_5_1, j = ~ col_2, width = 0.1)
 Table1a_5_1 <- width(Table1a_5_1, j = ~ col_3, width = 0.1)
 
-Table1a_5_1
 
 
 #----------------------------------------------------------------------------------
@@ -470,7 +484,6 @@ Table1b_10_1 <- width(Table1b_10_1, j = ~ col_1, width = 0.1)
 Table1b_10_1 <- width(Table1b_10_1, j = ~ col_2, width = 0.1)
 Table1b_10_1 <- width(Table1b_10_1, j = ~ col_3, width = 0.1)
 
-Table1b_10_1
 
 
 #----------------------------------------------------------------------------------
@@ -524,8 +537,17 @@ Table3a<-theme_box(Table3a)
 
 Table3a <- width(Table3a, j = ~ col_1, width = 0.1)
 Table3a <- width(Table3a, j = ~ col_2, width = 0.1)
-Table3a
 
+all3tables <- list(Table1a_5_1,Table1b_10_1,Table3a)
+
+return(all3tables)
+
+
+b <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+          "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+t <- do.call(threetables, b)
+Table1a <- t[1]
 
 #----------------------------------------------------------------------------------
 #      Print to Word Document 
@@ -535,11 +557,11 @@ doc <- read_docx() %>%
   body_add_par(value = "Tables", style = "centered") %>%
   body_end_section_continuous() %>%
   body_add_par(value = "Table 1a", style = "centered") %>% 
-  body_add_flextable(value = Table1a_5_1) %>%
-  body_add_par(value = "Table 1b", style = "centered") %>% 
-  body_add_flextable(value = Table1b_10_1) %>%
-  body_add_break() %>% 
-  body_add_par(value = "Table 3", style = "centered") %>% 
-  body_add_flextable(value = Table3a) %>%
-  body_end_section_landscape() %>%
+  body_add_par(value = Table1a) %>%
+ # body_add_par(value = "Table 1b", style = "centered") %>% 
+ # body_add_flextable(value = t[2]) %>%
+ # body_add_break() %>% 
+ # body_add_par(value = "Table 3", style = "centered") %>% 
+ # body_add_flextable(value = t[3]) %>%
+   body_end_section_landscape() %>%
 print(target = "test.docx")  
