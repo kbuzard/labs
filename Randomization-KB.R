@@ -133,14 +133,15 @@ colsEFI <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
   columnE_10 <- round(clusterMeans[seq(length(xnames5)*3+1, by=3, length.out = length(xnames10)),])
   columnF_10 <- round(clusterMeans[seq(length(xnames5)*3+2, by=3, length.out = length(xnames10)),])
   columnI_10 <- round(clusterMeans[seq(length(xnames5)*3+3, by=3, length.out = length(xnames10)),])
-  columnL_10 <- round(locdiff[length(xnames5)+1:length(xnames10)], digits = 1)
-
+  columnL_10 <- locdiff[length(xnames5)+1:length(xnames10)]
+  columnL_10 <- round(rbind(columnL_10,list(0)), digits = 1)
+  
+  
   columnE_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+1, by=3, length.out = length(xnames20)),])
   columnF_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+2, by=3, length.out = length(xnames20)),])
   columnI_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+3, by=3, length.out = length(xnames20)),])
-  columnL_20 <- round(locdiff[length(xnames5)+length(xnames10)+1:length(xnames20)], digits = 1)
   
-  cols <- list(columnE_5,columnF_5,columnI_5,columnE_10,columnF_10,columnI_10,columnE_20,columnF_20,columnI_20,columnL_5,columnL_10,columnL_20)
+  cols <- list(columnE_5,columnF_5,columnI_5,columnE_10,columnF_10,columnI_10,columnE_20,columnF_20,columnI_20,columnL_5,columnL_10)
 }
 
 
@@ -350,6 +351,7 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   rand_table_10 <- as.data.table(cbind(final_10_group2,final_10_group3))
   rand_table_10[,  c("Cluster3")  := NULL]
   rand_table_10[, "columnK"] <- (rand_table_10[, 4] / rand_table_10[, 7])
+  rand_table_10[, "columnL"] <- (as.data.table(columnsEFI[11]))
   
   rm(final_10_group2, final_10_group3, Cluster2, Cluster3)
   
@@ -390,21 +392,21 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   names(Table1b_10)[10] <- "From Same Cluster**"
   names(Table1b_10)[11] <- "Percent (I/H)"
   names(Table1b_10)[12] <- "Location Differential (G/J)"
-  
+  names(Table1b_10)[13] <- "Location Differential (Ave. of Ratios)"
   
   #Formating the tables
   Table1b_10_1<-regulartable(Table1b_10, col_keys= c("Cluster","Originating Patents","Citing Patents", "From Same Cluster","Percent (C/B)", "col_1", 
                                                      "Matched Citing Patents*", "From Same Cluster*", "Percent (F/E)", "col_2",
-                                                     "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)") )
+                                                     "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)","Location Differential (Ave. of Ratios)") )
   Table1b_10_1 <- fontsize(Table1b_10_1, part = "all", size = 7)
   Table1b_10_1 <- height(Table1b_10_1, height = 0.15, part = "body")
   Table1b_10_1<-set_formatter(Table1b_10_1,"Originating Patents" = zero_format,"Citing Patents" = zero_format, "From Same Cluster" = zero_format,
                               "Percent (C/B)" = percent_format, "Matched Citing Patents*" = zero_format, "From Same Cluster*"= zero_format, "Percent (F/E)"= percent_format,
-                              "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format)
+                              "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format,"Location Differential (Ave. of Ratios)"=one_format)
   
   Table1b_10_1 <- add_header(Table1b_10_1,"Cluster"= "Column", "Originating Patents" = "A","Citing Patents" = "B", "From Same Cluster" = "C",
                              "Percent (C/B)" = "D", "Matched Citing Patents*" = "E", "From Same Cluster*"= "F", "Percent (F/E)"= "G",
-                             "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", top= TRUE)
+                             "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", "Location Differential (Ave. of Ratios)"="L", top= TRUE)
   Table1b_10_1<-theme_box(Table1b_10_1)
   Table1b_10_1 <- add_header(Table1b_10_1,  "Cluster"=" ","Originating Patents" = " ", "Citing Patents"=" ","From Same Cluster"=" ","Percent (C/B)"=" ",
                              "Matched Citing Patents*"="Treatment Group", "From Same Cluster*"="Treatment Group","Percent (F/E)"="Treatment Group",
@@ -416,7 +418,7 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   Table1b_10_1 <- width(Table1b_10_1, j = c("Cluster"), width = 2.4)
   Table1b_10_1 <- width(Table1b_10_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", 
                                             "Matched Citing Patents*", "From Same Cluster*", 
-                                            "Control Patents**","From Same Cluster**", "Location Differential (G/J)"), width = 0.65)
+                                            "Control Patents**","From Same Cluster**", "Location Differential (G/J)", "Location Differential (Ave. of Ratios)"), width = 0.65)
   Table1b_10_1 <- width(Table1b_10_1, j = c("Percent (C/B)", "Percent (F/E)", "Percent (I/H)"), width = 0.55)
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_1, width = 0.1)
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_2, width = 0.1)
