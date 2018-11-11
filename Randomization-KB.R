@@ -13,25 +13,11 @@ library(janitor)
 library(officer)
 library(stringr)
 
-
 setwd("G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE")
 
 
 #Read the data from database citations
-citations <- fread("SAScitations.csv")
-possiblenclass <- fread("SASpossiblenclass.csv")
-originating <- fread("SASoriginating.csv")
-clustpatents <- fread("SASclustpatents.csv")
 
-clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
-citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
-
-list_of_matches <- readRDS("list_of_matches")
-
-out <- data.frame(matrix(0, nrow = 1, ncol = 0))
-
-
-#---------Find originating patents whose cites / controls are in same cluster----------
 zero_format <- function(x){
   sprintf("%.0f",x)
 }
@@ -42,6 +28,8 @@ percent_format<- function(x){
   sprintf("%.2f %%",x)
 }
 
+
+#---------Find originating patents whose cites / controls are in same cluster----------
 matching_clusters <- function(xnames5,xnames10,xnames20) {
 
   xnames <- c(xnames5,xnames10,xnames20)
@@ -121,24 +109,38 @@ randomize <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) 
 
   xnames <- c(xnames5,xnames10,xnames20)
   
-  replications <-as.data.table(replicate(n, matching_clusters(xnames5,xnames10,xnames20)))
+  replications <- as.data.table(replicate(n, matching_clusters(xnames5,xnames10,xnames20)))
+}
+
+
+colsEFI <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
   clusterMeans <- as.data.table(rowSums(replications)/n)
-
-
+  xnames <- c(xnames5,xnames10,xnames20)
+  
+  locdiff <- list()
+  for(i in 1:length(xnames)) {
+    locdiff[[i]] <- replications[2+3*(i-1),]/replications[3+3*(i-1),]
+  }
+  locdiff <- as.data.table(apply(do.call("rbind",locdiff), 1, function(x) mean(x[!is.infinite(x)])))
+  
   #Format Randomized Data into Columns
   columnE_5 <- round(clusterMeans[seq(1, by=3, length.out = length(xnames5)),])
   columnF_5 <- round(clusterMeans[seq(2, by=3, length.out = length(xnames5)),])
   columnI_5 <- round(clusterMeans[seq(3, by=3, length.out = length(xnames5)),])
+  columnL_5 <- locdiff[1:length(xnames5)]
+  columnL_5 <- round(rbind(columnL_5,list(0)), digits = 1)
 
   columnE_10 <- round(clusterMeans[seq(length(xnames5)*3+1, by=3, length.out = length(xnames10)),])
   columnF_10 <- round(clusterMeans[seq(length(xnames5)*3+2, by=3, length.out = length(xnames10)),])
   columnI_10 <- round(clusterMeans[seq(length(xnames5)*3+3, by=3, length.out = length(xnames10)),])
+  columnL_10 <- round(locdiff[length(xnames5)+1:length(xnames10)], digits = 1)
 
   columnE_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+1, by=3, length.out = length(xnames20)),])
   columnF_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+2, by=3, length.out = length(xnames20)),])
   columnI_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+3, by=3, length.out = length(xnames20)),])
-
-  cols <- list(columnE_5,columnF_5,columnI_5,columnE_10,columnF_10,columnI_10,columnE_20,columnF_20,columnI_20)
+  columnL_20 <- round(locdiff[length(xnames5)+length(xnames10)+1:length(xnames20)], digits = 1)
+  
+  cols <- list(columnE_5,columnF_5,columnI_5,columnE_10,columnF_10,columnI_10,columnE_20,columnF_20,columnI_20,columnL_5,columnL_10,columnL_20)
 }
 
 
@@ -201,8 +203,8 @@ randomize <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) 
 
 
 #------------5 Mile Table------------------------------------
-table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
-  final_5_group2 <- as.data.table(cbind(columnE_5, columnF_5))
+table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
+  final_5_group2 <- as.data.table(cbind(as.data.table(columnsEFI[1]), as.data.table(columnsEFI[2])))
 
   names(final_5_group2)[1] <- "Matched_Citing_Patents"
   names(final_5_group2)[2] <- "From_Same_Cluster"
@@ -215,7 +217,7 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   final_5_group2[, "columnG"] <- (final_5_group2[, 3] *100/ final_5_group2[, 2])
   
   #Columns H, I, J,K
-  final_5_group3 <- as.data.table(cbind(columnE_5, columnI_5))
+  final_5_group3 <- as.data.table(cbind(as.data.table(columnsEFI[1]), as.data.table(columnsEFI[3])))
   
   #Calculate the totals
   names(final_5_group3)[1] <- "Control_Patents"
@@ -232,6 +234,7 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   rand_table_5 <- as.data.table(cbind(final_5_group2,final_5_group3))
   rand_table_5[,  c("Cluster3")  := NULL]
   rand_table_5[, "columnK"] <- (rand_table_5[, 4] / rand_table_5[, 7])
+  rand_table_5[, "columnL"] <- (as.data.table(columnsEFI[10]))
   
   #Column A (Originating Patents)
   originating_5_colA <- as.data.table(colSums(select(originating,one_of(xnames5))))
@@ -271,19 +274,19 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   names(Table1a_5)[10] <- "From Same Cluster**"
   names(Table1a_5)[11] <- "Percent (I/H)"
   names(Table1a_5)[12] <- "Location Differential (G/J)"
-  
+  names(Table1a_5)[13] <- "Location Differential (Ave. of Ratios)"
   
   Table1a_5_1<-regulartable(Table1a_5, col_keys= c("Cluster","Originating Patents","Citing Patents", "From Same Cluster","Percent (C/B)", "col_1", 
                                                    "Matched Citing Patents*", "From Same Cluster*", "Percent (F/E)", "col_2",
-                                                   "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)") )
+                                                   "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)","Location Differential (Ave. of Ratios)") )
   
   Table1a_5_1 <- set_formatter(Table1a_5_1,"Originating Patents" = zero_format,"Citing Patents" = zero_format, "From Same Cluster" = zero_format,
                                "Percent (C/B)" = percent_format, "Matched Citing Patents*" = zero_format, "From Same Cluster*"= zero_format, "Percent (F/E)"= percent_format,
-                               "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format)
+                               "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format,"Location Differential (Ave. of Ratios)"=one_format)
   
   Table1a_5_1 <- add_header(Table1a_5_1,"Cluster"= "Column", "Originating Patents" = "A","Citing Patents" = "B", "From Same Cluster" = "C",
                             "Percent (C/B)" = "D", "Matched Citing Patents*" = "E", "From Same Cluster*"= "F", "Percent (F/E)"= "G",
-                            "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", top= TRUE)
+                            "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", "Location Differential (Ave. of Ratios)"="L", top= TRUE)
   Table1a_5_1 <- theme_box(Table1a_5_1)
   Table1a_5_1 <- add_header(Table1a_5_1, "Cluster"=" ","Originating Patents" = " ", "Citing Patents"=" ","From Same Cluster"=" ","Percent (C/B)"=" ",
                             "Matched Citing Patents*"="Treatment Group", "From Same Cluster*"="Treatment Group","Percent (F/E)"="Treatment Group",
@@ -293,9 +296,9 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   Table1a_5_1 <- merge_h(Table1a_5_1, part = "header")
   Table1a_5_1 <- fontsize(Table1a_5_1, part = "all", size = 7)
   Table1a_5_1 <- width(Table1a_5_1, j = c("Cluster"), width = 2.4)
-  Table1a_5_1 <- width(Table1a_5_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", 
-                                          "Matched Citing Patents*", "From Same Cluster*", 
-                                          "Control Patents**","From Same Cluster**", "Location Differential (G/J)"), width = 0.65)
+  Table1a_5_1 <- width(Table1a_5_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", "Matched Citing Patents*", 
+                                          "From Same Cluster*", "Control Patents**","From Same Cluster**", 
+                                          "Location Differential (G/J)", "Location Differential (Ave. of Ratios)"), width = 0.65)
   Table1a_5_1 <- width(Table1a_5_1, j = c("Percent (C/B)", "Percent (F/E)", "Percent (I/H)"), width = 0.55)
   Table1a_5_1 <- width(Table1a_5_1, j = ~ col_1, width = 0.1)
   Table1a_5_1 <- width(Table1a_5_1, j = ~ col_2, width = 0.1)
@@ -314,7 +317,7 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
 
 #-------------------10 Mile Table----------------------------
 table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){  
-  final_10_group2 <- as.data.table(cbind(columnE_10, columnF_10))
+  final_10_group2 <- as.data.table(cbind(as.data.table(columnsEFI[4]), as.data.table(columnsEFI[5])))
 
   #This part calcualte the totals
   names(final_10_group2)[1] <- "Matched_Citing_Patents"
@@ -329,7 +332,7 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   
   
   #Columns H, I, J,K
-  final_10_group3<-as.data.table(cbind(columnE_10, columnI_10))
+  final_10_group3<-as.data.table(cbind(as.data.table(columnsEFI[4]), as.data.table(columnsEFI[6])))
   
   #This part calcualte the totals
   names(final_10_group3)[1] <- "Control_Patents"
@@ -424,7 +427,7 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
 
 #-------Table 3a: 5,10,20 mile Clusters-------------------------------------------
 table3 <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
-  final_20_group2 <- as.data.table(cbind(columnE_20, columnF_20))
+  final_20_group2 <- as.data.table(cbind(as.data.table(columnsEFI[7]), as.data.table(columnsEFI[8])))
   
   #This part calcualte the totals
   names(final_20_group2)[1] <- "Matched_Citing_Patents"
@@ -438,7 +441,7 @@ table3 <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   final_20_group2[, "columnG"] <- (final_20_group2[, 3]*100 / final_20_group2[, 2])
   
   #Columns H, I, J
-  final_20_group3 <- as.data.table(cbind(columnE_20, columnI_20))
+  final_20_group3 <- as.data.table(cbind(as.data.table(columnsEFI[7]), as.data.table(columnsEFI[9])))
   
   #This part calcualte the totals
   names(final_20_group3)[1] <- "Control_Patents"
@@ -500,13 +503,13 @@ table3 <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   
   row1<-Table5m$body$dataset[length(xnames5)+1,]
   row2<-Table10m$body$dataset[length(xnames10)+1,]
-  row3<-Table1b_20[4]
+  row3<-Table1b_20[length(xnames20)+1,]
   
   Table_3a <- rbind(row1, row2, row3, fill=TRUE)
   Table_3a[,  c("Cluster","From Same Cluster","Percent (C/B)", "Matched Citing Patents*", "Control Patents**","From Same Cluster*","From Same Cluster**")  := NULL]
   
   Cluster_size<-c("5-Mile","10-Mile","20-Mile") 
-  N_Cluster<-c(9,4,3)
+  N_Cluster<-c(length(xnames5),length(xnames10),length(xnames20))
   
   Table_3a_1a<-cbind(Cluster_size,N_Cluster)
   
@@ -545,6 +548,8 @@ patent, and their application date must be within a one-year window of the citin
 These control patents are chosen with replacement sampling. We eliminate self-citations and do not allow 
 controls to be drawn from patents assigned to the same firm to which the originating patent is assigned."
 
+fpt = fp_text(font.size = 7, font.family = "Arial")
+
 print_tables <- function() {
   doc <- read_docx() %>%
     body_add_par(value = "Tables", style = "centered") %>%
@@ -554,19 +559,48 @@ print_tables <- function() {
     body_add_par("", style = "Normal") %>%
     body_add_par(value = "Table 1b: 10-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
     body_add_flextable(value = Table10m) %>%
-    body_add_par(value = fn1, style = "Normal") %>%
-    body_add_par(value = fn2, style = "Normal") %>% 
-    body_add_par(value = fn3, style = "Normal") %>% 
+    body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+    body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+    body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
     body_add_break() %>% 
     body_add_par(value = "Table 3a: Citation Location Differentials and Spatial Scale (Northeast corridor)", style = "centered") %>% 
     body_add_flextable(value = Table3a) %>%
-    body_add_par(value = fn1, style = "Normal") %>%
-    body_add_par(value = fn3, style = "Normal") %>% 
+    body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+    body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
     body_end_section_landscape() %>%
     print(target = "test.docx")  
 }
 
-#--------Call all functions-----------------------
+print_one_table <- function() {
+  doc <- read_docx() %>%
+    body_add_par(value = "Tables", style = "centered") %>%
+    body_end_section_continuous() %>%
+    body_add_par(value = "Table 1a: Five-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
+    body_add_flextable(value = Table5m) %>%
+    body_add_par("", style = "Normal") %>%
+    body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+    body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+    body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+    body_end_section_landscape() %>%
+    print(target = "test.docx")  
+}
+
+#--------Read in data and cluster names-----------------------
+
+#Northeast baseline
+citations <- fread("SAScitations.csv")
+possiblenclass <- fread("SASpossiblenclass.csv")
+originating <- fread("SASoriginating.csv")
+clustpatents <- fread("SASclustpatents.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_NEbaseline")
+list_of_matches <- unlist(list_of_matches,recursive = F)
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
 xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
 xnames10 <- c("Boston10","DC10","NY10","Philly10")
 xnames20 <- c("Boston20","DC20","NY20")
@@ -577,10 +611,26 @@ clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham
 clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
 clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
 
-n=2
+n=3
 
 ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
           "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+x <- ne_base
+y <- "ne_base"
+
+#California baseline
+citations <- fread("SAScitationsCA.csv")
+possiblenclass <- fread("SASpossiblenclass.csv")
+originating <- fread("SASoriginatingCA.csv")
+clustpatents <- fread("SASclustpatentsCA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matchesCA <- readRDS("list_of_matches_CAbaseline")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
 
 xnames5 <- c("SD5_ALT","LA5_ALT","SF5A_ALT","SF5B_ALT")
 xnames10 <- c("SD10_ALT","LA10_ALT","SF10_ALT")
@@ -590,31 +640,186 @@ clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton"
 clnames10 <- c("San Diego","Los Angeles", "San Francisco")
 clnames20 <- c("San Diego","San Francisco")
 
+n=3
+
 ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 
+x <- ca_base
 
-  #name <- paste0('G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE/',clustdata, '.csv')
-#  clustpatents <- fread("SASclustpatentsCA.csv")
-#  clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
-#  clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
-  columnsEFI <- do.call(randomize,x)
-  columnE_5 <- as.data.table(columnsEFI[1])
-  columnF_5 <- as.data.table(columnsEFI[2])
-  columnI_5 <- as.data.table(columnsEFI[3])  
-  columnE_10 <- as.data.table(columnsEFI[4])
-  columnF_10 <- as.data.table(columnsEFI[5])
-  columnI_10 <- as.data.table(columnsEFI[6])  
-  columnE_20 <- as.data.table(columnsEFI[7])
-  columnF_20 <- as.data.table(columnsEFI[8])
-  columnI_20 <- as.data.table(columnsEFI[9])  
-  
-  originating <- do.call(colA,x)
-  citations_colB <- do.call(colB,x)
-  citations_colc <- do.call(colC,x)
 
-Table5m <- do.call(table5m,ne_base)
-Table10m <- do.call(table10m,ne_base)  
-Table3a <- do.call(table3,ne_base)  
+#MSA baseline
+citations <- fread("SAScitationsMSA.csv")
+possiblenclass <- fread("SASpossiblenclass.csv")
+originating <- fread("SASoriginatingMSA.csv")
+clustpatents <- fread("SASclustpatentsMSA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_MSA")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("BOS","LA","NY","PHL","SD","SF","DC")
+xnames10 <- NULL
+xnames20 <- NULL
+
+clnames5 <- c("Boston","Los Angeles","New York","Philadelphia","San Diego","San Francisco","Washington, DC")
+clnames10 <- NULL
+clnames20 <- NULL
+
+n=2
+
+msa_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+x <- msa_base
+y <- "msa"
+
+#Northeast subclass
+citations <- fread("SAScitationsNEsub.csv")
+possiblenclass <- fread("SASpossiblenclassSub.csv")
+originating <- fread("SASoriginating.csv")
+clustpatents <- fread("SASclustpatents.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+
+citations <- separate(citations, nclass, c("nclass","subclass","subclass2"), convert = TRUE)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_NEsub")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
+xnames10 <- c("Boston10","DC10","NY10","Philly10")
+xnames20 <- c("Boston20","DC20","NY20")
+
+clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham-Woburn, MA", "Silver Spring-Bethesda, MD-McLean, VA",
+              "Trenton-Princeton, NJ","Parsippany-Morristown-Union, NJ", "Greenwich-Stamford, CT-Scarsdale, NY","Stratford-Milford-CT",
+              "Conshohocken-King of Prussia-West Chester, PA", "Wilmington-New Castle, DE")
+clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
+clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
+
+n=3
+
+ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+x <- ne_base
+y <- "NEsub"
+
+#California subclass
+citations <- fread("SAScitationsCAsub.csv")
+possiblenclass <- fread("SASpossiblenclassSub.csv")
+originating <- fread("SASoriginatingCA.csv")
+clustpatents <- fread("SASclustpatentsCA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- separate(citations, nclass, c("nclass","subclass","subclass2"), convert = TRUE)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_CAsub")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("SD5_ALT","LA5_ALT","SF5A_ALT","SF5B_ALT")
+xnames10 <- c("SD10_ALT","LA10_ALT","SF10_ALT")
+xnames20 <- c("SD20_ALT","SF20_ALT")
+
+clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton")
+clnames10 <- c("San Diego","Los Angeles", "San Francisco")
+clnames20 <- c("San Diego","San Francisco")
+
+n=10
+
+ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+x <- ca_base
+y <- "CAsub"
+
+
+#NE Stem
+citations <- fread("SAScitationsNEstem.csv")
+possiblenclass <- fread("SASpossiblenclass.csv")
+originating <- fread("SASoriginatingNEstem.csv")
+clustpatents <- fread("SASclustpatentsNEstem.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_NEstem")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("DC5A","DC5B","Balt5","Wilm5","Philly5A","Philly5B","NY5A","NY5B","CT5A","CT5B","CT5C","CT5D","Boston5A","Boston5B","Boston5C","Bing5","Syracuse5","Buffalo5","Pitt5A","Pitt5B")
+xnames10 <- c("Richmond10","DC10A","DC10B","Philly10A","Philly10B","Pitt10","Bing10","Syracuse10","Rochester10","Buffalo10","Boston10","NY10")
+xnames20 <- NULL
+
+clnames5 <- c("Bethesda-Rockville, MD-Vienna, VA","Columbia-Laurel, MD","Phoenix-Cockeysville, MD","Wilmington, DE","King of Prussia, PA","Philadephia, PA","Princeton, NJ-New York, NY","Long Island, NY","Danbury, CT","Stratford, CT","North Haven,CT","Hartford, CT","Hudson-Westborough, MA","Boston-Cambridge, MA","Nashua, NH","Binghamton, NY","Syrcuse, NY","Buffalo, NY","Pittsburgh, PA","Pittsburgh-Verona, PA")
+clnames10 <- c("Richmond, VA","Washington, DC-Baltimore, MD","Hagerstown, MD","Lancaster,PA","Philadelphia,PA-Wilmington,DC-Cherry Hill, NJ","Pittsburgh, PA","Binghamton, NY","Syracuse, NY","Rochester,NY","Buffalo, NY","Boston, MA","New York, NY-Northern NJ-CT")
+clnames20 <- NULL
+
+n=10
+
+ne_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+x <- ne_stem
+y <- "NEstem"
+
+
+
+#CA Stem
+citations <- fread("SAScitationsCAstem.csv")
+possiblenclass <- fread("SASpossiblenclass.csv")
+originating <- fread("SASoriginatingCAstem.csv")
+clustpatents <- fread("SASclustpatentsCAstem.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_CAstem")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("SD5A","SD5B","OC5","MAL5","SB5","SF5A","SF5B","SF5C")
+xnames10 <- c("SD10","OC10","MAL10","SB10","SF10","SF10B")
+xnames20 <- NULL
+
+clnames5 <- c("San Diego-La Jolla","Carslbad","Irvine","Camarillo","Santa Barbara","San Jose-Santa Clara","Pleasanton","Santa Rosa")
+clnames10 <- c("San Diego","Anaheim-Irving","Oxnard-Camarillo","Santa Barbara","San Francisco-Palo Alto-San Jose","Santa Rosa")
+clnames20 <- NULL
+
+n=10
+
+ca_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+x <- ca_stem
+y <- "CAstem"
+
+
+
+#--------Call all functions-----------------------
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+originating <- do.call(colA,x)
+citations_colB <- do.call(colB,x)
+citations_colc <- do.call(colC,x)
+
+Table5m <- do.call(table5m,x)
+Table10m <- do.call(table10m,x)  
+Table3a <- do.call(table3,x)  
 
 print_tables()
+print_one_table()
