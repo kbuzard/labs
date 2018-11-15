@@ -618,7 +618,7 @@ n=3
 ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
           "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 x <- ne_base
-y <- "ne_base"
+y <- "NEbaseline"
 
 #California baseline
 citations <- fread("SAScitationsCA.csv")
@@ -648,7 +648,7 @@ ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames2
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 
 x <- ca_base
-
+y <- "CAbaseline"
 
 #MSA baseline
 citations <- fread("SAScitationsMSA.csv")
@@ -678,7 +678,7 @@ msa_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 
 x <- msa_base
-y <- "msa"
+y <- "MSA"
 
 #Northeast subclass
 citations <- fread("SAScitationsNEsub.csv")
