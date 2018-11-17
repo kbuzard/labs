@@ -4,13 +4,13 @@ install.packages("dplyr")## dplyr provides the join functions
 install.packages("formattable") #Give format to the tables
 install.packages("janitor") #Get the total sum of each column
 install.packages("flextable") #Give format to the tables
-library(knitr)
-library(flextable)
-library(formattable)
+#library(knitr)
+#library(flextable)
+#library(formattable)
 library(data.table)
 library(dplyr) 
-library(janitor) 
-library(officer)
+#library(janitor) 
+#library(officer)
 library(stringr)
 
 setwd("G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE")
@@ -134,7 +134,7 @@ colsEFI <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
 
 #--------Read in data and cluster names-----------------------
 
-#Northeast baseline
+#---------Northeast baseline-----------
 citations <- fread("SAScitations.csv")
 possiblenclass <- fread("SASpossiblenclass.csv")
 originating <- fread("SASoriginating.csv")
@@ -158,14 +158,22 @@ clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham
 clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
 clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
 
-n=3
+n=999
 
 ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
           "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 x <- ne_base
 y <- "NEbaseline"
 
-#California baseline
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+
+
+#-------------California baseline-----------------
 citations <- fread("SAScitationsCA.csv")
 possiblenclass <- fread("SASpossiblenclass.csv")
 originating <- fread("SASoriginatingCA.csv")
@@ -175,7 +183,7 @@ clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
 clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
 citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
 
-list_of_matchesCA <- readRDS("list_of_matches_CAbaseline")
+list_of_matches <- readRDS("list_of_matches_CAbaseline")
 
 out <- data.frame(matrix(0, nrow = 1, ncol = 0))
 
@@ -187,7 +195,7 @@ clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton"
 clnames10 <- c("San Diego","Los Angeles", "San Francisco")
 clnames20 <- c("San Diego","San Francisco")
 
-n=3
+n=999
 
 ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
@@ -195,7 +203,15 @@ ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames2
 x <- ca_base
 y <- "CAbaseline"
 
-#MSA baseline
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+
+
+#-----------MSA baseline--------------
 citations <- fread("SAScitationsMSA.csv")
 possiblenclass <- fread("SASpossiblenclass.csv")
 originating <- fread("SASoriginatingMSA.csv")
@@ -225,7 +241,15 @@ msa_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames
 x <- msa_base
 y <- "MSA"
 
-#Northeast subclass
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+
+
+#---------Northeast subclass-------------
 citations <- fread("SAScitationsNEsub.csv")
 possiblenclass <- fread("SASpossiblenclassSub.csv")
 originating <- fread("SASoriginating.csv")
@@ -250,14 +274,21 @@ clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham
 clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
 clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
 
-n=3
+#n=3
 
-ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+ne_sub <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-x <- ne_base
+x <- ne_sub
 y <- "NEsub"
 
-#California subclass
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+
+#-------------#California subclass---------------
 citations <- fread("SAScitationsCAsub.csv")
 possiblenclass <- fread("SASpossiblenclassSub.csv")
 originating <- fread("SASoriginatingCA.csv")
@@ -280,16 +311,22 @@ clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton"
 clnames10 <- c("San Diego","Los Angeles", "San Francisco")
 clnames20 <- c("San Diego","San Francisco")
 
-n=10
+#n=10
 
-ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+ca_sub <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 
-x <- ca_base
+x <- ca_sub
 y <- "CAsub"
 
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
 
-#NE Stem
+#---------NE Stem-------------
 citations <- fread("SAScitationsNEstem.csv")
 possiblenclass <- fread("SASpossiblenclass.csv")
 originating <- fread("SASoriginatingNEstem.csv")
@@ -311,7 +348,7 @@ clnames5 <- c("Bethesda-Rockville, MD-Vienna, VA","Columbia-Laurel, MD","Phoenix
 clnames10 <- c("Richmond, VA","Washington, DC-Baltimore, MD","Hagerstown, MD","Lancaster,PA","Philadelphia,PA-Wilmington,DC-Cherry Hill, NJ","Pittsburgh, PA","Binghamton, NY","Syracuse, NY","Rochester,NY","Buffalo, NY","Boston, MA","New York, NY-Northern NJ-CT")
 clnames20 <- NULL
 
-n=10
+#n=10
 
 ne_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                  "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
@@ -319,9 +356,14 @@ ne_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames2
 x <- ne_stem
 y <- "NEstem"
 
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
 
-
-#CA Stem
+#--------CA Stem----------------
 citations <- fread("SAScitationsCAstem.csv")
 possiblenclass <- fread("SASpossiblenclass.csv")
 originating <- fread("SASoriginatingCAstem.csv")
@@ -343,7 +385,7 @@ clnames5 <- c("San Diego-La Jolla","Carslbad","Irvine","Camarillo","Santa Barbar
 clnames10 <- c("San Diego","Anaheim-Irving","Oxnard-Camarillo","Santa Barbara","San Francisco-Palo Alto-San Jose","Santa Rosa")
 clnames20 <- NULL
 
-n=10
+#n=10
 
 ca_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
@@ -352,21 +394,9 @@ x <- ca_stem
 y <- "CAstem"
 
 
-
-#--------Call all functions-----------------------
 replications <- do.call(randomize,x)
 z <- paste0("replications_",y,".csv")
 write.csv(replications, z)
 columnsEFI <- do.call(colsEFI,x)
 z2 <- paste0("columnsEFI_",y)
 saveRDS(columnsEFI,file = z2)
-originating <- do.call(colA,x)
-citations_colB <- do.call(colB,x)
-citations_colc <- do.call(colC,x)
-
-Table5m <- do.call(table5m,x)
-Table10m <- do.call(table10m,x)  
-Table3a <- do.call(table3,x)  
-
-print_tables()
-print_one_table()
