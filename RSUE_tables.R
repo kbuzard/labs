@@ -425,37 +425,6 @@ table3 <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   
 }
 
-#--------Print to Word Document---------------------------------------------------
-fn1 <- "Sources: NBER Patent Data Project and authors’ calculations."  
-fn2 <- "*The subset of citing patents for which we obtained a similar control patent. See text for details."
-fn3 <- "†Control Patents are chosen to have the same three-digit technology classification as the citing 
-patent, and their application date must be within a one-year window of the citing patent’s application date.
-These control patents are chosen with replacement sampling. We eliminate self-citations and do not allow 
-controls to be drawn from patents assigned to the same firm to which the originating patent is assigned."
-
-fpt = fp_text(font.size = 7, font.family = "Arial")
-
-print_tables <- function() {
-  doc <- read_docx() %>%
-    body_add_par(value = "Tables", style = "centered") %>%
-    body_end_section_continuous() %>%
-    body_add_par(value = "Table 1a: Five-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
-    body_add_flextable(value = Table5m) %>%
-    body_add_par("", style = "Normal") %>%
-    body_add_par(value = "Table 1b: 10-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
-    body_add_flextable(value = Table10m) %>%
-    body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-    body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-    body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
-    body_add_break() %>% 
-    body_add_par(value = "Table 3a: Citation Location Differentials and Spatial Scale (Northeast corridor)", style = "centered") %>% 
-    body_add_flextable(value = Table3a) %>%
-    body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-    body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
-    body_end_section_landscape() %>%
-    print(target = "test.docx")  
-}
-
 
 #--------Read in data and cluster names-----------------------
 n = 999
@@ -669,7 +638,30 @@ x <- msa_base
 y <- "MSA"
 
 
-#-------------------Print all tables----------------------
+#--------Print to Word Document---------------------------------------------------
+fn1 <- "Sources: NBER Patent Data Project and authors' calculations."  
+fn2 <- "*The subset of citing patents for which we obtained a similar control patent. See text for details."
+fn3 <- "**Control Patents are chosen to have the same three-digit technology classification as the citing 
+patent, and their application date must be within a one-year window of the citing patent's application date.
+These control patents are chosen with replacement sampling. We eliminate self-citations and do not allow
+controls to be drawn from patents assigned to the same firm to which the originating patent is assigned."
+fn4 <- "Control Patents are chosen to have the same three-digit technology classification as the citing 
+patent, and their application date must be within a one-year window of the citing patent's application date.
+These control patents are chosen with replacement sampling. We eliminate self-citations and do not allow
+controls to be drawn from patents assigned to the same firm to which the originating patent is assigned."
+fn5 <- "The clusters identified in the above table are based on STEM workers as the backcloth. Note that the
+cluster definitions change because the backcloth changed to STEM workers instead of manufacturing workers
+as used in Tables 1 and 2."
+fn6 <- "**Control Patents are chosen to have the same six-digit technology classification as the citing 
+patent, and their application date must be within a one-year window of the citing patent's application date.
+These control patents are chosen with replacement sampling. We eliminate self-citations and do not allow
+controls to be drawn from patents assigned to the same firm to which the originating patent is assigned."
+
+
+
+fpt = fp_text(font.size = 8, font.family = "Times", padding.top = 3)
+pad <- fp_par(padding.top = 4)
+
 print_tables <- function() {
  doc <- read_docx() %>%
   body_add_par(value = "Tables", style = "centered") %>%
@@ -679,63 +671,65 @@ print_tables <- function() {
   body_add_par("", style = "Normal") %>%
   body_add_par(value = "Table 1b: 10-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
   body_add_flextable(value = Table10m_ne_base) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
   body_add_par(value = "Table 2a: Five-Mile Clusters in California, Baseline Results", style = "centered") %>% 
   body_add_flextable(value = Table5m_ca_base) %>%
   body_add_par("", style = "Normal") %>%
   body_add_par(value = "Table 2b: 10-Mile Clusters in California, Baseline Results", style = "centered") %>% 
   body_add_flextable(value = Table10m_ca_base) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
   body_add_par(value = "Table 3a: Citation Location Differentials and Spatial Scale (Northeast corridor)", style = "centered") %>% 
   body_add_flextable(value = Table3a) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
   body_add_fpar(fpar(ftext("", prop = fpt))) %>%
   body_add_par(value = "Table 3b: Citation Location Differentials and Spatial Scale (California)", style = "centered") %>% 
   body_add_flextable(value = Table3b) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn4, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
   body_add_par(value = "Table 5a: Five-Mile Clusters in the Northeast Corridor, STEM Worker Clusters", style = "centered") %>% 
   body_add_flextable(value = Table5m_ne_stem) %>%
   body_add_par("", style = "Normal") %>%
   body_add_par(value = "Table 5b: 10-Mile Clusters in the Northeast Corridor, STEM Worker Clusters", style = "centered") %>% 
   body_add_flextable(value = Table10m_ne_stem) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn5, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
   body_add_par(value = "Table 6a: Five-Mile Clusters in California, STEM Worker Clusters", style = "centered") %>% 
   body_add_flextable(value = Table5m_ca_stem) %>%
   body_add_par("", style = "Normal") %>%
   body_add_par(value = "Table 6b: 10-Mile Clusters in California, STEM Worker Clusters", style = "centered") %>% 
   body_add_flextable(value = Table10m_ca_stem) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn5, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
   body_add_par(value = "Table 8a: Five-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", style = "centered") %>% 
   body_add_flextable(value = Table5m_ne_sub) %>%
   body_add_par("", style = "Normal") %>%
   body_add_par(value = "Table 8b: 10-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", style = "centered") %>% 
   body_add_flextable(value = Table10m_ne_sub) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn6, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
   body_add_par(value = "Table 9a: Five-Mile Clusters in California, Disaggregated Subclasses", style = "centered") %>% 
   body_add_flextable(value = Table5m_ca_sub) %>%
   body_add_par("", style = "Normal") %>%
   body_add_par(value = "Table 9b: 10-Mile Clusters in California, Disaggregated Subclasses", style = "centered") %>% 
   body_add_flextable(value = Table10m_ca_sub) %>%
-  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
+  body_add_fpar(fpar(ftext(fn6, prop = fpt), fp_p = pad )) %>%
   body_end_section_landscape() %>%
   print(target = "tables.docx")  
 }
