@@ -4,14 +4,16 @@ install.packages("dplyr")## dplyr provides the join functions
 install.packages("formattable") #Give format to the tables
 install.packages("janitor") #Get the total sum of each column
 install.packages("flextable") #Give format to the tables
+install.packages("tidyr") #For function "separate"
 library(knitr)
-library(flextable)
+library(flextable) #def need
 library(formattable)
 library(data.table)
 library(dplyr) 
-library(janitor) 
-library(officer)
+library(janitor) #def need
+library(officer) #def need
 library(stringr)
+library(tidyr)
 
 setwd("G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE")
 
@@ -454,26 +456,18 @@ print_tables <- function() {
     print(target = "test.docx")  
 }
 
-print_one_table <- function() {
-  doc <- read_docx() %>%
-    body_add_par(value = "Tables", style = "centered") %>%
-    body_end_section_continuous() %>%
-    body_add_par(value = "Table 1a: Five-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
-    body_add_flextable(value = Table5m) %>%
-    body_add_par("", style = "Normal") %>%
-    body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
-    body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
-    body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
-    body_end_section_landscape() %>%
-    print(target = "test.docx")  
-}
-
 
 #--------Read in data and cluster names-----------------------
-n = 10
+n = 999
 
 #Northeast baseline
 columnsEFI <- readRDS("columnsEFI_NEbaseline")
+originating <- fread("SASoriginating.csv")
+clustpatents <- fread("SASclustpatents.csv")
+citations <- fread("SAScitations.csv")
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
 
 xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
 xnames10 <- c("Boston10","DC10","NY10","Philly10")
@@ -487,10 +481,27 @@ clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
 
 ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-x <- ne_base
-y <- "NEbaseline"
+
+originating <- do.call(colA,ne_base)
+citations_colB <- do.call(colB,ne_base)
+citations_colc <- do.call(colC,ne_base)
+
+Table5m <- do.call(table5m,ne_base)
+Table10m <- do.call(table10m,ne_base)  
+Table3a <- do.call(table3,ne_base)  
+Table5m_ne_base <- Table5m
+Table10m_ne_base <- Table10m
+
 
 #California baseline
+citations <- fread("SAScitationsCA.csv")
+originating <- fread("SASoriginatingCA.csv")
+clustpatents <- fread("SASclustpatentsCA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
 columnsEFI <- readRDS("columnsEFI_CAbaseline")
 
 xnames5 <- c("SD5_ALT","LA5_ALT","SF5A_ALT","SF5B_ALT")
@@ -504,8 +515,141 @@ clnames20 <- c("San Diego","San Francisco")
 ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
 
-x <- ca_base
-y <- "CAbaseline"
+originating <- do.call(colA,ca_base)
+citations_colB <- do.call(colB,ca_base)
+citations_colc <- do.call(colC,ca_base)
+
+Table5m <- do.call(table5m,ca_base)
+Table10m <- do.call(table10m,ca_base)  
+Table3b <- do.call(table3,ca_base)  
+Table5m_ca_base <- Table5m
+Table10m_ca_base <- Table10m
+
+
+#NE Stem
+citations <- fread("SAScitationsNEstem.csv")
+originating <- fread("SASoriginatingNEstem.csv")
+clustpatents <- fread("SASclustpatentsNEstem.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+columnsEFI <- readRDS("columnsEFI_NEstem")
+
+xnames5 <- c("DC5A","DC5B","Balt5","Wilm5","Philly5A","Philly5B","NY5A","NY5B","CT5A","CT5B","CT5C","CT5D","Boston5A","Boston5B","Boston5C","Bing5","Syracuse5","Buffalo5","Pitt5A","Pitt5B")
+xnames10 <- c("Richmond10","DC10A","DC10B","Philly10A","Philly10B","Pitt10","Bing10","Syracuse10","Rochester10","Buffalo10","Boston10","NY10")
+xnames20 <- NULL
+
+clnames5 <- c("Bethesda-Rockville, MD-Vienna, VA","Columbia-Laurel, MD","Phoenix-Cockeysville, MD","Wilmington, DE","King of Prussia, PA","Philadephia, PA","Princeton, NJ-New York, NY","Long Island, NY","Danbury, CT","Stratford, CT","North Haven,CT","Hartford, CT","Hudson-Westborough, MA","Boston-Cambridge, MA","Nashua, NH","Binghamton, NY","Syrcuse, NY","Buffalo, NY","Pittsburgh, PA","Pittsburgh-Verona, PA")
+clnames10 <- c("Richmond, VA","Washington, DC-Baltimore, MD","Hagerstown, MD","Lancaster,PA","Philadelphia,PA-Wilmington,DC-Cherry Hill, NJ","Pittsburgh, PA","Binghamton, NY","Syracuse, NY","Rochester,NY","Buffalo, NY","Boston, MA","New York, NY-Northern NJ-CT")
+clnames20 <- NULL
+
+ne_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+originating <- do.call(colA,ne_stem)
+citations_colB <- do.call(colB,ne_stem)
+citations_colc <- do.call(colC,ne_stem)
+
+Table5m_ne_stem <- do.call(table5m,ne_stem)
+Table10m_ne_stem <- do.call(table10m,ne_stem)  
+
+
+#CA Stem
+citations <- fread("SAScitationsCAstem.csv")
+originating <- fread("SASoriginatingCAstem.csv")
+clustpatents <- fread("SASclustpatentsCAstem.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+columnsEFI <- readRDS("columnsEFI_CAstem")
+
+xnames5 <- c("SD5A","SD5B","OC5","MAL5","SB5","SF5A","SF5B","SF5C")
+xnames10 <- c("SD10","OC10","MAL10","SB10","SF10","SF10B")
+xnames20 <- NULL
+
+clnames5 <- c("San Diego-La Jolla","Carslbad","Irvine","Camarillo","Santa Barbara","San Jose-Santa Clara","Pleasanton","Santa Rosa")
+clnames10 <- c("San Diego","Anaheim-Irving","Oxnard-Camarillo","Santa Barbara","San Francisco-Palo Alto-San Jose","Santa Rosa")
+clnames20 <- NULL
+
+ca_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+originating <- do.call(colA,ca_stem)
+citations_colB <- do.call(colB,ca_stem)
+citations_colc <- do.call(colC,ca_stem)
+
+Table5m_ca_stem <- do.call(table5m,ca_stem)
+Table10m_ca_stem <- do.call(table10m,ca_stem)  
+
+
+#Northeast subclass
+citations <- fread("SAScitationsNEsub.csv")
+originating <- fread("SASoriginating.csv")
+clustpatents <- fread("SASclustpatents.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+citations <- separate(citations, nclass, c("nclass","subclass","subclass2"), convert = TRUE)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+columnsEFI <- readRDS("columnsEFI_NEsub")
+
+xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
+xnames10 <- c("Boston10","DC10","NY10","Philly10")
+xnames20 <- c("Boston20","DC20","NY20")
+
+clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham-Woburn, MA", "Silver Spring-Bethesda, MD-McLean, VA",
+              "Trenton-Princeton, NJ","Parsippany-Morristown-Union, NJ", "Greenwich-Stamford, CT-Scarsdale, NY","Stratford-Milford-CT",
+              "Conshohocken-King of Prussia-West Chester, PA", "Wilmington-New Castle, DE")
+clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
+clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
+
+ne_sub <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+originating <- do.call(colA,ne_sub)
+citations_colB <- do.call(colB,ne_sub)
+citations_colc <- do.call(colC,ne_sub)
+
+Table5m_ne_sub <- do.call(table5m,ne_sub)
+Table10m_ne_sub <- do.call(table10m,ne_sub)  
+
+
+#California subclass
+citations <- fread("SAScitationsCAsub.csv")
+originating <- fread("SASoriginatingCA.csv")
+clustpatents <- fread("SASclustpatentsCA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- separate(citations, nclass, c("nclass","subclass","subclass2"), convert = TRUE)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+columnsEFI <- readRDS("columnsEFI_CAsub")
+
+xnames5 <- c("SD5_ALT","LA5_ALT","SF5A_ALT","SF5B_ALT")
+xnames10 <- c("SD10_ALT","LA10_ALT","SF10_ALT")
+xnames20 <- c("SD20_ALT","SF20_ALT")
+
+clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton")
+clnames10 <- c("San Diego","Los Angeles", "San Francisco")
+clnames20 <- c("San Diego","San Francisco")
+
+ca_sub <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+originating <- do.call(colA,ca_sub)
+citations_colB <- do.call(colB,ca_sub)
+citations_colc <- do.call(colC,ca_sub)
+
+Table5m_ca_sub <- do.call(table5m,ca_sub)
+Table10m_ca_sub <- do.call(table10m,ca_sub)  
+
+
+#---------------------Unfinished-----------------------
 
 #MSA baseline
 columnsEFI <- readRDS("columnsEFI_MSA")
@@ -524,100 +668,76 @@ msa_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames
 x <- msa_base
 y <- "MSA"
 
-#Northeast subclass
-columnsEFI <- readRDS("columnsEFI_NEsub")
 
-xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
-xnames10 <- c("Boston10","DC10","NY10","Philly10")
-xnames20 <- c("Boston20","DC20","NY20")
-
-clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham-Woburn, MA", "Silver Spring-Bethesda, MD-McLean, VA",
-              "Trenton-Princeton, NJ","Parsippany-Morristown-Union, NJ", "Greenwich-Stamford, CT-Scarsdale, NY","Stratford-Milford-CT",
-              "Conshohocken-King of Prussia-West Chester, PA", "Wilmington-New Castle, DE")
-clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
-clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
-
-n=3
-
-ne_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
-                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-x <- ne_base
-y <- "NEsub"
-
-#California subclass
-columnsEFI <- readRDS("columnsEFI_CAsub")
-
-xnames5 <- c("SD5_ALT","LA5_ALT","SF5A_ALT","SF5B_ALT")
-xnames10 <- c("SD10_ALT","LA10_ALT","SF10_ALT")
-xnames20 <- c("SD20_ALT","SF20_ALT")
-
-clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton")
-clnames10 <- c("San Diego","Los Angeles", "San Francisco")
-clnames20 <- c("San Diego","San Francisco")
-
-ca_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
-                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-
-x <- ca_base
-y <- "CAsub"
-
-
-#NE Stem
-columnsEFI <- readRDS("columnsEFI_NEstem")
-
-xnames5 <- c("DC5A","DC5B","Balt5","Wilm5","Philly5A","Philly5B","NY5A","NY5B","CT5A","CT5B","CT5C","CT5D","Boston5A","Boston5B","Boston5C","Bing5","Syracuse5","Buffalo5","Pitt5A","Pitt5B")
-xnames10 <- c("Richmond10","DC10A","DC10B","Philly10A","Philly10B","Pitt10","Bing10","Syracuse10","Rochester10","Buffalo10","Boston10","NY10")
-xnames20 <- NULL
-
-clnames5 <- c("Bethesda-Rockville, MD-Vienna, VA","Columbia-Laurel, MD","Phoenix-Cockeysville, MD","Wilmington, DE","King of Prussia, PA","Philadephia, PA","Princeton, NJ-New York, NY","Long Island, NY","Danbury, CT","Stratford, CT","North Haven,CT","Hartford, CT","Hudson-Westborough, MA","Boston-Cambridge, MA","Nashua, NH","Binghamton, NY","Syrcuse, NY","Buffalo, NY","Pittsburgh, PA","Pittsburgh-Verona, PA")
-clnames10 <- c("Richmond, VA","Washington, DC-Baltimore, MD","Hagerstown, MD","Lancaster,PA","Philadelphia,PA-Wilmington,DC-Cherry Hill, NJ","Pittsburgh, PA","Binghamton, NY","Syracuse, NY","Rochester,NY","Buffalo, NY","Boston, MA","New York, NY-Northern NJ-CT")
-clnames20 <- NULL
-
-n=10
-
-ne_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
-                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-
-x <- ne_stem
-y <- "NEstem"
-
-
-
-#CA Stem
-columnsEFI <- readRDS("columnsEFI_CAstem")
-
-xnames5 <- c("SD5A","SD5B","OC5","MAL5","SB5","SF5A","SF5B","SF5C")
-xnames10 <- c("SD10","OC10","MAL10","SB10","SF10","SF10B")
-xnames20 <- NULL
-
-clnames5 <- c("San Diego-La Jolla","Carslbad","Irvine","Camarillo","Santa Barbara","San Jose-Santa Clara","Pleasanton","Santa Rosa")
-clnames10 <- c("San Diego","Anaheim-Irving","Oxnard-Camarillo","Santa Barbara","San Francisco-Palo Alto-San Jose","Santa Rosa")
-clnames20 <- NULL
-
-n=10
-
-ca_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
-                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-
-x <- ca_stem
-y <- "CAstem"
-
-
-
-#--------Call all functions-----------------------
-replications <- do.call(randomize,x)
-z <- paste0("replications_",y,".csv")
-write.csv(replications, z)
-columnsEFI <- do.call(colsEFI,x)
-z2 <- paste0("columnsEFI_",y)
-saveRDS(columnsEFI,file = z2)
-originating <- do.call(colA,x)
-citations_colB <- do.call(colB,x)
-citations_colc <- do.call(colC,x)
-
-Table5m <- do.call(table5m,x)
-Table10m <- do.call(table10m,x)  
-Table3a <- do.call(table3,x)  
+#-------------------Print all tables----------------------
+print_tables <- function() {
+ doc <- read_docx() %>%
+  body_add_par(value = "Tables", style = "centered") %>%
+  body_end_section_continuous() %>%
+  body_add_par(value = "Table 1a: Five-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
+  body_add_flextable(value = Table5m_ne_base) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par(value = "Table 1b: 10-Mile Clusters in the Northeast corridor, Baseline Results", style = "centered") %>% 
+  body_add_flextable(value = Table10m_ne_base) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 2a: Five-Mile Clusters in California, Baseline Results", style = "centered") %>% 
+  body_add_flextable(value = Table5m_ca_base) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par(value = "Table 2b: 10-Mile Clusters in California, Baseline Results", style = "centered") %>% 
+  body_add_flextable(value = Table10m_ca_base) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 3a: Citation Location Differentials and Spatial Scale (Northeast corridor)", style = "centered") %>% 
+  body_add_flextable(value = Table3a) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext("", prop = fpt))) %>%
+  body_add_par(value = "Table 3b: Citation Location Differentials and Spatial Scale (California)", style = "centered") %>% 
+  body_add_flextable(value = Table3b) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 5a: Five-Mile Clusters in the Northeast Corridor, STEM Worker Clusters", style = "centered") %>% 
+  body_add_flextable(value = Table5m_ne_stem) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par(value = "Table 5b: 10-Mile Clusters in the Northeast Corridor, STEM Worker Clusters", style = "centered") %>% 
+  body_add_flextable(value = Table10m_ne_stem) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 6a: Five-Mile Clusters in California, STEM Worker Clusters", style = "centered") %>% 
+  body_add_flextable(value = Table5m_ca_stem) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par(value = "Table 6b: 10-Mile Clusters in California, STEM Worker Clusters", style = "centered") %>% 
+  body_add_flextable(value = Table10m_ca_stem) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 8a: Five-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", style = "centered") %>% 
+  body_add_flextable(value = Table5m_ne_sub) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par(value = "Table 8b: 10-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", style = "centered") %>% 
+  body_add_flextable(value = Table10m_ne_sub) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_add_break() %>% 
+  body_add_par(value = "Table 9a: Five-Mile Clusters in California, Disaggregated Subclasses", style = "centered") %>% 
+  body_add_flextable(value = Table5m_ca_sub) %>%
+  body_add_par("", style = "Normal") %>%
+  body_add_par(value = "Table 9b: 10-Mile Clusters in California, Disaggregated Subclasses", style = "centered") %>% 
+  body_add_flextable(value = Table10m_ca_sub) %>%
+  body_add_fpar(fpar(ftext(fn1, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn2, prop = fpt))) %>%
+  body_add_fpar(fpar(ftext(fn3, prop = fpt))) %>%
+  body_end_section_landscape() %>%
+  print(target = "tables.docx")  
+}
 
 print_tables()
-print_one_table()
