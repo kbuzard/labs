@@ -12,6 +12,7 @@ library(dplyr)
 #library(janitor) 
 #library(officer)
 library(stringr)
+library(tidyr)
 
 setwd("G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE")
 
@@ -274,7 +275,7 @@ clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham
 clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
 clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
 
-#n=3
+n=999
 
 ne_sub <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
@@ -393,6 +394,81 @@ ca_stem <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames2
 x <- ca_stem
 y <- "CAstem"
 
+
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+
+
+#---------Northeast No Examiner-added Patents-----------
+citations<- fread("SAScitationsNENOexam.csv")
+possiblenclass <- fread("SASpossiblenclassNOexam.csv")
+originating <- fread("SASoriginating.csv")
+clustpatents <- fread("SASclustpatents.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_NENOexam")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("Boston5A","Boston5B","DC5","NY5A","NY5B","NY5C","NY5D","Philly5A","Philly5B")
+xnames10 <- c("Boston10","DC10","NY10","Philly10")
+xnames20 <- c("Boston20","DC20","NY20")
+
+clnames5 <- c("Framingham-Marlborough-Westborough, MA","Boston-Cambridge-Waltham-Woburn, MA", "Silver Spring-Bethesda, MD-McLean, VA",
+              "Trenton-Princeton, NJ","Parsippany-Morristown-Union, NJ", "Greenwich-Stamford, CT-Scarsdale, NY","Stratford-Milford-CT",
+              "Conshohocken-King of Prussia-West Chester, PA", "Wilmington-New Castle, DE")
+clnames10 <- c("Boston, MA","Washington, DC", "New York, NY", "Philadelphia, PA")
+clnames20 <- c("Washington, DC","Boston, MA", "New York, NY")
+
+n=999
+
+ne_NOexam <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+x <- ne_NOexam
+y <- "NENOexam"
+
+replications <- do.call(randomize,x)
+z <- paste0("replications_",y,".csv")
+write.csv(replications, z)
+columnsEFI <- do.call(colsEFI,x)
+z2 <- paste0("columnsEFI_",y)
+saveRDS(columnsEFI,file = z2)
+
+
+#---------California No Examiner-added Patents-----------
+citations<- fread("SAScitationsCANOexam.csv")
+possiblenclass <- fread("SASpossiblenclassNOexam.csv")
+originating <- fread("SASoriginatingCA.csv")
+clustpatents <- fread("SASclustpatentsCA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+list_of_matches <- readRDS("list_of_matches_CANOexam")
+
+out <- data.frame(matrix(0, nrow = 1, ncol = 0))
+
+xnames5 <- c("SD5_ALT","LA5_ALT","SF5A_ALT","SF5B_ALT")
+xnames10 <- c("SD10_ALT","LA10_ALT","SF10_ALT")
+xnames20 <- c("SD20_ALT","SF20_ALT")
+
+clnames5 <- c("San Diego","Los Angeles","Palo Alto-San Jose","Dublin-Pleasonton")
+clnames10 <- c("San Diego","Los Angeles", "San Francisco")
+clnames20 <- c("San Diego","San Francisco")
+
+n=2
+
+ca_NOexam <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                  "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+x <- ca_NOexam
+y <- "CANOexam"
 
 replications <- do.call(randomize,x)
 z <- paste0("replications_",y,".csv")
