@@ -8,12 +8,12 @@ install.packages("tidyr") #For function "separate"
 library(knitr)
 library(flextable) #def need
 library(formattable)
-library(data.table)
-library(dplyr) 
+library(data.table) #def need
+library(dplyr) #def need
 library(janitor) #def need
 library(officer) #def need
-library(stringr)
-library(tidyr)
+library(stringr) #def need
+library(tidyr) #def need
 
 setwd("G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/Patents/RSUE")
 
@@ -191,8 +191,11 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
   Table1a_5_1 <- height(Table1a_5_1, height = 0.15, part = "body")
   Table1a_5_1 <- height(Table1a_5_1, i = 2, height = 0.15, part = "header")
   Table1a_5_1 <- height(Table1a_5_1, i = 1, height = 0.15, part = "header")
+  Table1a_5_1 <- padding(Table1a_5_1, padding.top = 0, padding.bottom = 0, part = "body")
+  #Table1a_5_1 <- border_remove(Table1a_5_1)
+  #Table1a_5_1 <- border_outer(Table1a_5_1, border = std_border, part = "body")
   
-  rm(final_5_group2, final_5_group3,Cluster2,Cluster3)
+    rm(final_5_group2, final_5_group3,Cluster2,Cluster3)
   
   return(Table1a_5_1)
 }
@@ -308,6 +311,7 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_1, width = 0.1)
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_2, width = 0.1)
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_3, width = 0.1)
+  Table1b_10_1 <- padding(Table1b_10_1, padding.top = 0, padding.bottom = 0, part = "body")
   
   return(Table1b_10_1)
 }
@@ -663,11 +667,10 @@ controls to be drawn from patents assigned to the same firm to which the origina
 
 
 fpt = fp_text(font.size = 8, font.family = "Times")
-pad <- fp_par(padding.top = 4)
+pad <- fp_par(padding.top = 2)
 
 titles = fp_text(font.size = 10, font.family = "Times")
 title_pad <- fp_par(padding.bottom = 2, text.align = "center")
-
 
 print_tables <- function() {
  doc <- read_docx() %>%
@@ -720,19 +723,19 @@ print_tables <- function() {
   body_add_fpar(fpar(ftext(fn3, prop = fpt), fp_p = pad )) %>%
   body_add_fpar(fpar(ftext(fn5, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
-  body_add_fpar(fpar(ftext("Table 8a: Five-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
+  body_add_fpar(fpar(ftext("Table 7a: Five-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
   body_add_flextable(value = Table5m_ne_sub) %>%
   body_add_par("", style = "Normal") %>%
-  body_add_fpar(fpar(ftext("Table 8b: 10-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
+  body_add_fpar(fpar(ftext("Table 7b: 10-Mile Clusters in the Northeast Corridor, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
   body_add_flextable(value = Table10m_ne_sub) %>%
   body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
   body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
   body_add_fpar(fpar(ftext(fn6, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
-  body_add_fpar(fpar(ftext("Table 9a: Five-Mile Clusters in California, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
+  body_add_fpar(fpar(ftext("Table 8a: Five-Mile Clusters in California, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
   body_add_flextable(value = Table5m_ca_sub) %>%
   body_add_par("", style = "Normal") %>%
-  body_add_fpar(fpar(ftext("Table 9b: 10-Mile Clusters in California, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
+  body_add_fpar(fpar(ftext("Table 8b: 10-Mile Clusters in California, Disaggregated Subclasses", prop = titles), fp_p = title_pad )) %>% 
   body_add_flextable(value = Table10m_ca_sub) %>%
   body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
   body_add_fpar(fpar(ftext(fn2, prop = fpt), fp_p = pad )) %>%
