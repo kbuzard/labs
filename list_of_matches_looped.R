@@ -19,8 +19,11 @@ citations<- fread("SAScitations.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclass.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -76,11 +79,24 @@ for(i in 1:length(beg)) {
   #The parallel version of lapply() is parLapply() and needs an additional cluster argument.
   list_of_matches[[i]]<-parLapply(clust,1:nrow(smallcitations),function(row) get_matching_rows(smallcitations[row,]))
   stopCluster(clust)
+  
+  print(i)
+  print(Sys.time())
+  flush.console()
 }
 
-list_of_matches_NEbaseline <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
 
-saveRDS(list_of_matches,file = "list_of_matches_NEbaseline")
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_NEbaseline <- unlist(lom,recursive=F)
+
+saveRDS(list_of_matches_NEbaseline,file = "list_of_matches_NEbaseline2")
 
 
 
@@ -91,8 +107,11 @@ citations<- fread("SAScitationsCA.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclass.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -148,11 +167,24 @@ for(i in 1:length(beg)) {
   #The parallel version of lapply() is parLapply() and needs an additional cluster argument.
   list_of_matches[[i]]<-parLapply(clust,1:nrow(smallcitations),function(row) get_matching_rows(smallcitations[row,]))
   stopCluster(clust)
+  
+  print(i)
+  print(Sys.time())
+  flush.console()
 }
 
-list_of_matches_CAbaseline <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
 
-saveRDS(list_of_matches,file = "list_of_matches_CAbaseline")
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_CAbaseline <- unlist(lom,recursive=F)
+
+saveRDS(list_of_matches_CAbaseline,file = "list_of_matches_CAbaseline")
 
 
 
@@ -163,8 +195,11 @@ citations<- fread("SAScitationsMSA.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclass.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -220,9 +255,22 @@ for(i in 1:length(beg)) {
   #The parallel version of lapply() is parLapply() and needs an additional cluster argument.
   list_of_matches[[i]]<-parLapply(clust,1:nrow(smallcitations),function(row) get_matching_rows(smallcitations[row,]))
   stopCluster(clust)
+  
+  print(i)
+  print(Sys.time())
+  flush.console()
 }
 
-list_of_matches_MSA <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_MSA <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_MSA,file = "list_of_matches_MSA")
 
@@ -236,8 +284,11 @@ citations <- separate(citations, nclass, c("nclass","subclass","subclass2"), con
 possiblenclass <- fread("SASpossiblenclassSub.csv")
 possiblenclass <- separate(possiblenclass, nclass, c("nclass","subclass","subclass2"), convert = TRUE)
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkeyv(citations,c("nclass","subclass"))
+setkeyv(possiblenclass, c("nclass","subclass"))
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -300,7 +351,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_NEsub <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_NEsub <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_NEsub,file = "list_of_matches_NEsub")
 
@@ -314,8 +374,11 @@ citations <- separate(citations, nclass, c("nclass","subclass","subclass2"), con
 possiblenclass <- fread("SASpossiblenclassSub.csv")
 possiblenclass <- separate(possiblenclass, nclass, c("nclass","subclass","subclass2"), convert = TRUE)
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkeyv(citations,c("nclass","subclass"))
+setkeyv(possiblenclass, c("nclass","subclass"))
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -378,7 +441,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_CAsub <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_CAsub <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_CAsub,file = "list_of_matches_CAsub")
 
@@ -390,8 +462,11 @@ citations<- fread("SAScitationsNEstem.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclass.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -453,7 +528,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_NEstem <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_NEstem <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_NEstem,file = "list_of_matches_NEstem")
 
@@ -465,8 +549,11 @@ citations<- fread("SAScitationsCAstem.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclass.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -528,7 +615,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_CAstem <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_CAstem <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_CAstem,file = "list_of_matches_CAstem")
 
@@ -540,8 +636,11 @@ citations<- fread("SAScitationsNENOexam.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclassNOexam.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -603,7 +702,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_NENOexam <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_NENOexam <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_NENOexam,file = "list_of_matches_NENOexam")
 
@@ -615,8 +723,11 @@ citations<- fread("SAScitationsCANOexam.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclassNOexam.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -678,7 +789,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_CANOexam <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_CANOexam <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_CANOexam,file = "list_of_matches_CANOexam")
 
@@ -690,8 +810,11 @@ citations<- fread("SAScitationsCA2001.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclassNOexam.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -753,7 +876,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_CA2001 <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_CA2001 <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_CA2001,file = "list_of_matches_CA2001")
 
@@ -765,8 +897,11 @@ citations <- fread("SAScitationsCAONLYexam.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclassNOexam.csv")
 
-beg <- c(1,101,201,301,401,501,601,701)
-end <- c(100,200,300,400,500,600,700,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -828,7 +963,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_CAONLYexam <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_CAONLYexam <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_CAONLYexam,file = "list_of_matches_CAONLYexam")
 
@@ -840,8 +984,11 @@ citations <- fread("SAScitationsNEONLYexam.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclassNOexam.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -903,7 +1050,16 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_NEONLYexam <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_NEONLYexam <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_NEONLYexam,file = "list_of_matches_NEONLYexam")
 
@@ -915,8 +1071,11 @@ citations<- fread("SAScitationsNE2001.csv")
 #Read the data from database possiblenclass
 possiblenclass <- fread("SASpossiblenclassNOexam.csv")
 
-beg <- c(1,101,201,301,343,360,370,372,391,431,438,451,515,606,621,707,709,710,712,714,717)
-end <- c(100,200,300,342,359,369,371,390,430,437,450,514,605,620,706,708,709,711,713,716,800)
+setkey(citations,"nclass")
+setkey(possiblenclass, "nclass")
+t <- citations[, .N ,by = nclass]
+beg <- t[,nclass[2:.N]]
+end <- beg
 
 list_of_matches <- vector("list", length(beg))
 
@@ -978,6 +1137,15 @@ for(i in 1:length(beg)) {
   flush.console()
 }
 
-list_of_matches_NE2001 <- unlist(list_of_matches,recursive=F)
+nclass.first <- match(unique(beg), possiblenclass[,nclass])
+lom <- list_of_matches
+
+for(j in 1:length(list_of_matches)) {
+  for(i in 1:lengths(list_of_matches)[j]) {
+    lom[[j]][[i]] <- list_of_matches[[j]][[i]] + nclass.first[[j]] - 1
+  }
+}
+
+list_of_matches_NE2001 <- unlist(lom,recursive=F)
 
 saveRDS(list_of_matches_NE2001,file = "list_of_matches_NE2001")
