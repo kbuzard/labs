@@ -6,8 +6,8 @@ install.packages("janitor") #Get the total sum of each column
 install.packages("flextable") #Give format to the tables
 install.packages("tidyr") #For function "separate"
 library(knitr)
-library(flextable) #def need
 library(formattable)
+library(flextable) #def need
 library(data.table) #def need
 library(dplyr) #def need
 library(janitor) #def need
@@ -502,6 +502,36 @@ Table5m_ca_base <- Table5m
 Table10m_ca_base <- Table10m
 
 
+#MSA baseline
+citations <- fread("SAScitationsMSA.csv")
+originating <- fread("SASoriginatingMSA.csv")
+clustpatents <- fread("SASclustpatentsMSA.csv")
+
+clustpatents <- as.data.table(lapply(clustpatents, as.numeric))
+clustpatents <- rename(clustpatents,  NE_Plots_2 = 1)
+citations <- as.data.frame(subset(citations[(!is.na(citations[,nclass]))]))
+
+columnsEFI <- readRDS("columnsEFI_MSA")
+
+xnames5 <- c("BOS","LA","NY","PHL","SD","SF","DC")
+xnames10 <- NULL
+xnames20 <- NULL
+
+clnames5 <- c("Boston","Los Angeles","New York","Philadelphia","San Diego","San Francisco","Washington, DC")
+clnames10 <- NULL
+clnames20 <- NULL
+
+msa_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
+                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
+
+originating <- do.call(colA,msa_base)
+citations_colB <- do.call(colB,msa_base)
+citations_colc <- do.call(colC,msa_base)
+
+Table5m_msa <- do.call(table5m,msa_base)
+
+
+
 #NE Stem
 citations <- fread("SAScitationsNEstem.csv")
 originating <- fread("SASoriginatingNEstem.csv")
@@ -625,24 +655,6 @@ Table5m_ca_sub <- do.call(table5m,ca_sub)
 Table10m_ca_sub <- do.call(table10m,ca_sub)  
 
 
-#---------------------Unfinished-----------------------
-
-#MSA baseline
-columnsEFI <- readRDS("columnsEFI_MSA")
-
-xnames5 <- c("BOS","LA","NY","PHL","SD","SF","DC")
-xnames10 <- NULL
-xnames20 <- NULL
-
-clnames5 <- c("Boston","Los Angeles","New York","Philadelphia","San Diego","San Francisco","Washington, DC")
-clnames10 <- NULL
-clnames20 <- NULL
-
-msa_base <- list("xnames5" = xnames5, "xnames10" = xnames10, "xnames20" = xnames20,
-                 "clnames5" = clnames5, "clnames10" = clnames10, "clnames20" = clnames20, "n" = n)
-
-x <- msa_base
-y <- "MSA"
 
 
 #--------Print to Word Document---------------------------------------------------
@@ -703,6 +715,10 @@ print_tables <- function() {
   body_add_fpar(fpar(ftext(fn1, prop = fpt), fp_p = pad )) %>%
   body_add_fpar(fpar(ftext(fn4, prop = fpt), fp_p = pad )) %>%
   body_add_break() %>% 
+   body_add_fpar(fpar(ftext("Table NEW: MSAs, Baseline Results", prop = titles), fp_p = title_pad )) %>% 
+   body_add_flextable(value = Table5m_msa) %>%
+   body_add_par("", style = "Normal") %>%
+  body_add_break() %>% 
   body_add_fpar(fpar(ftext("Table 5a: Five-Mile Clusters in the Northeast Corridor, STEM Worker Clusters", prop = titles), fp_p = title_pad )) %>% 
   body_add_flextable(value = Table5m_ne_stem) %>%
   body_add_par("", style = "Normal") %>%
@@ -745,3 +761,13 @@ print_tables <- function() {
 }
 
 print_tables()
+
+#----MSA Table----
+doc <- read_docx() %>%
+  body_add_par(value = "Tables", style = "centered") %>%
+  body_end_section_continuous() %>%
+  body_add_fpar(fpar(ftext("Table NEW: MSAs, Baseline Results", prop = titles), fp_p = title_pad )) %>% 
+  body_add_flextable(value = Table5m_msa) %>%
+  body_add_par("", style = "Normal") %>%
+  body_end_section_landscape() %>%
+  print(target = "tables_MSA.docx")  
