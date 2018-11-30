@@ -1,0 +1,44 @@
+This Filed is presenting the differences between both method of matching, Thompson and Jaffe e.t, in order to determined the one we are using. 
+
+
+In Thompson 2005 article the different methods are made clear.
+In this paper Thompson argue that Jaffe constructed three patents samples: a set of originating patents, a set of citing patents which reference one of the originated patents and a set of control patents matched to each citing patent. 
+Each control patent shared the same technology class it matched citing patent. The experiment compared the probabilities that the citing patent and its matched control patent, were filed by inventors living in the same geographic location as the originating patent.
+Thompson declares that, controlling for unobservable using matching methods is invariably a dangerous exercise because one can rarely be confident that the control are doing their job. 
+Imperfect matching may simply introduce noise and a corresponding loss of efficiency, but these are not the applications where matching is critical. 
+This next part is to check and defined which method are we using. 
+
+Thompson critics on JTHs method is that:
+1) JTH control patents were selected using broad, three-digit technological classification codes of the U.S. Patent and Trademark Office (USPTO), a level of aggregation that surpasses considerable within-class heterogeneity. 
+This means that, if I match the citing patent with the originating patent using the three digits class, it is also likely to fall in the same subclass. 
+In contrast, the control patent is likely to be drawn from a different subclass, and it will fail to control for pre-existing geographic patterns of production. 
+2) Patents typically contain many distinct claims, to each of which a technological classification is assigned. 
+The particular claim in a citing patent that can be associated with a citation to prior art may be quite distinct from the claim that generated the corresponding control patent. 
+This doesn’t ensure the existence of any industrial link between the originating and control patent.
+
+Thompson claims that these two features of the control selection process means there is no guarantee that the control patent has any industrial similarity either to the citing or to the originating patent. 
+
+Thompson’s method
+1)Construct 2 control groups
+2)First group, for each citing patent he paired it with a control patent having a similar application date and that matched the primary classification of its paired citing patent at the three-digit level. 
+3)Second group, selected control patents that matched the primary classification of its paired citing patent at the level of the subclass. 
+
+Thompson’s criteria.
+1)He select control patents using the technology subclass, a much finer level of disaggregation than the three-digit classification scheme. 
+Instead of using for example class 231, he uses 231.3
+
+2)It focus on the originating-citing-control triads in which all three patents have at least one subclass in common. 
+
+
+JTH selected controls in which the primary class of the citing patent matched the primary class of its control patent. 
+Thompson 2005, matched the primary class of the citing patent to any class of the selected control patent. (Page 7). 
+Thompson 2005, states that JTH’s using a three digit paring is producing a matching bias, that is why he introduced a second subclass matching, to narrow the search. 
+
+
+
+In conclusion, we are using Jaffe's method for matching. 
+We are not considering the subclasses as a pairing condition and we are only using a 3 digit technological classification approach.
+
+
+
+
