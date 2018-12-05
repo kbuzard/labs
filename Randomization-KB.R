@@ -98,22 +98,22 @@ colsEFI <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
   
   locdiff <- list()
   for(i in 1:length(xnames)) {
-    locdiff[[i]] <- replications[2+3*(i-1),]/replications[3+3*(i-1),]
+    locdiff[[i]] <- replications[2+3*(i-1),-c(1)]/replications[3+3*(i-1),-c(1)]
   }
-  locdiff <- as.data.table(apply(do.call("rbind",locdiff), 1, function(x) mean(x[!is.infinite(x)])))
+  locdiff <- as.data.table(apply(do.call("rbind",locdiff), 1, function(x) (1+ length(which(x[!is.infinite(x)] <= 1)))/1000))
   
   #Format Randomized Data into Columns
   columnE_5 <- round(clusterMeans[seq(1, by=3, length.out = length(xnames5)),])
   columnF_5 <- round(clusterMeans[seq(2, by=3, length.out = length(xnames5)),])
   columnI_5 <- round(clusterMeans[seq(3, by=3, length.out = length(xnames5)),])
   columnL_5 <- locdiff[1:length(xnames5)]
-  columnL_5 <- round(rbind(columnL_5,list(0)), digits = 1)
+  columnL_5 <- rbind(columnL_5,list(0))
 
   columnE_10 <- round(clusterMeans[seq(length(xnames5)*3+1, by=3, length.out = length(xnames10)),])
   columnF_10 <- round(clusterMeans[seq(length(xnames5)*3+2, by=3, length.out = length(xnames10)),])
   columnI_10 <- round(clusterMeans[seq(length(xnames5)*3+3, by=3, length.out = length(xnames10)),])
   columnL_10 <- locdiff[length(xnames5)+1:length(xnames10)]
-  columnL_10 <- round(rbind(columnL_10,list(0)), digits = 1)
+  columnL_10 <- rbind(columnL_10,list(0))
   
   
   columnE_20 <- round(clusterMeans[seq((length(xnames5)+length(xnames10))*3+1, by=3, length.out = length(xnames20)),])
