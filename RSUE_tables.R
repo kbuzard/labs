@@ -23,6 +23,9 @@ zero_format <- function(x){
 one_format <- function(x){
   sprintf("%.1f",x)
 }
+pvalue_format <- function(x){
+  sprintf("%.3f",x)
+}
 percent_format<- function(x){
   sprintf("%.2f %%",x)
 }
@@ -158,19 +161,19 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
   names(Table1a_5)[10] <- "From Same Cluster**"
   names(Table1a_5)[11] <- "Percent (I/H)"
   names(Table1a_5)[12] <- "Location Differential (G/J)"
-  names(Table1a_5)[13] <- "Location Differential (Ave. of Ratios)"
+  names(Table1a_5)[13] <- "P-value"
   
   Table1a_5_1<-regulartable(Table1a_5, col_keys= c("Cluster","Originating Patents","Citing Patents", "From Same Cluster","Percent (C/B)", "col_1", 
                                                    "Matched Citing Patents*", "From Same Cluster*", "Percent (F/E)", "col_2",
-                                                   "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)","Location Differential (Ave. of Ratios)") )
+                                                   "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)","P-value") )
   
   Table1a_5_1 <- set_formatter(Table1a_5_1,"Originating Patents" = zero_format,"Citing Patents" = zero_format, "From Same Cluster" = zero_format,
                                "Percent (C/B)" = percent_format, "Matched Citing Patents*" = zero_format, "From Same Cluster*"= zero_format, "Percent (F/E)"= percent_format,
-                               "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format,"Location Differential (Ave. of Ratios)"=one_format)
+                               "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format,"P-value"=pvalue_format)
   
   Table1a_5_1 <- add_header(Table1a_5_1,"Cluster"= "Column", "Originating Patents" = "A","Citing Patents" = "B", "From Same Cluster" = "C",
                             "Percent (C/B)" = "D", "Matched Citing Patents*" = "E", "From Same Cluster*"= "F", "Percent (F/E)"= "G",
-                            "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", "Location Differential (Ave. of Ratios)"="L", top= TRUE)
+                            "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", "P-value"="L", top= TRUE)
   Table1a_5_1 <- theme_box(Table1a_5_1)
   Table1a_5_1 <- add_header(Table1a_5_1, "Cluster"=" ","Originating Patents" = " ", "Citing Patents"=" ","From Same Cluster"=" ","Percent (C/B)"=" ",
                             "Matched Citing Patents*"="Treatment Group", "From Same Cluster*"="Treatment Group","Percent (F/E)"="Treatment Group",
@@ -183,7 +186,7 @@ table5m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n) {
   Table1a_5_1 <- width(Table1a_5_1, j = c("Cluster"), width = 2.4)
   Table1a_5_1 <- width(Table1a_5_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", "Matched Citing Patents*", 
                                           "From Same Cluster*", "Control Patents**","From Same Cluster**", 
-                                          "Location Differential (G/J)", "Location Differential (Ave. of Ratios)"), width = 0.65)
+                                          "Location Differential (G/J)", "P-value"), width = 0.65)
   Table1a_5_1 <- width(Table1a_5_1, j = c("Percent (C/B)", "Percent (F/E)", "Percent (I/H)"), width = 0.55)
   Table1a_5_1 <- width(Table1a_5_1, j = ~ col_1, width = 0.1)
   Table1a_5_1 <- width(Table1a_5_1, j = ~ col_2, width = 0.1)
@@ -279,22 +282,22 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   names(Table1b_10)[10] <- "From Same Cluster**"
   names(Table1b_10)[11] <- "Percent (I/H)"
   names(Table1b_10)[12] <- "Location Differential (G/J)"
-  names(Table1b_10)[13] <- "Location Differential (Ave. of Ratios)"
+  names(Table1b_10)[13] <- "P-value"
   
   #Formating the tables
   Table1b_10_1<-regulartable(Table1b_10, col_keys= c("Cluster","Originating Patents","Citing Patents", "From Same Cluster","Percent (C/B)", "col_1", 
                                                      "Matched Citing Patents*", "From Same Cluster*", "Percent (F/E)", "col_2",
-                                                     "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)","Location Differential (Ave. of Ratios)") )
+                                                     "Control Patents**","From Same Cluster**", "Percent (I/H)","col_3","Location Differential (G/J)","P-value") )
   Table1b_10_1 <- fontsize(Table1b_10_1, part = "all", size = 7)
   Table1b_10_1 <- font(Table1b_10_1, part = "all", fontname = "Times")
   Table1b_10_1 <- height(Table1b_10_1, height = 0.15, part = "body")
   Table1b_10_1<-set_formatter(Table1b_10_1,"Originating Patents" = zero_format,"Citing Patents" = zero_format, "From Same Cluster" = zero_format,
                               "Percent (C/B)" = percent_format, "Matched Citing Patents*" = zero_format, "From Same Cluster*"= zero_format, "Percent (F/E)"= percent_format,
-                              "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format,"Location Differential (Ave. of Ratios)"=one_format)
+                              "Control Patents**"=zero_format,"From Same Cluster**"= zero_format, "Percent (I/H)"=percent_format,"Location Differential (G/J)"=one_format,"P-value"=pvalue_format)
   
   Table1b_10_1 <- add_header(Table1b_10_1,"Cluster"= "Column", "Originating Patents" = "A","Citing Patents" = "B", "From Same Cluster" = "C",
                              "Percent (C/B)" = "D", "Matched Citing Patents*" = "E", "From Same Cluster*"= "F", "Percent (F/E)"= "G",
-                             "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", "Location Differential (Ave. of Ratios)"="L", top= TRUE)
+                             "Control Patents**"="H","From Same Cluster**"="I", "Percent (I/H)"="J","Location Differential (G/J)"="K", "P-value"="L", top= TRUE)
   Table1b_10_1<-theme_box(Table1b_10_1)
   Table1b_10_1 <- add_header(Table1b_10_1,  "Cluster"=" ","Originating Patents" = " ", "Citing Patents"=" ","From Same Cluster"=" ","Percent (C/B)"=" ",
                              "Matched Citing Patents*"="Treatment Group", "From Same Cluster*"="Treatment Group","Percent (F/E)"="Treatment Group",
@@ -306,7 +309,7 @@ table10m <- function(xnames5,xnames10,xnames20,clnames5,clnames10,clnames20,n){
   Table1b_10_1 <- width(Table1b_10_1, j = c("Cluster"), width = 2.4)
   Table1b_10_1 <- width(Table1b_10_1, j = c("Originating Patents","Citing Patents", "From Same Cluster", 
                                             "Matched Citing Patents*", "From Same Cluster*", 
-                                            "Control Patents**","From Same Cluster**", "Location Differential (G/J)", "Location Differential (Ave. of Ratios)"), width = 0.65)
+                                            "Control Patents**","From Same Cluster**", "Location Differential (G/J)", "P-value"), width = 0.65)
   Table1b_10_1 <- width(Table1b_10_1, j = c("Percent (C/B)", "Percent (F/E)", "Percent (I/H)"), width = 0.55)
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_1, width = 0.1)
   Table1b_10_1 <- width(Table1b_10_1, j = ~ col_2, width = 0.1)
@@ -767,7 +770,8 @@ doc <- read_docx() %>%
   body_add_par(value = "Tables", style = "centered") %>%
   body_end_section_continuous() %>%
   body_add_fpar(fpar(ftext("Table NEW: MSAs, Baseline Results", prop = titles), fp_p = title_pad )) %>% 
-  body_add_flextable(value = Table5m_msa) %>%
+  body_add_flextable(value = Table5m_ne_base) %>%
   body_add_par("", style = "Normal") %>%
+  body_add_flextable(value = Table10m_ne_base) %>%
   body_end_section_landscape() %>%
   print(target = "tables_MSA.docx")  
