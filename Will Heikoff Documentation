@@ -320,4 +320,64 @@ The assumption that the Zip Code Business Pattern Data is based off of USPS Zip 
 	on the census.gov website (where the data was taken from) which states that “ZIP Codes: ZIP codes are defined at the 
 	discretion of the U.S. Postal Service and may change from time to time”. This information can be found at the census business
 	patterns documentation website at https://www.census.gov/programs-surveys/cbp/technical-documentation/methodology.html
+	
+7/31/18
+Created easier method of join CA_Block_2000.shp with the Block data that includes total employment without having to use access.
+	Did this by creating CA_WAC.csv file in excel (same as above on 7/17/18), then wrote script in R titled CA_WAC_Transformation.R, of which imports the csv file as a table titled “Block”, takes away the scientific notation, and then exports the table a dbf file titled “CAL_Blocks” saved in the “G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data” file for use in ArcMap
+Imported CAL_Blocks.dbf data layer along with CA_Block_2000.shp data layer into ArcMap
+Opened CAL_Blocks.dbf data attribute table, selected “Add Field…” option from the “Table Options” drop-down menu. Named field “Block_ID” and changed type to “Text” with Length set to 15. Right-clicked on newly created field and selected “Field Calculator…” from the drop-down menu, changed Type to “String”, and entered “0&[W_GEOCODE]” and hit OK. This created the new “Block_ID” field with California.xslx’s Block IDs with a 0 in front of each one, therefore matching up with CA_Block_2000.shp’s Block IDs.
+To join the two data table together: Open attribute table for CA_Block_2000, select “Join and Relates” and “Join…” from the drop-down menu. Choose “STFID” (the Block ID variable in CA_Block_2000) in box 1, choose “Block_ID” in Box 3, select “Keep only matching recording” therefore only keeping the 151,188 Blocks of which are available in the California WAC file. Hit OK
+Saved Merge data Set as CA_Block_2000_with_Total_EMP.shp in the Base Data Folder: G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\CA_Block_2000_with_Total_EMP.shp.
+
+8/2/18
+Changed CA_WAC_Transformation.R file to open file directly from the gz file and format table without the use of excel at all
+Realized error with K-function Local_3Stage.py in that it only creates a …_points.shp and not a …_buffers.shp. This means that it creates a shapefile with the lab points but not the clusters
+“GDAL data files not located, GDAL_DATA not set” and “PROJ data files not located, PROJ_LIB not set” errors seen in the K-function Local_3Stage.py log
+Troubleshooting to find solution; may be due to the ZIPS.shp file perhaps being a based off of ZCTAs and not USPS Zip Codes
+8/3/18
+Dowloaded California’s 2000 ZCTA Profile of Selected Economic Characteristics from https://factfinder.census.gov/faces/nav/jsf/pages/searchresults.xhtml?refresh=t# with the Product Type Filter: Data Profile, Year: 2000, 5-Digit ZCTA: All 5-Digit ZIP Code Tabulation Areas fully within/partially within California, saved as DEC_00_SF3_DP3_with_ann.csv
+Wrote script in R to import and format the DEC_00_SF3_DP3_with_ann.csv file with only the ZCTA ID and manufacturing employment and export the file as ZCTA_Manufa.dbf, saved in the Complete Zip Code Industry Detail File. Script saved as ZCTA_Manufa_Trans.R in the same folder
+Created CAL_ZCTA_EMP_2.shp file which contains a join of the ZCTA_Manufa.dbf file and the ZIPS.shp, saved in the Complete Zip Code Industry Detail File, changed CRS to USA_Contiguous_Albers_Equal_Area_Conic Coordinate System
+Working with K-function Local_3Stage.py program - Entered “G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Complete Zip Code Industry Detail File\CAL_ZCTA_EMP_2.shp” into line 37 to set the zips file
+Entered “Number__Em” and “Id2” onto line 40 to set the zip features
+Entered “Number__Em” on line 44 to set the Reference Measure
+Entered “Id2” on line 47 to set the ID Field
+Running program with new Zip Code File for two simulations
+Simulations completed in 3.35 minutes
+Received same “GDAL data files not located, GDAL_DATA not set” and “PROJ data files not located, PROJ_LIB not set” errors, and …_buffers.shp file not created
+Trying to set GDAL by entering “conda create -n GDAL python=3.6 gdal -c conda-forge” into Anaconda Prompt
+	Installation successful; after running the program again, the errors still occur and still no …_buffers.shp built
+
+8/6/18
+Adjusted CA_WAC_Transformation.R file to format the Block ID to add the necessary 0 at the beginning of the ID directly in R rather than having to do it in ArcMap
+Updated ZIPs_Tot_Emp.R file to extract only California Zip Codes from the file
+2000 ZCTA Manufa. Data has 198 Zips with no Manufa. Employment, 2000 ZBP Manufa. Data has 0 Zips with no Manufa. Employment, 1998 ZBP Manufa. Data has 0 Zips with no Manufa. Employment
+Earliest ZCTA Shapefiles available are 2007
+Downloaded 2000 ZCTA Cartographic Boundary Files for California ftp://ftp2.census.gov/geo/tiger/PREVGENZ/zt/z500shp/, titled zt06_d00.shp, saved on the desktop
+
+8/7/18
+In ArcMap, created join between the zt06_d00.shp and the ZCTA_Manufa.dbf files. Exported Shapefile as CAL_ZCTA_CARTO.shp in the G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Complete Zip Code Industry Detail File Folder
+Plugged CAL_ZCTA_CARTO.shp file into line 37
+Entered ZCTA1 in the second spot in the zfeatures func. on line 40
+Entered ZCTA1 on line 47
+Found 2000 ZCTA shapefile on https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2010&layergroup=ZIP+Code+Tabulation+Areas. Saved as tl_2010_06_zcta500.shp in G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Complete Zip Code Industry Detail File Folder. Joined with ZCTA_Manufa.dbf file. Changed CRS to USA_Contiguous_Albers_Equal_Area_Conic Coordinate system (see 7/25/18). Exported as ZCTA_2.shp, saved in the same folder
+Entered in G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Complete Zip Code Industry Detail File\ZCTA_2.shp into line 37
+Entered Id2 into the second spot on line 40
+Entered Id2 on line 47
+8/9/18
+Able to resolve GDAL issue by using the instructions on https://sandbox.idre.ucla.edu/sandbox/tutorials/installing-gdal-for-windows
+Working on resolving PROJ issue
+
+8/10/18
+Able to rewrite ZCTA_Manufa_Trans.R as ZCTA_Manufa_Trans.py, saved in G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis. Program now joins the ZCTA shapefile and Manufa. Emp data directly in python, without the need for ArcMap
+Searching for ways to switch the CRS directly in Python also
+
+8/15/18
+Found way to change CRS in python by using geo_df.crs = {'init':'epsg:5070'}
+	ZCTA_Manufa_Trans.py now changes CRS directly in CRS
+Entered geo_df.crs = {'init':'epsg:5070'} on line 149 in K-function Local_3Stage.py
+Changed buffers CRS on line 195 to {'init':'epsg:5070'}
+Wrote program to change CRS of GoodLabs, called GoodLabs_Trans.py, saved in G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis
+Searching for ways 
+
 
