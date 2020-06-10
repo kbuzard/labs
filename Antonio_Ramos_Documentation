@@ -1,0 +1,151 @@
+
+- Browsed code and familiarized myself with the file organizational structure.
+
+- Identified location of all installed modules that are being imported by python scipt 
+ "G:\MAX-Filer\Research\Labs-kbuzard-S18\kfunctions\Three Stage K-functions\K-function Local_3Stage Trial" they are located at "C:\Python4Arc\ArcGIS\Lib\site-packages"
+
+- packages  “geopandas” and "shapely" missing from "C:\Python4Arc\ArcGIS\Lib\site-packages"
+
+- Decided to attempt to install packages "shapely" and "geopandas" to C:\Apps-SU\Anaconda3 so that we can test run the python script Local_3Stage.py and see if it will get past the module importation. 
+
+— Began Attempt to install package “shapely”. Opened Anaconda command prompt and entered “conda install shapely”. 
+
+
+- package "shapely" successfully installed to "C:\App-SU\Anaconda3".
+
+- when attempting to instal geopandas with "conda install geopandas"  an inconsistent environment error arised.
+
+- after reviewing stackoverflow I followed the suggestion of updating all modules with command "conda update --all".
+
+- the update was interupted due to a lack of administrator privaledge on my user. This corrupeted file "C:\Apps-SU\Anaconda3" and I had to work with ICT to resolve the issue and disentagle the conflicting dependancies the corrupted file was renamed "C:\Apps-SU\Anaconda3-old" and ICT created new file "C:\Apps-SU\Anaconda3" with reinstall of Anaconda and all packages that had been installed to "C:\Apps-SU\Anaconda3-old" this includes the shapely package installed earlier but not geopandas 
+
+- after working with ICT spyder4 was not opening, so the files located at "C:\Users\YOUR_USER_NAME\.spyder-py3\"   " C:\Users\YOUR_USER_NAME\.ipython" "C:\Users\YOUR_USER_NAME\.matplotlib"   were all deleted with copies placed in "C:\Users\aramosri\documents"
+
+- spyder 4 now opens correctly
+
+- upon opening spyder i was asked if I wanted to install "Kite" which "provides better and more accurate code completion in its editor when using packages like matplotlib numpy and pandas (Which are all being used in our python scripts) -- will ask prof buzard if she believes we should install
+
+- again trying to see if i can get "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" script to run past the importation of modules, decided to begin by downloading the packages as prompted at the top of the script
+
+- attemped to download package "plotnine" with command "conda install -c conda-forge plotnine"
+
+- install successful, package downloaded to C:\Apps-SU\Anaconda3\pkgs
+
+- attempted to download package "geopandas" with command "conda install -c conda-forge geopandas"
+
+-when solving the environment for the download of package geopandas the following message was outputted
+"
+Solving environment: failed with initial frozen solve. Retrying with flexible solve.
+Solving environment: failed with repodata from current_repodata.json, will retry with next repodata source.
+Collecting package metadata (repodata.json): done
+Solving environment: done
+"
+
+- package "geopandas" installed to C:\Apps-SU\Anaconda3\pkgs
+
+- attempted to run "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" and was able to complete the process all modules imported, simulations completed, and shapefiles saved
+
+-attempting to open shapefiles with the following comand in spyder "gpd.read_file(G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp)"
+
+-invalid syntax error returned
+
+- attemped the same thing by running the following code
+"
+import geopandas as gpd 
+import matplotlib.pyplot as plt
+gdf = gpd.read_file(G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp)
+print(gdf.shape)
+print(gdf.head())
+gdf.plot()
+plt.show()
+"
+- again returned invalid syntax error 
+
+- found syntax error and corrected code, adding ' to each end of the file name G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp resulting in the following code
+"
+import geopandas as gpd 
+import matplotlib.pyplot as plt
+gdf = gpd.read_file('G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp')
+print(gdf.shape)
+print(gdf.head())
+gdf.plot()
+plt.show()
+"
+- code ran succesfully and I was able to see the scatter plot diagram
+
+(Skip to line 143)
+- attempted to run script "G:\MAX-Filer\Collab\Labs-kbuzar-S18\Admin\kfunctions\K-function Local_Scipy.py" in spyder and a syntax error was retunred
+"
+runfile('G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/kfunctions/K-function Local_Scipy.py', wdir='G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/kfunctions')
+  File "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_Scipy.py", line 185
+    PVALS = []
+        ^
+SyntaxError: invalid syntax
+"
+
+- after further investigation, and communication with professor Buzard, the error appears to be on line 182. When running that line individually the following error is returned...
+"SyntaxError: unexpected EOF while parsing"
+
+- after reviewing stack overflow i noticed that the error was arising due to a missing parentheses so I added a parentheses to line 18.  previous code looked like this ....
+"pvals = cnts.multiply((1/(simulations + 1.))"
+new code....
+"pvals = cnts.multiply((1/(simulations + 1.)))"
+
+-now when running line 182 individually we get a the following error
+"AttributeError: 'numpy.ndarray' object has no attribute 'multiply'"
+
+- when attempting to run with line 185 no error occurs
+
+- when attempting to run entire script error occurs at line 13
+"ModuleNotFoundError: No module named 'shapefile'"
+
+- searched for module shapefile in  "C:\Python4Arc\ArcGIS\Lib\site-packages" and "C:\App-SU\Anaconda3\pkgs" module not found in either will investigate what it does and possibly download it
+
+- after reviewing stackoverflow and not finding the shapefile module anywhere on the computer I am going to attempt to install the package that shapefile module comes in, using the following command in the anaconda prompt window
+"conda inatall -c conda-forge pyshp"-forge
+
+- package "pyshp" which contains module "shapefile" installed successfully to "C:\App-SU\Anaconda3\pkgs"
+
+- attempted to run program again with the console returning the following message
+"
+Traceback (most recent call last):
+
+  File "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_Scipy.py", line 41, in <module>
+    pointFeatures = shapefile.Reader(pFC)
+
+  File "C:\Apps-SU\Anaconda3\lib\site-packages\shapefile.py", line 553, in __init__
+    self.load(args[0])
+
+  File "C:\Apps-SU\Anaconda3\lib\site-packages\shapefile.py", line 646, in load
+    raise ShapefileException("Unable to open %s.dbf or %s.shp." % (shapeName, shapeName))
+
+ShapefileException: Unable to open G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.dbf or G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp.
+"
+
+- found file "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp" however when I tried to open it with python code I used earlier, I got the following error message
+"
+DriverError: G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp: No such file or directory
+"
+
+- noticed that within the file "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data" there are updated versions of the "GoodLabs.shp" and "GoodLabs.dbf" named "GoodLabs_New.shp" and "GoodLabs_New.dbf" will update the file names within the K-function Local_Scipy.py script to the new names.
+
+- rewrote the path name on line 39 to account for the updated GoodLabs.
+old od - "pFC = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp""
+new code - pFC = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs_New.shp""
+
+- ipython console displays the run file command but then doesnt return anything and seems to freeze since it doesnt let me run anyother scripts, will attempt to restart and run again
+
+- again no response within the console and unabe to run other scripts
+
+- reverted path name to original - " pFC = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp""
+and got shapefile exception again when trying to run the script 
+
+- realized I was working on the wrong script and started working on the K-function Local_3Stage.py located inG:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions
+
+- once I started working on the correct script I realized that the Will's dosumentation is not up to date and does not reference the same files as the script does. So, I created an excell spreadsheet to list all the files mentioned by Will in his documentation in an attemtp to better understand where everything was coming from, what it did, and how it should function with the python scripts. 
+
+- emailed Will asking if he had any more updated documentation. Will responded with the most comprehensive documentation that he has, however it still does not mention the files being refrenced by the K-function Local_3Stage.py script. 
+
+- I will now begin doing a line by line analysis of the K-function Local_3Stage.py script to better understand what it is doing with the data files being referenced 
+
+- All modules necessary for running K-function Local_3Stage.py installed onto computer to  C:\Apps-SU\Anaconda3\pkgs. Able to fully run trial version of 3 stage script, K-function Local_3Stage Trial.py, however when proceeding to try and run the K-function Local_3Stage.py script all modules are imported and programs runs effectively until it stars performing an endless loop of simulations at line 125. Printing the following over and over again "SIMULATION #### Threw and error." with "####" being respective simulation numbers.
