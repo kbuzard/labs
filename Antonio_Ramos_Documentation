@@ -149,3 +149,23 @@ and got shapefile exception again when trying to run the script
 - I will now begin doing a line by line analysis of the K-function Local_3Stage.py script to better understand what it is doing with the data files being referenced 
 
 - All modules necessary for running K-function Local_3Stage.py installed onto computer to  C:\Apps-SU\Anaconda3\pkgs. Able to fully run trial version of 3 stage script, K-function Local_3Stage Trial.py, however when proceeding to try and run the K-function Local_3Stage.py script all modules are imported and programs runs effectively until it stars performing an endless loop of simulations at line 125. Printing the following over and over again "SIMULATION #### Threw and error." with "####" being respective simulation numbers.
+
+- going to open up data files referenced in K-function Local_3Stage.py in ArcMap to see if the data they contain properly corresponds to the data structures being described in the K-function Local_3Stage.py script 
+
+- cannot open ArcMap from windows start bar, continue getting notification that the application is not responding. Will attempt to open from the command prompt window  
+
+- finally able to open arcmap by starting it from the start bar and waiting for the program to repsond 
+
+- when adding the data that is referenced in the K-function Local_3Stage.py program to a blank map in ArcMap the block data (CA_Block_New.shp) appears well, however, the zip data (CA_ZCTA_New.shp) does not appear on the map and it seems that when I add it as a data layer nothing changes on the map, furthermore, the labs data (GoodLabs_New.shp) does not appears as points on the block data map but as one point far away from the block data map. 
+
+- evaluated attribute tables to ensure that the proper data column names in the table were being referenced by the K-function Local_3Stage.py program. All data table names are correctly referenced, however, there is also another attribute "geometry" which is being listed on lines 39-41 and I am not sure what that is doing, it does not appear in any of the attribute tables from the data files. 
+
+- when running line by line analysis of K-function Local_3Stage.py I again get the infinite simulation loops when running lines 104-137 together. Upon further review I did not get any errors running lines 104-119 together, but it does not get past 50 percent complete on the simluations, have to interupt program with "control C". Could be because I am running the lines independent of any data. Now, when I run lines 120-128 together I get "SIMULATION 1 Threw an error". Moreover, when I run line 122 in K-fucntion Local_3Stage.py, I get the following error...
+  "File "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\kfunction_3Stage.py", line 49, in countSimulation
+    fsFeatures['FS_PROBS'] = fsFeatures[[fieldFS]] / float(sum(fsFeatures[fieldFS]))
+
+TypeError: unsupported operand type(s) for +: 'int' and 'str'"
+
+-(now working in kfunction_3Stage.py script) when running lines 42-49 (so as to include the definition of "fsFeatures") no error occurs and script runs perfectly fine. Moreover, when running the entire function definied as "countSimulation" (lines 42-87) no error is retunred and function executes. Similarly when running the entire function defined as "pointSimulation" (which is referenced in line 122 of K-function Local_3Stage.py) no error is returned and function executes. So I am confused as to what is sending us into this infinite loop. I believe it might have to do with the data we are feeding into the programs but I am not sure why. As mentioned above the attribute names being referenced coincide between the program and the data. 
+
+- Will mentions having come across a similar problem in his documentation on lines 143-145. I sent him an email asking if he remembers how he got around that problem, his solution is not articulated in the documentation. 
