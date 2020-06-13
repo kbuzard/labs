@@ -213,7 +213,7 @@ both programs are written August 8th but there is no documentation for why
 
 - found the origin of ca_wac_S000_JT00_2002.csv.gz, https://lehd.ces.census.gov/data/lodes/LODES7/ca/wac/  (ask prof. buzard if she can help clarify what the content of this file is) 
 
-06/13/2018
+06/13/2020
 - returning to the issue GoodLabs_New.shp not plotting anything when added as a layer to a blank ArcMap map, when I tested GoodLabs.shp the original file, the points do appear plotted on the map. 
 
 -changed projected coordinate system (PCS) for GoodLabs.shp in ArcGis to make it compatibale with the PCS of CA_Block_New (NAD 1983 Contiguous USA Albers) the outputted file with the updated PCS is GoodLabs_Project.shp located with the above mentioned files at "G:\MAX-Filer\Research\Labs-kbuzard-S18\Admin\CARR\California\Base Data" (do you want me to outline the steps for changing the PCS in ArcGis?) 
