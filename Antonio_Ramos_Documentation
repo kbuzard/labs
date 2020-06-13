@@ -1,4 +1,4 @@
-
+05/25/2020
 - Browsed code and familiarized myself with the file organizational structure.
 
 - Identified location of all installed modules that are being imported by python scipt 
@@ -17,13 +17,17 @@
 
 - after reviewing stackoverflow I followed the suggestion of updating all modules with command "conda update --all".
 
-- the update was interupted due to a lack of administrator privaledge on my user. This corrupeted file "C:\Apps-SU\Anaconda3" and I had to work with ICT to resolve the issue and disentagle the conflicting dependancies the corrupted file was renamed "C:\Apps-SU\Anaconda3-old" and ICT created new file "C:\Apps-SU\Anaconda3" with reinstall of Anaconda and all packages that had been installed to "C:\Apps-SU\Anaconda3-old" this includes the shapely package installed earlier but not geopandas 
+- the update was interupted due to a lack of administrator privaledge on my user. This corrupeted file "C:\Apps-SU\Anaconda3" 
+
+06/01/2020
+- I had to work with ICT to resolve the corrupted file and disentagle the conflicting dependancie. The corrupted file was renamed "C:\Apps-SU\Anaconda3-old" and ICT created new file "C:\Apps-SU\Anaconda3" with reinstall of Anaconda and all packages that had been installed to "C:\Apps-SU\Anaconda3-old" this includes the shapely package installed earlier but not geopandas 
 
 - after working with ICT spyder4 was not opening, so the files located at "C:\Users\YOUR_USER_NAME\.spyder-py3\"   " C:\Users\YOUR_USER_NAME\.ipython" "C:\Users\YOUR_USER_NAME\.matplotlib"   were all deleted with copies placed in "C:\Users\aramosri\documents"
 
+06/02/2020
 - spyder 4 now opens correctly
 
-- upon opening spyder i was asked if I wanted to install "Kite" which "provides better and more accurate code completion in its editor when using packages like matplotlib numpy and pandas (Which are all being used in our python scripts) -- will ask prof buzard if she believes we should install
+- upon opening spyder i was asked if I wanted to install "Kite" which "provides better and more accurate code completion in its editor when using packages like matplotlib numpy and pandas (Which are all being used in our python scripts) -- will ask prof buzard if she believes we should install. NOTE - we decided not to use "Kite". 
 
 - again trying to see if i can get "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" script to run past the importation of modules, decided to begin by downloading the packages as prompted at the top of the script
 
@@ -43,6 +47,7 @@ Solving environment: done
 
 - package "geopandas" installed to C:\Apps-SU\Anaconda3\pkgs
 
+06/04/2020
 - attempted to run "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" and was able to complete the process all modules imported, simulations completed, and shapefiles saved
 
 -attempting to open shapefiles with the following comand in spyder "gpd.read_file(G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp)"
@@ -73,7 +78,8 @@ plt.show()
 "
 - code ran succesfully and I was able to see the scatter plot diagram
 
-(Skip to line 143)
+06/05/2020
+(The next steps in the documentation are redundant because I was working on the wrong files. Skip to line 143 of documentation)
 - attempted to run script "G:\MAX-Filer\Collab\Labs-kbuzar-S18\Admin\kfunctions\K-function Local_Scipy.py" in spyder and a syntax error was retunred
 "
 runfile('G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/kfunctions/K-function Local_Scipy.py', wdir='G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/kfunctions')
@@ -99,6 +105,7 @@ new code....
 - when attempting to run entire script error occurs at line 13
 "ModuleNotFoundError: No module named 'shapefile'"
 
+06/06/2020
 - searched for module shapefile in  "C:\Python4Arc\ArcGIS\Lib\site-packages" and "C:\App-SU\Anaconda3\pkgs" module not found in either will investigate what it does and possibly download it
 
 - after reviewing stackoverflow and not finding the shapefile module anywhere on the computer I am going to attempt to install the package that shapefile module comes in, using the following command in the anaconda prompt window
@@ -127,6 +134,7 @@ ShapefileException: Unable to open G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CA
 DriverError: G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp: No such file or directory
 "
 
+06/07/2020
 - noticed that within the file "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data" there are updated versions of the "GoodLabs.shp" and "GoodLabs.dbf" named "GoodLabs_New.shp" and "GoodLabs_New.dbf" will update the file names within the K-function Local_Scipy.py script to the new names.
 
 - rewrote the path name on line 39 to account for the updated GoodLabs.
@@ -140,12 +148,86 @@ new code - pFC = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Ba
 - reverted path name to original - " pFC = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\CARR\California\Base Data\GoodLabs.shp""
 and got shapefile exception again when trying to run the script 
 
+06/08/2020
 - realized I was working on the wrong script and started working on the K-function Local_3Stage.py located inG:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions
 
 - once I started working on the correct script I realized that the Will's dosumentation is not up to date and does not reference the same files as the script does. So, I created an excell spreadsheet to list all the files mentioned by Will in his documentation in an attemtp to better understand where everything was coming from, what it did, and how it should function with the python scripts. 
 
+
 - emailed Will asking if he had any more updated documentation. Will responded with the most comprehensive documentation that he has, however it still does not mention the files being refrenced by the K-function Local_3Stage.py script. 
 
+06/09/2020
 - I will now begin doing a line by line analysis of the K-function Local_3Stage.py script to better understand what it is doing with the data files being referenced 
 
 - All modules necessary for running K-function Local_3Stage.py installed onto computer to  C:\Apps-SU\Anaconda3\pkgs. Able to fully run trial version of 3 stage script, K-function Local_3Stage Trial.py, however when proceeding to try and run the K-function Local_3Stage.py script all modules are imported and programs runs effectively until it stars performing an endless loop of simulations at line 125. Printing the following over and over again "SIMULATION #### Threw and error." with "####" being respective simulation numbers.
+
+06/10/2020
+- going to open up data files referenced in K-function Local_3Stage.py in ArcMap to see if the data they contain properly corresponds to the data structures being described in the K-function Local_3Stage.py script 
+
+- cannot open ArcMap from windows start bar, continue getting notification that the application is not responding. Will attempt to open from the command prompt window  
+
+- finally able to open arcmap by starting it from the start bar and waiting for the program to repsond 
+
+- when adding the data that is referenced in the K-function Local_3Stage.py program to a blank map in ArcMap the block data (CA_Block_New.shp) appears well, however, the zip data (CA_ZCTA_New.shp) does not appear on the map and it seems that when I add it as a data layer nothing changes on the map, furthermore, the labs data (GoodLabs_New.shp) does not appears as points on the block data map but as one point far away from the block data map. 
+
+- evaluated attribute tables to ensure that the proper data column names in the table were being referenced by the K-function Local_3Stage.py program. All data table names are correctly referenced, however, there is also another attribute "geometry" which is being listed on lines 39-41 and I am not sure what that is doing, it does not appear in any of the attribute tables from the data files. 
+
+- when running line by line analysis of K-function Local_3Stage.py I again get the infinite simulation loops when running lines 104-137 together. Upon further review I did not get any errors running lines 104-119 together, but it does not get past 50 percent complete on the simluations, have to interupt program with "control C". Could be because I am running the lines independent of any data. Now, when I run lines 120-128 together I get "SIMULATION 1 Threw an error". Moreover, when I run line 122 in K-fucntion Local_3Stage.py, I get the following error...
+  "File "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\kfunction_3Stage.py", line 49, in countSimulation
+    fsFeatures['FS_PROBS'] = fsFeatures[[fieldFS]] / float(sum(fsFeatures[fieldFS]))
+
+TypeError: unsupported operand type(s) for +: 'int' and 'str'"
+
+-(now working in kfunction_3Stage.py script) when running lines 42-49 (so as to include the definition of "fsFeatures") no error occurs and script runs perfectly fine. Moreover, when running the entire function definied as "countSimulation" (lines 42-87) no error is retunred and function executes. Similarly when running the entire function defined as "pointSimulation" (which is referenced in line 122 of K-function Local_3Stage.py) no error is returned and function executes. So I am confused as to what is sending us into this infinite loop. I believe it might have to do with the data we are feeding into the programs but I am not sure why. As mentioned above the attribute names being referenced coincide between the program and the data. 
+
+- Will mentions having come across a similar problem in his documentation on lines 143-145. I sent him an email asking if he remembers how he got around that problem, his solution is not articulated in the documentation. 
+
+06/11/2020
+- after communicating with Will, we were still not able to get documentation which aligns with the data referenced in the python scripts. Documentation that Will sent over was the same as what was already in the github repository. File not downloaded since it is the same as what is in the git repo. 
+
+- finished filling in Data & Script File Table which contains a list of all the files mentioned by Will Heikoff in his documentation, or utilized by the python script "K-function Local_3Stage.py" saved it in G:\MAX-Filler\Collab\Labs-kbuzard-S18\Admin . 
+
+- will now go through the following programs which Will Heikoff wrote to change aspects of the data so that it would work with the python scripts.
+1. ZIPS_Tot_Emp.r 
+2. CA_WAC_Transformation.R
+3. ZCTA_Manufa_Trans.R
+4. ZCTA_GoodLabs_Trans.py
+5. ZCTA_Manufa_Trans.py 
+6. GoodLabs_Trans.py
+(more complete descriptions avaliable in Data & Script File Table located at G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin) 
+
+- discovered that the two of the three data files, GoodLabs_New.shp and CA_ZCTA_Man.shp, from the K-function Local_3Stage.py script come from one python script, "ZCTA_GoodLabs_Trans.py" (located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\ZCTA_GoodLabs_Trans.py") 
+
+- ZCTA_GoodLabs_Trans.py changes the CRS for GoodLabs.shp and exports GoodLabs_New.shp 
+
+- ZCTA_GoodLabs_Trans.py also also reads a csv file (DEC_00_SF3_DP3_with_ann.csv) and joins it with an imported shapefile (tl_2010_06_zcta500.shp) changes the CRS and then exports CA_ZCTA_Man.shp
+
+- all other R and python scripts do not seem to be relevant to the data that is currently being used by the K-function Local_3Stage.py script. However, it is not clear where the data file CA_Block_New.shp came from which is the third data file being read into the K-function Local_3Stage.py script. 
+
+- In the folder located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis" I found two programs that might be related to CA_Block_New.shp 
+ 1. CA_Block_Trans.py
+ 2. CA_WAC_Trans.py 
+both programs are written August 8th but there is no documentation for why 
+
+- CA_Block_Trans.py has a note that says "Need to figure out how to change shapefile from ANSI 1252 to UTF-8 encoding." Not sure if this was ever done will look for more up to date file. After examining the code it looks like CA_Block_Trans.py is the same as CA_WAC_Trans.py except CA_Block_Trans.py changes the geometry and CRS. CA_Block_Trans.py reads in a csv.gz file (ca_wac_S000_JT00_2002.csv.gz) and and joins it with an imported shapefile (CA_block_2000.shp) then changes the geometry and CRS and exports a shapefile (CA_2000_Tot_Emp.shp) however, this is not the block data file which is being read into K-function Local_3Stage.py. 
+
+- found the origin of ca_wac_S000_JT00_2002.csv.gz, https://lehd.ces.census.gov/data/lodes/LODES7/ca/wac/  (ask prof. buzard if she can help clarify what the content of this file is) 
+
+06/13/2018
+- returning to the issue GoodLabs_New.shp not plotting anything when added as a layer to a blank ArcMap map, when I tested GoodLabs.shp the original file, the points do appear plotted on the map. 
+
+-changed projected coordinate system (PCS) for GoodLabs.shp in ArcGis to make it compatibale with the PCS of CA_Block_New (NAD 1983 Contiguous USA Albers) the outputted file with the updated PCS is GoodLabs_Project.shp located with the above mentioned files at "G:\MAX-Filer\Research\Labs-kbuzard-S18\Admin\CARR\California\Base Data" (do you want me to outline the steps for changing the PCS in ArcGis?) 
+
+- at this point both GoodLabs.shp and CA_Block_New.shp open and are plotted correctly in arcmap. the zip code data file hoewver is not projecting properly in arcmap. 
+
+-having a lot of trouble being able to remake the zipcode with manufacturing employment shapefile. When I add the manufa emp data in python then I have issues with the CRS in arcgis where either
+1. i change the CRS in python but then it doesnt project the data properly in arcgis
+2. i do only the join in python and try to change the CRS in arcgis, once I change the CRS again the data ceases to be projected 
+3. i try to do the join in arcgis and then attempt to change CRS, can't even do the join
+- the goal right now is to get all the data projected onto arcgis properlly, because if the data isnt projecting properly then whatever is causing that issue in arcgis might also be causing the infinite simulation loop in the Local 3Stage program
+
+- wrote program ZCTA_JOIN_Manufa_EMP.py to join the manufacuturing and employment data to the zipcode shapefile 
+
+- using ZCTA_JOIN_Manufa_EMP.py I joined DEC_00_SF3_DP3_with_ann.csv to tl_2010_06_zcta500.shp and exported the result as CA_ZCTA_Man_New.shp located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis"
+
+- CA_ZCTA_Man_New projects onto ArcMap when placed by itself but when GoodLabs_Project.shp and CA_Block_New.shp are added as a layers then it becomes clear that the data from the join is messing with the scaling and size of the map. I think that when we are joining the manufacturing employment data to the zip code data we are messing up the size and scaling of the map. 
