@@ -213,6 +213,7 @@ both programs are written August 8th but there is no documentation for why
 
 - found the origin of ca_wac_S000_JT00_2002.csv.gz, https://lehd.ces.census.gov/data/lodes/LODES7/ca/wac/  (ask prof. buzard if she can help clarify what the content of this file is) 
 
+
 06/13/2018
 - returning to the issue GoodLabs_New.shp not plotting anything when added as a layer to a blank ArcMap map, when I tested GoodLabs.shp the original file, the points do appear plotted on the map. 
 
@@ -261,3 +262,4 @@ both programs are written August 8th but there is no documentation for why
 RuntimeError: b'no arguments in initialization list'"
 
 - after substantial online investigation it seems that the problem is due to the location of the package data for "pyproj". Not entirely sure how to fix this, Danel said he would run the program on his machine to see if the same error arises. Waiting on his response. 
+
