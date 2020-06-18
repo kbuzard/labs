@@ -159,7 +159,7 @@ and got shapefile exception again when trying to run the script
 06/09/2020
 - I will now begin doing a line by line analysis of the K-function Local_3Stage.py script to better understand what it is doing with the data files being referenced 
 
-- All modules necessary for running K-function Local_3Stage.py installed onto computer to  C:\Apps-SU\Anaconda3\pkgs. Able to fully run trial version of 3 stage script, K-function Local_3Stage Trial.py, however when proceeding to try and run the K-function Local_3Stage.py script all modules are imported and programs runs effectively until it stars performing an endless loop of simulations at line 125. Printing the following over and over again "SIMULATION #### Threw and error." with "####" being respective simulation numbers.
+- All modules necessary for running K-function Local_3Stage.py installed onto computer to  C:\Apps-SU\Anaconda3\pkgs. Able to fully run trial version of 3 stage script, K-function Local_3Stage Trial.py, however when proceeding to try and run the K-function Local_3Stage.py script all modules are imported and programs runs effectively until it stars performing an endless loop of simulations at line 125. Printing the following over and over again "SIMULATION 1 THREW an error" followed by "SIMULATION 2 THREW an error" and it continues increasing like that ad inifinitum.
 
 06/10/2020
 - going to open up data files referenced in K-function Local_3Stage.py in ArcMap to see if the data they contain properly corresponds to the data structures being described in the K-function Local_3Stage.py script 
@@ -198,7 +198,7 @@ TypeError: unsupported operand type(s) for +: 'int' and 'str'"
 
 - discovered that the two of the three data files, GoodLabs_New.shp and CA_ZCTA_Man.shp, from the K-function Local_3Stage.py script come from one python script, "ZCTA_GoodLabs_Trans.py" (located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\ZCTA_GoodLabs_Trans.py") 
 
-- ZCTA_GoodLabs_Trans.py changes the CRS for GoodLabs.shp and exports GoodLabs_New.shp 
+- ZCTA_GoodLabs_Trans.py changes the PCS for GoodLabs.shp and exports GoodLabs_New.shp. GoodLabs_New.shp is identical to GoodLabs.shp except the PCS is changed to NAD 1983 Contiguous USA Albers. 
 
 - ZCTA_GoodLabs_Trans.py also also reads a csv file (DEC_00_SF3_DP3_with_ann.csv) and joins it with an imported shapefile (tl_2010_06_zcta500.shp) changes the CRS and then exports CA_ZCTA_Man.shp
 
@@ -213,6 +213,7 @@ both programs are written August 8th but there is no documentation for why
 
 - found the origin of ca_wac_S000_JT00_2002.csv.gz, https://lehd.ces.census.gov/data/lodes/LODES7/ca/wac/  (ask prof. buzard if she can help clarify what the content of this file is) 
 
+06/13/2018
 - returning to the issue GoodLabs_New.shp not plotting anything when added as a layer to a blank ArcMap map, when I tested GoodLabs.shp the original file, the points do appear plotted on the map. 
 
 -changed projected coordinate system (PCS) for GoodLabs.shp in ArcGis to make it compatibale with the PCS of CA_Block_New (NAD 1983 Contiguous USA Albers) the outputted file with the updated PCS is GoodLabs_Project.shp located with the above mentioned files at "G:\MAX-Filer\Research\Labs-kbuzard-S18\Admin\CARR\California\Base Data" (do you want me to outline the steps for changing the PCS in ArcGis?) 
@@ -230,3 +231,33 @@ both programs are written August 8th but there is no documentation for why
 - using ZCTA_JOIN_Manufa_EMP.py I joined DEC_00_SF3_DP3_with_ann.csv to tl_2010_06_zcta500.shp and exported the result as CA_ZCTA_Man_New.shp located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis"
 
 - CA_ZCTA_Man_New projects onto ArcMap when placed by itself but when GoodLabs_Project.shp and CA_Block_New.shp are added as a layers then it becomes clear that the data from the join is messing with the scaling and size of the map. I think that when we are joining the manufacturing employment data to the zip code data we are messing up the size and scaling of the map. 
+
+6/14/2020
+- redownloaded Zip code data from https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2010&layergroup=ZIP+Code+Tabulation+Areas and saved it in "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis" as tl_2010_06_zcta500_New.shp
+
+- file saved as a zipped file, unzipped using 7zip and files are now located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysi\tl_2010_06_zcta500_New"
+
+- using arcgis I joined the file with CA_ZCTA_Man_New.shp to create a file that contained the zipcode and manufacturing employment data. Then using arcgis I deleted all the repeated data from the join and only left the manufacturing employment data. and the original data from tl_2010_06_zcta500_New.shp
+
+- exported the join as CA_ZCTA_Manufa_Project.shp and saved it in  "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis"
+
+- projected CA_ZCTA_Manufa_Project.shp onto a blank arcgis map, then added the layers of CA_Block_New.shp and GoodLabs.shp and all three projected together. However, when I tried to run the python script I still got the same infinite loop of similations error. 
+
+- most likly problem is that we are only changing the PCS and not the CRS. (See line 253 for more info)
+
+
+6/15/2020
+
+- updated Data & Script File Table to include file types. 
+
+- realized that Will Heihoff's program for changing CRS and geometry is only changing PCS metadata and not changing CRS, will rewrite program. 
+
+-rewrote program as ZCTA_Trans_Trial.py however when I try to run it I get the following error "
+  File "C:\Apps-SU\Anaconda3\lib\site-packages\pyproj\__init__.py", line 362, in __new__
+    return _proj.Proj.__new__(self, projstring)
+
+  File "_proj.pyx", line 129, in _proj.Proj.__cinit__
+
+RuntimeError: b'no arguments in initialization list'"
+
+- after substantial online investigation it seems that the problem is due to the location of the package data for "pyproj". Not entirely sure how to fix this, Danel said he would run the program on his machine to see if the same error arises. Waiting on his response. 
