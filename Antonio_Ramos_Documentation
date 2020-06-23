@@ -263,3 +263,19 @@ RuntimeError: b'no arguments in initialization list'"
 
 - after substantial online investigation it seems that the problem is due to the location of the package data for "pyproj". Not entirely sure how to fix this, Danel said he would run the program on his machine to see if the same error arises. Waiting on his response. 
 
+6/22/2020
+- going to uninstall and reinstall pyproj to see if this corrects the data error 
+
+- to remove pyproj I entered "conda remove pyproj"  into conda command prompt
+
+- got the following warnering but ignored it because after reviewing the file, it seems to just be fonts text file. "WARNING conda.gateways.disk.delete:unlink_or_rename_to_trash(140): Could not remove or rename C:\Apps-SU\Anaconda3\Lib\site-packages\matplotlib\mpl-data\fonts\ttf\DejaVuSans.ttf.  Please remove this file manually (you may need to reboot to free file handles)"
+
+- then reinstalled from the conda forge channel using "conda install -c conda-forge pyproj" in the conda command prompt 
+
+- attribute error recieved when attempeting to install pyproj 
+
+- will uninstall all packages being utilized by ZCTA_Trans_Trial.py and then reinstall 
+
+- attempted to uninstall "pandas" package through conda prompt with "conda remove pandas" however, machine requesting Administrator access again, will resolve issue with ITS 
+
+- Question for Prof. Buzard. Do you know why we need to change the CRS in all these data files, and why did we decide upon the CRS we did? 
