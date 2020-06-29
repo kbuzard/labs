@@ -279,3 +279,20 @@ RuntimeError: b'no arguments in initialization list'"
 - attempted to uninstall "pandas" package through conda prompt with "conda remove pandas" however, machine requesting Administrator access again, will resolve issue with ITS 
 
 - Question for Prof. Buzard. Do you know why we need to change the CRS in all these data files, and why did we decide upon the CRS we did? 
+
+6/24/2020
+- ICT able to remove  packages. Will now reinstall them. 
+
+- entered "conda install -c conda-forge geopandas" into anaconda command prompt to install geopandas package
+
+- installation successful. package saved to " C:\Apps-SU\Anaconda3"
+
+- entered "conda install -c conda-forge pandas" into anaconda command prompt window to install pandas package. Command prompt returned "package already installed" 
+
+- entered "conda install -c conda-forge r-sys" into anaconda command prompt to install sys package
+
+- installation successful. package saved to " C:\Apps-SU\Anaconda3"
+
+- entered "conda install -c conda-forge numpy" into anaconda command prompt to install numpy package
+
+- tried to open Spyder but the program is not running. Will resolve issue with ICT (Still hasn't been resloved. After ICT got back to me last week I wasn't able to look at the program again till today. I am again in contact with them to try and resolve the issue) 
