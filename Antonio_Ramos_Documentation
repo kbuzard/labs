@@ -296,3 +296,12 @@ RuntimeError: b'no arguments in initialization list'"
 - entered "conda install -c conda-forge numpy" into anaconda command prompt to install numpy package
 
 - tried to open Spyder but the program is not running. Will resolve issue with ICT (Still hasn't been resloved. After ICT got back to me last week I wasn't able to look at the program again till today. I am again in contact with them to try and resolve the issue) 
+
+07/01/2020
+- ICT uninstalled and reinstalled Spyder, program now opening. 
+
+- geopandas and shapely packages unsinstalled when spyder was uninstalled and must be reinstalled will reinstall through anaconda prompt window. 
+
+- entered "conda install -c conda-forge geopandas" into Anaconda command prompt to instal geopandas 
+
+- when installing the package the environment could not be solved and package failed to install. ICT told me I might have problems with this, I have reached out to them and will update once resolved. 
