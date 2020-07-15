@@ -305,3 +305,50 @@ RuntimeError: b'no arguments in initialization list'"
 - entered "conda install -c conda-forge geopandas" into Anaconda command prompt to instal geopandas 
 
 - when installing the package the environment could not be solved and package failed to install. ICT told me I might have problems with this, I have reached out to them and will update once resolved. 
+
+07/02/2020
+- ICT able to install shapley but not geopandas. ICT reports that geopandas requires certain dependancies and a special configuration to install that they were unable to do and thus could not install geopandas. 
+
+- investigating stackoverlow/exchange/github to see what others say about installing geopandas
+
+7/08/2020
+- following recommendations from stack overflow, I will attempt to downlaod geopandas without pulling it from the conda forge channel. 
+
+- entered "conda install geopandas" into anaconda command prompt window 
+
+07/13/2020
+- unable to resolve configuration of packages to allow for installing of geopandas. 
+
+- will attempt to see if I can make the programs run on my machine at home. If so then the issue is in the VM and we can just start fresh with a new VM. 
+
+- failed to install geopandas onto personal machine with "conda install -c conda-forge geopandas" due to similar dependency conflicts as on the VM. 
+
+- now attempting to install geopandas from general channel using "conda install geopandas" again on my personal computer
+
+- again the packagage cannot be downloaded due to conflicts in the dependancies
+
+7/15/2020
+
+- will create new python environment in anaconda command prompt to try and get around the conflicting package problem presnt in root environment. 
+
+- created python environemt in anaconda command prompt using the following "conda create --name programTrial python=3.7" named the environment "programTrial" 
+
+- activated new environment with "conda activate programTrial"
+
+- set up ArcGis Python API, allowing python to run ArcGis, by installing the apprporitate packages into the new programTrial environment. Used "conda instal -c esri arcgis" 
+
+- will now install geopandas and plotnine
+
+- entered "conda install -c conda-forge plotnine" into anaconda command prompt 
+
+- package installed successfully 
+
+- entered "conda install -c conda-forge geopandas" into anaconda command prompt 
+
+- package installed successfully 
+
+- installed spyder dependencies into new environment by opening the "Anaconda Naviagtor" from the start menu. clicking on the environments tab then selecting the programTrial environment, then going to the home tab, then clicking install under the spyder tab. 
+
+- opened spyder and ran program "K-function Local_3Stage.py" got infinite simulation error loop again. 
+
+- will repeat all previous steps from today's documentation on my personal computer to see if infinite loop simulation error occurs 
