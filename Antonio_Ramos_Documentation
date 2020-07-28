@@ -352,3 +352,20 @@ RuntimeError: b'no arguments in initialization list'"
 - opened spyder and ran program "K-function Local_3Stage.py" got infinite simulation error loop again. 
 
 - will repeat all previous steps from today's documentation on my personal computer to see if infinite loop simulation error occurs 
+
+7/27/2020
+- reviewing data in "DEC_00_SF3_DP3_with_ann.csv" and noticed that a few cells with 0 manufacturing employment have ZCTAs with letters "XX" and "HH" in them. will do a find a replece to remove all alphabetic letters from Id2 column and delete all data columns not being utilized by 3stage program. Saved resulting csv file as "DEC_00_SP3_DP3_with_ann2.csv". Note. this changes the data type of the columns into objects must revert types to integer and strings in python script 
+
+- DEC_00_SP3_DP3_with_ann2.csv no longer has extra header so I changed line 21 of ZCTA_Manufa_Trans.py from "skiprows = 1" to "skiprows = 0"
+
+- will add the following code to ZCTA_Manufa_Trans.py to handle the change in data type and revert data back to int data type 
+"
+convert_dict = {'ZCTA5CE00' : str, 'Manufa_Emp' : int}
+Tab2 = Tab2.astype(convert_dict)
+"
+
+- saved shapefile as "CA_ZCTA_Man2.0.shp"
+
+- changed pathway reference in Local_3Stage_kfunction.py to import new shapefile CA_ZCTA_Man2.0.shp
+
+- ran program Local_3Stage_kfunction.py for 2 simulations and it successfully saved a shapefile "Manufa_Emp_C000_Points.shp". Infinite simulation loop error now solved. 
