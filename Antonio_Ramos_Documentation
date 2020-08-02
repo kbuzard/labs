@@ -369,3 +369,15 @@ Tab2 = Tab2.astype(convert_dict)
 - changed pathway reference in Local_3Stage_kfunction.py to import new shapefile CA_ZCTA_Man2.0.shp
 
 - ran program Local_3Stage_kfunction.py for 2 simulations and it successfully saved a shapefile "Manufa_Emp_C000_Points.shp". Infinite simulation loop error now solved. 
+
+7/28/2020
+- ran program successfully for 499 simulations. Shapefile exported. However, there is an issue with the GoodLabs_New.shp file where the labs are not projecting correctly in ArcGis. Problem corrected by using GoodLabs_Project.shp instead. 
+
+7/30/2020
+- ran program successfully for 499 simulations, importing GoodLabs_Project.shp. However, this means that the code producing the labs point shapefile is not working properly and needs to be reviewed. 
+
+8/1/2020
+- when going into arcgis to plot the outputed files, the resulting shapefile created by the 3Stage_Local.py program is not the clusters but just an exported points file. 
+
+- Problems left to resolve - 1. no cluster file is being generated even after 499 simulations 2. the find and replace done on the excel file needs to be automated in python 3. the code that produces the labs data file is not producing files which project correctly 
+
