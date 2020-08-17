@@ -381,3 +381,80 @@ Tab2 = Tab2.astype(convert_dict)
 
 - Problems left to resolve - 1. no cluster file is being generated even after 499 simulations 2. the find and replace done on the excel file needs to be automated in python 3. the code that produces the labs data file is not producing files which project correctly 
 
+8/8/2020
+
+- installying arcpy to python envinronment "programTrial" using following command in anaconda command prompt "conda install -c esri arcpy" 
+
+- error arcpy cannot run on python 3.7 so I will create a new environment that uses python 3.6 by running the following command in anaconda terminal prompt "conda create --name programTrial3.6 python=3.6" 
+
+- will install all packages used in programTrial and arcpy 
+
+8/9/2020
+- during creating of programTrial 3.6 multiple conflicts arose from the installation of arcpy 
+
+- will begin determining which order to install packages so that conflicts do not arise
+
+8/11/2020
+- removed the programTrial3.6 environment and created new environment where I install packages and programs in the following order 
+  1. Spyder 4.0.1. (Installed through the anaconda navigator) 
+  2. arcpy (anaconda command prompt command "conda install -c esri arcpy")
+  3. plotnine (anaconda command prompt "conda install -c conda-forge plotnine") 
+  4. geopandas (anaconda command prmopt "conda install-c conda-forge geopandas") 
+- all moduels and packed installed successfully
+
+- when running scripts that import arcpy, i am getting an error that says "no module named 'arcpy')
+
+
+8/12/2020
+- created copy of programTrial3.6 environment on my personal computer to see if I can run the arcpy there
+
+- arcpy module succesfully loads in spyder on my personal computer
+
+- added the following code to ZCTA_Manufa_Trans.py script to recalculate feature extent..
+"#recalculate feature extent
+feature_class = geo_df
+arcpy.RecalculateFeatureClassExtent_management(feature_class)"
+
+- ZCTA_Manufa_Trans.py runs successfully with new code and exports shapefile (on my personal computer)
+
+- will check if the feature extent now matches the exent of the original data using the following code...
+"# Create a Describe object from the shapefile
+desc = arcpy.Describe(geo_df)
+
+# Print dataset properties
+print ("Dataset Type:" + desc.datasetType)
+
+extent = desc.Extent
+print ("Extent:")
+print ("  %s: %f, %s: %f, %s: %f, %s: %f" % ("XMin", extent.XMax, "XMax", extent.XMax, 
+                                            "YMin", extent.YMin, "YMax", extent.YMax))
+print ("MExtent: " + desc.MExtent)
+print ("ZExtent: " + desc.ZExtent)
+
+SR = desc.spatialReference
+print (SR.name)"
+
+- feature extent now matches original data
+
+8/13/2020
+
+- trying to now resolve why arcpy isn't being imported on the VM. I will remove programTrial3.6 and try again with new environment 3Stage_Local_Run_env, following same install procedures as I did on my personal computer
+
+- same problem occuring as well as other. There is probably an issue with our python instalation and I will ask ICT to remove and reinstall python, anaconda, and arcgis
+
+8/14/2020
+
+- discoverd why the feature extent is being changed when creating the shapefile for lab and ZCTA data. The command we are using to change the CRS is compressing the data in the shapefiles and not recalculating it with the new CRS. Hence, using the recalculate command stretches the compressed data back out.
+
+- will now use "geo_df.to_crs" instead of "geo_df.set_crs"
+
+- got the following error back "RuntimeError: b'no arguments in initialization list'"
+
+- my guess is this is related to the problems in the python installation because it is the same issue I was facing when I was having problems with the python installation last month
+
+8/16/2020
+- finally emailed ICT about python installation
+
+- investigating the block data information now to understand where it came from and how it was structured when it was made
+
+- unsure about what program was used to merge the two files that are refereced in Will's "What I Did" document
