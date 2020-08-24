@@ -476,3 +476,22 @@ I am not installing arcpy because it appears (see line 449) that a previous chan
 - both ZCTA_Manufa_Trans.py and (GoodLabs_Trans.py are now running successfully and exporting shapefiles. 
 
 - all data sets now projecting correcting. The three data sets that are being used by Local_3Stage.py are CA_Block_New.shp, CA_ZCTA_Data.shp, and CA_Lab_Data.shp. Both CA_ZCTA_Data.shp and CA_Lab_Data.shp come from python scripts which programatized arcgis commands (ZCTA_Manufa_Trans.py and GoodLabs_Trans.py respectively). 
+
+8/20/2020
+
+- ran program K-function Local_3Stage.py for 999 simulations with data mentioned in line 477 of this documentation
+
+8/23/2020
+- point file exported but again no cluse file exported. When investigating data attribute table of the point file outputted by the k-function program it appears with resulting cluster significance either at 0 or 999. 
+
+- renamed GoodLabs_Trans.py to GoodLabs_CRS_Trans.py
+
+- cleaned up block level analysis folder. Now it only contains the files that are being used to create the data used by the k-fucntion program and the data itself.
+
+8/24/2020
+
+- used Will's program CA_Block_Trans.py and edited the code so that it would set the CRS correctly and perform a join on the data needed for CA_Block_New.shp
+
+- all data preparation now automated in python
+
+- need to schedule a zoom call to work on the issue with the k-fucntion local program not exporting a cluster file 
