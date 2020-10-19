@@ -516,3 +516,141 @@ I am not installing arcpy because it appears (see line 449) that a previous chan
 - when running program no cluster file is exported and point resutls appear to still be the same as before where we are either getting 0.01 or 1 for the cluster significance
 
 9/12/2020
+
+- geometry issues still appearing in both the block data files and the zip code data files.Zip code data geometry appears as an infiniteley repetitive tuple of the centroid points appearing in the geometry of the lab data. The block data geometry appears as centroid points which do not match centroids in ArcGis. 
+
+- having trouble with run times of the program, it is taking multiple days to run mor than 100 simulations. The minimum needed to create a statistical clustiering significane highenough for clusters to emerge is 499 simulations
+
+- GPU computing could be possible solution to run time issues
+
+- possible idea for resolving geometry issue
+
+9/14/2020
+
+- automated find and replace on csv file used to create CA_ZCTA_New.shp with following code...
+"Tab2.replace(to_replace=[r'9[0123456789][0123456789][HX][HX]'],
+           value=['0'],
+           regex=True, 
+           inplace=True)
+"
+
+9/16/2020
+
+- block data geometry is being constructed from the following shapefile, CA_Blocl_2000.shp which comes from this website "..."
+
+- geometry on imported shapefile seems incorrect.
+
+- will attempt to correct it by importing the geometry from lab file and using that to contstruct geometry for block data file that goes into kfunction prorgam.
+
+9/18/2020
+
+- discovered python package called NUMBA which could help speed up run time of kfunction program. NUMBA compiles python code into machine readable code parrellize functions for GPUs.
+
+- will attempt to wrap functions in kfunction program with @jit decorator imported from NUMBA package.
+
+- no success with @jit decorator, need to do more research in how to utilize it.
+
+9/22/2020
+
+- Still unable to resolve block data geometry issue and zip code data geomtry issue.
+
+- turing attention to speeding up run time of the program to be able to run it more often to see how the changes I am making to the data affect the clustering issue where no cluster file is being exported.
+
+- NUMBA @jit decorator requires function signatures for functions taking multiple arguments. adding function signatures to pointSimulation function and countSimulation functions in kfunction program
+
+- program now compiles but run time is not sped up and in fact is slightly slower
+
+- getting message from NUMBA telling me that functions have incompatible data types and will not compile into machine code and cannot be parrelized. Possible solution is to use @jit decorator on individual parts of the functions and not functions as a whole
+
+9/25/2020
+
+- checking data types of arguments going into functions with @jit decorator to understand where type incompatibility reported by NUMBA is coming from
+
+- types are pandas int64
+
+- NUMBA type incompatability not making sense since NUMBA operates with the same type defintions as PANDAS which is where the int64 type we are using is coming from
+
+- possible solution is to generalize the types of the arguments going into the function I am adding @jit decorator to
+
+9/28/2020
+
+- turning attention back to geomtery issues.
+
+- still need to resolve geomtery for block data and zip code data
+
+- will redownload shapefile data uses to construct CA_Block_New and try to reconstruct it
+
+- downloaded shapefile as CA_block_2000.shp and moved all old data by the same name into a file named Block Data which is in the Block Level Analysis folder.
+
+- when running CA_Block_Trans.py with new shapefile data the geometry created is correct however, an incompatible type error occurs when pyton attempts to join the table created from a csv file with the table created from the shapefile.
+
+
+
+9/30/2020
+
+- will write up a comprehensive email on the problem with the geometries so that Dr. Buzard can send it to Jake Carr and ask to troubleshooting help
+
+10/01/2020
+
+- University set up a GPU computing cluster for us to attempt to speed up run time of kfucntion program by parrellizing code with NUMBA and distributing it to be run on multiple processeors (starting with 2) 
+
+- possibility to run simultaneuas simulations on multiple GPUS to cut down run time even if functions cannot be sped up with machine code package NUMBA
+
+10/03/2020
+
+- attempting to use NUMBA package on methods/functions written in kfunction program (kfunction_3Stage.py) will create a copy of both kfunction_3Stage.py and K-function Local_3Stage.py and name them kfunction_3Stage_NUMBA.py and K-function Local_3Stage_NUMBA.py to see if speed of any fucntions can be increased.
+
+- able to speed up kfunction method (from 5.9 sec to .015) sec using @njit decorator and removing array creartion from function. Following code applies only to local caluclations 
+and not global...
+"
+#creat empty array and populate with 0's. rslt1 is the result from 
+k = np.zeros([len(distMat), len(distVec)])
+
+# K-function Calculation
+@njit
+def kFunction1(distMat, distVec):
+    for i in range(len(distMat)):
+        for j in range(len(distVec)):
+            k[i,j] = (sum(distMat[i,] <= distVec[j])-1)
+    return k 
+
+rsult2 = kFunction1(distMat, distVec)
+rsult2 = np.array(rsult2)
+"
+- to implement the above code into the running of the local 3Stage program we would need to partially rewrite a few lines in both the local 3Stage program and the kfunction program.
+
+10/4/2020
+
+- using GPU cluster for the first time.
+
+- exploring how to set up python environment
+
+- same process as used on cpu refer to lines 228 for set up procedure
+
+10/6/2020
+
+- attemping to use NUMBA @jit decorator to distribute kfunction program methods to gpus but it keeps running into an incompatible type error.
+
+- problem arising because GPUs are AMD and not NVIDIA. NVIDIA development community has created more GPU functionality for NVIDIA gpu python parrelization than has AMD. will need to find other way to parrelize fucntions. possible solution here...https://documen.tician.de/pyopencl/
+
+10/11/2020
+
+- Jake Carr says that geometry issue for Zip code data file may not be issue..."The default behavior of reading polygons with geopandas is to populate that GEOMETRY field with the vertices of the polygon (or polygons) itself. They may appear to be the same (like in the example you included), but that could be a function of the coordinates being rounded to a level in which they appear to be the same."
+
+- need to investigate kfunction program to see if geomtery needs to be centroid location or plygon verticies.
+
+- it appears that distanceMatrix method/function calculates centroid locations to aligns higher and lower level data
+
+10/15/2020
+
+- data type issue relating to block data file creation resolved. In CA_Block_Trans.py, when importing csv file ca_wac_S000_JT00_2002.csv.gz column STFID is of data type int64, when importing CA_block_2000.shp file column STFID is of type object. To resolve issue I convert data type of STFID in the geodataframe created from CA_block_2000.shp into int64 with following code...
+"data['STFID'] = data['STFID'].astype('int64')" on line 33 of CA_Block_Trans.py
+
+10/16/2020
+
+- K-function Local_3Stage.py still produces incorrect data after running just 9 imulations
+
+10/18/2020
+
+- data files cleaned up in block level analysis folder. all old block data placed in Block Data file located at G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Block Data
+and Zip code data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Zip Code Data and lab data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Lab Data
