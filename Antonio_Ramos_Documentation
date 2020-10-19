@@ -1,26 +1,6 @@
-05/25/2020
-- Browsed code and familiarized myself with the file organizational structure.
-
-- Identified location of all installed modules that are being imported by python scipt 
- "G:\MAX-Filer\Research\Labs-kbuzard-S18\kfunctions\Three Stage K-functions\K-function Local_3Stage Trial" they are located at "C:\Python4Arc\ArcGIS\Lib\site-packages"
-
-- packages  “geopandas” and "shapely" missing from "C:\Python4Arc\ArcGIS\Lib\site-packages"
-
-- Decided to attempt to install packages "shapely" and "geopandas" to C:\Apps-SU\Anaconda3 so that we can test run the python script Local_3Stage.py and see if it will get past the module importation. 
-
-— Began Attempt to install package “shapely”. Opened Anaconda command prompt and entered “conda install shapely”. 
-
-
-- package "shapely" successfully installed to "C:\App-SU\Anaconda3".
-
-- when attempting to instal geopandas with "conda install geopandas"  an inconsistent environment error arised.
-
-- after reviewing stackoverflow I followed the suggestion of updating all modules with command "conda update --all".
-
-- the update was interupted due to a lack of administrator privaledge on my user. This corrupeted file "C:\Apps-SU\Anaconda3" 
 
 06/01/2020
-- I had to work with ICT to resolve the corrupted file and disentagle the conflicting dependancie. The corrupted file was renamed "C:\Apps-SU\Anaconda3-old" and ICT created new file "C:\Apps-SU\Anaconda3" with reinstall of Anaconda and all packages that had been installed to "C:\Apps-SU\Anaconda3-old" this includes the shapely package installed earlier but not geopandas 
+- I had to work with ICT to resolve a corrupted file and disentagle conflicting dependancie. The corrupted file was renamed "C:\Apps-SU\Anaconda3-old" and ICT created new file "C:\Apps-SU\Anaconda3" with reinstall of Anaconda and all packages that had been installed to "C:\Apps-SU\Anaconda3-old" this includes the shapely package installed earlier but not geopandas 
 
 - after working with ICT spyder4 was not opening, so the files located at "C:\Users\YOUR_USER_NAME\.spyder-py3\"   " C:\Users\YOUR_USER_NAME\.ipython" "C:\Users\YOUR_USER_NAME\.matplotlib"   were all deleted with copies placed in "C:\Users\aramosri\documents"
 
@@ -29,57 +9,22 @@
 
 - upon opening spyder i was asked if I wanted to install "Kite" which "provides better and more accurate code completion in its editor when using packages like matplotlib numpy and pandas (Which are all being used in our python scripts) -- will ask prof buzard if she believes we should install. NOTE - we decided not to use "Kite". 
 
-- again trying to see if i can get "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" script to run past the importation of modules, decided to begin by downloading the packages as prompted at the top of the script
+- again trying to see if i can get "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" script to run past the importation of modules, decided to begin by downloading the packages as prompted at the top of the script. This was being done because due to conflicting module dependancies, as noted in line 3, I was unable to install the packges needed to run the "K-function Local_3Stage.py" program which is the principal modeling program for this project.
 
-- attemped to download package "plotnine" with command "conda install -c conda-forge plotnine"
+- as directed at the top of "K-function Local_3Stage.py" I attemped to download package "plotnine" with command "conda install -c conda-forge plotnine" in the anaconda command prompt 
 
 - install successful, package downloaded to C:\Apps-SU\Anaconda3\pkgs
 
 - attempted to download package "geopandas" with command "conda install -c conda-forge geopandas"
 
--when solving the environment for the download of package geopandas the following message was outputted
-"
-Solving environment: failed with initial frozen solve. Retrying with flexible solve.
-Solving environment: failed with repodata from current_repodata.json, will retry with next repodata source.
-Collecting package metadata (repodata.json): done
-Solving environment: done
-"
-
 - package "geopandas" installed to C:\Apps-SU\Anaconda3\pkgs
 
 06/04/2020
-- attempted to run "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" and was able to complete the process all modules imported, simulations completed, and shapefiles saved
+- attempted to run "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\K-function Local_3Stage Trial" and was able to complete the process all modules imported, simulations completed, and shapefiles saved. Note this was just a trial program and did not run on any significant data or compute calculations. More problems with handaling data files will arise later as I transition to running the "K-function Local_3Stage.py" progam. 
 
--attempting to open shapefiles with the following comand in spyder "gpd.read_file(G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp)"
-
--invalid syntax error returned
-
-- attemped the same thing by running the following code
-"
-import geopandas as gpd 
-import matplotlib.pyplot as plt
-gdf = gpd.read_file(G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp)
-print(gdf.shape)
-print(gdf.head())
-gdf.plot()
-plt.show()
-"
-- again returned invalid syntax error 
-
-- found syntax error and corrected code, adding ' to each end of the file name G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp resulting in the following code
-"
-import geopandas as gpd 
-import matplotlib.pyplot as plt
-gdf = gpd.read_file('G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions\SHAPEFILES\POPULATION_POPULATION_Points.shp')
-print(gdf.shape)
-print(gdf.head())
-gdf.plot()
-plt.show()
-"
-- code ran succesfully and I was able to see the scatter plot diagram
 
 06/05/2020
-(The next steps in the documentation are redundant because I was working on the wrong files. Skip to line 143 of documentation)
+(The next steps in the documentation are redundant because I was working on the wrong files. Skip to line 96 of documentation)
 - attempted to run script "G:\MAX-Filer\Collab\Labs-kbuzar-S18\Admin\kfunctions\K-function Local_Scipy.py" in spyder and a syntax error was retunred
 "
 runfile('G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/kfunctions/K-function Local_Scipy.py', wdir='G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin/kfunctions')
@@ -213,15 +158,15 @@ both programs are written August 8th but there is no documentation for why
 
 - found the origin of ca_wac_S000_JT00_2002.csv.gz, https://lehd.ces.census.gov/data/lodes/LODES7/ca/wac/  (ask prof. buzard if she can help clarify what the content of this file is) 
 
-
+eing able to remake the zipcode with manufacturing employment shapefil
 06/13/2018
-- returning to the issue GoodLabs_New.shp not plotting anything when added as a layer to a blank ArcMap map, when I tested GoodLabs.shp the original file, the points do appear plotted on the map. 
+- returning to the issue GoodLabs_New.shp not plotting anything when added as a layer to a blank ArcMap map, when I tested GoodLabs.shp the original file, the points do appear plotted on the map. This issue is what I started to explore when trying to reslove the infinite loop issue mentioned on line 107 & 120
 
--changed projected coordinate system (PCS) for GoodLabs.shp in ArcGis to make it compatibale with the PCS of CA_Block_New (NAD 1983 Contiguous USA Albers) the outputted file with the updated PCS is GoodLabs_Project.shp located with the above mentioned files at "G:\MAX-Filer\Research\Labs-kbuzard-S18\Admin\CARR\California\Base Data" (do you want me to outline the steps for changing the PCS in ArcGis?) 
+-changed projected coordinate system (PCS) for GoodLabs.shp in ArcGis to make it compatibale with the PCS of CA_Block_New (NAD 1983 Contiguous USA Albers) the outputted file with the updated PCS is GoodLabs_Project.shp located with the above mentioned files at "G:\MAX-Filer\Research\Labs-kbuzard-S18\Admin\CARR\California\Base Data" (GoodLabs_Project.shp becomes irrelevant later on as I come up with a better way to solve the geometry issues) 
 
-- at this point both GoodLabs.shp and CA_Block_New.shp open and are plotted correctly in arcmap. the zip code data file hoewver is not projecting properly in arcmap. 
+- at this point both GoodLabs.shp and CA_Block_New.shp open and are plotted correctly in arcmap. the zip code data file hoewver is not projecting properly in arcmap. Again, here I am assuming that whatever is causing this projection error may also be contributing to the infinite loop mentioned on lines 107 & 120
 
--having a lot of trouble being able to remake the zipcode with manufacturing employment shapefile. When I add the manufa emp data in python then I have issues with the CRS in arcgis where either
+-Trying to remake the ZCTA file with manufacturing data to see if projection and coordinate issues can be solves but having a lot of trouble doing it. When I add the manufa emp data in python then I have issues with the CRS in arcgis where either
 1. i change the CRS in python but then it doesnt project the data properly in arcgis
 2. i do only the join in python and try to change the CRS in arcgis, once I change the CRS again the data ceases to be projected 
 3. i try to do the join in arcgis and then attempt to change CRS, can't even do the join
@@ -229,12 +174,12 @@ both programs are written August 8th but there is no documentation for why
 
 - wrote program ZCTA_JOIN_Manufa_EMP.py to join the manufacuturing and employment data to the zipcode shapefile 
 
-- using ZCTA_JOIN_Manufa_EMP.py I joined DEC_00_SF3_DP3_with_ann.csv to tl_2010_06_zcta500.shp and exported the result as CA_ZCTA_Man_New.shp located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis"
+- using ZCTA_JOIN_Manufa_EMP.py I joined DEC_00_SF3_DP3_with_ann.csv to tl_2010_06_zcta500.shp and exported the result as CA_ZCTA_Man_New.shp located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis" (ZCTA_Man_New.shp becomes irrelevant as I find a better way to produce the zip code data later on)  
 
-- CA_ZCTA_Man_New projects onto ArcMap when placed by itself but when GoodLabs_Project.shp and CA_Block_New.shp are added as a layers then it becomes clear that the data from the join is messing with the scaling and size of the map. I think that when we are joining the manufacturing employment data to the zip code data we are messing up the size and scaling of the map. 
+- CA_ZCTA_Man_New projects onto ArcMap when placed by itself but when GoodLabs_Project.shp and CA_Block_New.shp are added as a layers then it becomes clear that the data from the join is messing with the scaling and size of the map.  
 
 6/14/2020
-- redownloaded Zip code data from https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2010&layergroup=ZIP+Code+Tabulation+Areas and saved it in "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis" as tl_2010_06_zcta500_New.shp
+- redownloaded Zip code data from https://www.census.gov/cgi-bin/geo/shapefiles/index.php?year=2010&layergroup=ZIP+Code+Tabulation+Areas and saved it in "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis" as tl_2010_06_zcta500_New.shp. I did this to check and see if the issue with our CRS might be originating from some corruption in the old zip code data file
 
 - file saved as a zipped file, unzipped using 7zip and files are now located at "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysi\tl_2010_06_zcta500_New"
 
@@ -244,7 +189,7 @@ both programs are written August 8th but there is no documentation for why
 
 - projected CA_ZCTA_Manufa_Project.shp onto a blank arcgis map, then added the layers of CA_Block_New.shp and GoodLabs.shp and all three projected together. However, when I tried to run the python script I still got the same infinite loop of similations error. 
 
-- most likly problem is that we are only changing the PCS and not the CRS. (See line 253 for more info)
+- most likly problem is that we are only changing the PCS and not the CRS.
 
 
 6/15/2020
@@ -351,7 +296,7 @@ RuntimeError: b'no arguments in initialization list'"
 
 - opened spyder and ran program "K-function Local_3Stage.py" got infinite simulation error loop again. 
 
-- will repeat all previous steps from today's documentation on my personal computer to see if infinite loop simulation error occurs 
+- will repeat all previous steps from today's documentation on my personal computer to see if infinite loop simulation error occurs. Did this to see if the source of the error might be something in the set up of the VM I am using. Ultimately, it was not and the true source of the error.
 
 7/27/2020
 - reviewing data in "DEC_00_SF3_DP3_with_ann.csv" and noticed that a few cells with 0 manufacturing employment have ZCTAs with letters "XX" and "HH" in them. will do a find a replece to remove all alphabetic letters from Id2 column and delete all data columns not being utilized by 3stage program. Saved resulting csv file as "DEC_00_SP3_DP3_with_ann2.csv". Note. this changes the data type of the columns into objects must revert types to integer and strings in python script 
@@ -371,10 +316,7 @@ Tab2 = Tab2.astype(convert_dict)
 - ran program Local_3Stage_kfunction.py for 2 simulations and it successfully saved a shapefile "Manufa_Emp_C000_Points.shp". Infinite simulation loop error now solved. 
 
 7/28/2020
-- ran program successfully for 499 simulations. Shapefile exported. However, there is an issue with the GoodLabs_New.shp file where the labs are not projecting correctly in ArcGis. Problem corrected by using GoodLabs_Project.shp instead. 
-
-7/30/2020
-- ran program successfully for 499 simulations, importing GoodLabs_Project.shp. However, this means that the code producing the labs point shapefile is not working properly and needs to be reviewed. 
+- ran program successfully for 499 simulations. Shapefile exported. However, there is an issue with the GoodLabs_New.shp file where the labs are not projecting correctly in ArcGis. Problem corrected by using GoodLabs_Project.shp instead. Files will be changed later on for files produced by python scripts to automate any necessary data manipuation in R or ArcGis 
 
 8/1/2020
 - when going into arcgis to plot the outputed files, the resulting shapefile created by the 3Stage_Local.py program is not the clusters but just an exported points file. 
@@ -494,4 +436,83 @@ I am not installing arcpy because it appears (see line 449) that a previous chan
 
 - all data preparation now automated in python
 
-- need to schedule a zoom call to work on the issue with the k-fucntion local program not exporting a cluster file 
+- need to schedule a zoom call to work on the issue with the k-fucntion local program not exporting a cluster file
+
+8/30/2020
+
+- still troubleshooting lack of exported cluster file from "K-function 3Stage_Local.py" program. Will test out the follwoing ideas from Jake Carr.
+1. Double check that the lab coordinates are not too truncated, simimlar issue caused problems earlier on.
+
+2. make sure line 94 of the "K-function Local_3Stage.py" is working correctly. Meaning, it is correctly calculating the numnber of labs withitn the .5 1 5 and 10 mile radius of each lab. 
+
+9/2/2020
+- no issue found with the truncation of the xy coordinates
+
+- opening CA_Block_New in ArcMap to check the cluster counts for labs at .5 1 5 and 10 mile radius.
+
+- opening obsk data table in spyder variable expolorer to view if lab cluster counts match lab cluster countsI found in arcgis.
+
+- lab cluster counts do not match
+
+- will begin exploring how cluster counts are created
+
+- cluster counts are created by .kfunction() in kfunction_3stage
+
+- trying to understand how counts are created.
+
+9/6/2020
+- opening CA_Block_New in ArcMap to check the cluster counts for labs at .5 1 5 and 10 mile radius.
+
+- opening obsk data table in spyder variable expolorer to view if lab cluster counts match lab cluster countsI found in arcgis.
+
+- lab cluster counts do not match
+
+- will begin exploring how cluster counts are created
+
+- cluster counts are created by .kfunction() in kfunction_3stage
+
+- trying to understand how counts are created.
+
+9/9/2020
+- I am having trouble replicating the creation of the array which holds these point counts when I try to use simplified data. I believe this may mean there is an issue in the code on lines 130-133 of kfunction_3stage.py. (no issue found in code).
+
+- There may be an issue with the way in which the distance matrix is being calculated. This issue might be on the code side or the data side and is the one I am currently investigating.
+
+- after reviewing the distance matrix through the variable explorer in spyder the data appears to be incorrect and it is largely either 0 or *** and has little to no variation in between
+
+- reviewing how distance matrix is calculated
+
+- no issue with matrix construction fuctinos so the issue must stem from the data being fed into the function
+
+- issue identified with the way in which the XY coordinates are being imported. For some reason, the coordinates imported do not match the coordinates from the data as seen in arcgis.
+
+- exploring the data import to better understand why the coordinates do not match
+
+- on line 40 of kfunction Local_3Stage.py we define a variable,
+  "pFeatures = gpd.read_file(points).filter(['REF_ID', 'SIC', 'geometry'], axis = 1)".
+  
+- Here "geometry" contains the data for the XY coordinates. However, the data it contains when reviewed in Spyder's variable explorer does not match the data from arcgis that is visible in the data attribute table. 
+
+9/10/2020
+
+- "geometry" is an geopandas array created when a we use geopandas to import a shapefile. The array contains the information for the structure of the geometric objects within the shapefile. This is defined by a shape and coordinates of the shapes centroid or the coordinates of the point if the shape is a point.
+
+- our CA_Lab_Data.shp file has centroid locations saved under the XY coordinates, however, geopandas is constructing its own centroid locations for the geometry index
+
+- could resolve issue by either changing the reference variables on lines 39 77 and 78, or I can try to correct the way in which geopandas is creating geometries for the file.
+
+9/11/2020
+
+- corrected all geometries by changing the code in GoodLabs_CRS_Trans.py. I deleted lines 18 - 21 and replaced it with the following code...
+
+  "# Create GeoDataFrame with new CRS
+     geometry = pFeatures.geometry
+     geo_df2 = gpd.GeoDataFrame(data2, geometry = geometry)
+     geo_df2 = geo_df2.to_crs('epsg:5070') 
+     geo_df2 = geo_df2.set_geometry(geometry)"
+
+- now the CRS is set properly so that when geopandas reads in the file during runtime of K-function Local_3Stage.py it will be able to properly construct the coordinate pairs under geomentry.
+
+- when running program no cluster file is exported and point resutls appear to still be the same as before where we are either getting 0.01 or 1 for the cluster significance
+
+9/12/2020
