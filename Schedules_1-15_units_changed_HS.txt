@@ -1,5 +1,5 @@
 Schedule	Paragraph	Description	H-S Extra	Specific_HS	Units_HS	Ad_Valorem_HS	Extra	Specific_Geneva	Units_Geneva	Ad_Valorem_Geneva	Specific_Annecy	Units_Annecy	Ad_Valorem_Annecy	Specific_Torquay	Units_Torquay	Ad_Valorem_Torquay
-1	1234	Acetic acid containing by weight of acetic acid: Not over 65%	"Missing: arsenic acid 3 cents per pound; gallic acid 6 cents per pound; pyrogallic acid, 12 cents per bound"	1.375	1			0.5	1					0.5	1	
+1	1	Acetic acid containing by weight of acetic acid: Not over 65%	"Missing: arsenic acid 3 cents per pound; gallic acid 6 cents per pound; pyrogallic acid, 12 cents per bound"	1.375	1			0.5	1					0.5	1	
 1		Acetic acid containing by weight of acetic acid: Over 65%		2	1			0.75	1					0.625	1	
 1		Acetic anhydride		3.5	1			1.75	1					1.75	1	
 1		Boric acid		1	1						0.5	1		0.5	1	
