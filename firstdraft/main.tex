@@ -1,4 +1,5 @@
 \documentclass[12pt,letterpaper]{article}
+\setlength{\marginparwidth}{2cm}
 \usepackage[margin=1.25in]{geometry}
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
@@ -40,9 +41,8 @@ In this paper I reaffirm the presence of significant lab agglomeration when comp
 \clearpage
 
 \section{Introduction}
-The significance of the agglomeration of R\&D labs has been researched and reaffirmed on multiple occasions(Audrescht \& Feldman, (1996)\footnote{D.B. Audrescht and M.P. Feldman. R&d spillovers and the the geography of innovation and production,
-1996}; Ellison \& Granger, (1997)\footnote{G. Ellison and E.L. Glaser. Geographic concentration in u.s. manufacturing industries: a dartboard
-approach, 1997.}; Rosenthal \& Strange, (2001)\footnote{ S. Rosenthal and W.C. Strange. The determinants of agglomeration, 2001.};  Buzard et al., (2017)\footnote{Buzard, Kristy, Carlino, Gerald A., Hunt, Robert M., Carr, Jake K., Smith, Tony E., 2017.The agglomeration of American R&D labs. J. Urban Econ. 101, 14–26.}). Such agglomerations have been attributed largely to three advantages gained from clustering: access to thick factor markets, economies of scale, and the presence of knowledge spillovers. 
+The significance of the agglomeration of R\&D labs has been researched and reaffirmed on multiple occasions(Audrescht \& Feldman, (1996)\footnote{D.B. Audrescht and M.P. Feldman. R\&D spillovers and the the geography of innovation and production,
+1996}; Ellison \& Glaeser, (1997)\footnote{G. Ellison and E.L. Glaeser. Geographic concentration in u.s. manufacturing industries: a dartboard approach, 1997.}; Rosenthal \& Strange, (2001)\footnote{ S. Rosenthal and W.C. Strange. The determinants of agglomeration, 2001.}; Buzard et al., (2017)\footnote{Buzard, Kristy, Carlino, Gerald A., Hunt, Robert M., Carr, Jake K., Smith, Tony E., 2017.The agglomeration of American R\&D labs. J. Urban Econ. 101, 14–26.}). Such agglomerations have been attributed largely to three advantages gained from clustering: access to thick factor markets, economies of scale, and the presence of knowledge spillovers. 
 \par
 Up until 2016, research on clustering significance was typically conducted using fixed spatial boundaries, which made cluster results less significant and made identifying cluster locations impossible. However, Buzard et al. developed a new point pattern method that makes it possible to identify cluster locations without, fixed spatial boundaries. Using this new point pattern method, Buzard et al. analyze the agglomeration of the top 1000 firms in California and the Northeast United States, identifying 3 major clusters in California and 4 in the Northeast. However, limiting the investigation to only the top 1000 firms may lead to an underestimate of the size and intensity of clusters. Moreover, an underestimate of the area of the clusters in a region, could have a significant impact on the results of an analysis of localized knowledge spillovers, that rely on clusters for geographic boundaries. 
 \par
@@ -50,7 +50,7 @@ In this paper I extend Buzard et al's work, on R\&D clustering in the state of C
 \par 
  Through my extension of Buzard et al.'s analysis, on California lab agglomeration, I identify the same three principle clusters as Buzard et al. and establish the presence of two additional clusters, in Santa Barbara and Los Angeles. Indicating, that the limitations of Buzard et al.'s data does contribute to an underestimate of the agglomeration present within California. On the other hand, Buzard et al. find that the rate of agglomeration of R\&D labs attenuates as the spatial scale being observed increases. I am able to reaffirm this finding, and note that even with the increased quantity of labs observed, the rates of attenuation follow roughly the same pattern as that demonstrated by Buzard et al.. I consider this finding to indicate that the focal points of R\&D lab agglomeration, within California, are not around only the largest firms. Moreover, I find that the most common spatial scale for clustering is at one and two miles.  
 \par
-In a separate paper, published in 2020, in the Journal of Regional Science and Urban Economics (RSUE henceforth), Buzard et al.\footnote{K. Buzard, G.A. Carlino, R.M. Hunt, J.K. Carr, and T.E. Smith. Localized knowledge spillovers: Evidence from the agglomeration of american r&d labs and patent data, 2017.} test for the presence of localized knowledge spillovers, inside of the clusters which they identified in their JUE paper. Buzard et al. find evidence for the presence of increased knowledge spillovers within highly concentrated areas of R\&D, noting that patents within lab clusters are three to six times more likely to cite a patent within that cluster than one in a control group. 
+In a separate paper, published in 2020, in the Journal of Regional Science and Urban Economics (RSUE henceforth), Buzard et al.\footnote{K. Buzard, G.A. Carlino, R.M. Hunt, J.K. Carr, and T.E. Smith. Localized knowledge spillovers: Evidence from the agglomeration of american R\&D labs and patent data, 2017.} test for the presence of localized knowledge spillovers, inside of the clusters which they identified in their JUE paper. Buzard et al. find evidence for the presence of increased knowledge spillovers within highly concentrated areas of R\&D, noting that patents within lab clusters are three to six times more likely to cite a patent within that cluster than one in a control group. 
 \par 
 I extend the work of Buzard et al. by analyzing the clusters formed when considering all R\&D labs in California. When considering the increased set of labs, and as such cluster area, I find that the patents inside clusters are only two times more likely to cite a patent within the same cluster. Additionally, in line with Buzard et al., I find that the stregth of knowledge spillovers varies significantly between clusters. However, in contrast to Buzard et al., I see no attenuation in the presence of these knowledge spillovers, when increasing the spatial scale of analysis from five to ten miles. I take these results to indicate that for the most part, within California, larger firms are better suited at taking advantage of localized knowledge spillovers than smaller firms. This could be largely due to the fact that larger firms have more researchers and can afford to locate themselves within the areas of highest economic, research, and social activity.  
 \par 
@@ -68,7 +68,7 @@ their 1992 article. Glaeser et al., "Growth in Cities", Journal of Political Eco
 \section{Data}
 Data for this project was collected from a variety of sources. The two principle data sets were, a digitized version of the 1998 DART and NBER patent data from 1996 - 2006. Geographic data and manufacturing employment numbers were collected from the Integrated Public Use Microdata Series\footnote{Steven Manson, Jonathan Schroeder, David Van Riper, Tracy Kugler, and Steven Ruggles. IPUMS National Historical Geographic Information System: Version 15.0 [dataset]. Minneapolis, MN: IPUMS. 2020. http://doi.org/10.18128/D050.V15.0} (IPUMS henceforth). In order to prepare the data for the point pattern analysis, and the patent citations analysis, I leveraged different computing techniques to collect any missing data, prepare it, and ultimately integrate it into the computational programs that were designed to run these analyses. 
 \subsection{Digitized DART Data}
-Thanks to Ivan Png\footnote{Png, Ivan, 2019, "U.S. R&D 1975-1998: A New Dataset", https://doi.org/10.7910/DVN/7QYFFB, Harvard Dataverse, V2, UNF:6:n3RVowZQLU7cY6PkW77z9g== [fileUNF]}, the vast majority of the 1998 DART was already digitized. However, Png's data set did not contain fine grained address data for each lab that was needed to run the point pattern analysis and instead had zip codes associated with each R\&D lab. Nevertheless, Png facilitated my collection of the address data by providing me with a PDF scan of the entire 1998 DART. 
+Thanks to Ivan Png\footnote{Png, Ivan, 2019, "U.S. R\&D 1975-1998: A New Dataset", https://doi.org/10.7910/DVN/7QYFFB, Harvard Dataverse, V2, UNF:6:n3RVowZQLU7cY6PkW77z9g== [fileUNF]}, the vast majority of the 1998 DART was already digitized. However, Png's data set did not contain fine grained address data for each lab that was needed to run the point pattern analysis and instead had zip codes associated with each R\&D lab. Nevertheless, Png facilitated my collection of the address data by providing me with a PDF scan of the entire 1998 DART. 
 \par 
 To extract address data from the scans I used an optical character recognition software to convert the text in the scans into a digitized text document. Using regular expressions I was able to extract lab addresses, firm names and identifying lab codes from the DART\footnote{Directory of American Research and Technology, 23rd Ed. New York: R.R. Bowker (1999).}. I then used Google Maps' API to geo-code these addresses and store the coordinates. Finally, I integrated this point location data into the larger digitized DART data set created by Png. Ultimately, leaving me with a data set of about twelve thousand geo-coded labs around the country, the firm they are a part of, and the research fields they operate in. 
 \subsection{Cluster Citation Data}\label{sec:2.2}
@@ -127,12 +127,12 @@ To construct the test statistic for the matching rate tests in my knowledge spil
 \par 
 Let \(m_i\) denote the number of patents within these \(\bar{\eta}_i\) patents for which the zip-code centroid of the residential address of the first inventor listed on the citing patent is located in the same core cluster as the originating patent it cites. Thus, the treatment proportion, or fraction of all such patents at scale \(d\), is given by
 \begin{equation}
-    p = \frac{\sum_{i=1}^{\eta_o}m_i}{\sum_{i=1}^{\eta_o}\eta_i} = \frac{1}{\eta}\sum_{i=1}^\eta_0m_i
+    p = \frac{\sum_{i=1}^{\eta_o}m_i}{\sum_{i=1}^{\eta_o}\eta_i} = \frac{1}{\eta}\sum_{i=1}^{\eta_0} m_i
 \end{equation}
 \par 
 In a similar vain, let \(\bar{m}_i\) denote the number of match control patents \(\bar{c}_{i,j}\) in which the zip-code centroid of the residential address of the first inventor is located in the same cluster as the originating patent that is cited by the treatment patent. The proportion for the control is given by
 \begin{equation}
-    \bar{p} = \frac{\sum_{i=1}^{\eta_o}\bar{m}_i}{\sum_{i=1}^{\eta_o}\eta_i} = \frac{1}{\eta}\sum_{i=1}^\eta_0\bar{m}_i
+    \bar{p} = \frac{\sum_{i=1}^{\eta_o}\bar{m}_i}{\sum_{i=1}^{\eta_o}\eta_i} = \frac{1}{\eta}\sum_{i=1}^{\eta_0} \bar{m}_i
 \end{equation}
 The test statistic I use will simply be the difference between these proportions \(p-\bar{p}\). Under a null hypothesis of "no localization of knowledge spillovers", this difference of independent proportions is well known to be asymptotically normal with mean zero. Thus, it provides a well-defined test statistic. 
 \par 
@@ -166,7 +166,7 @@ In this section I will explore the general clusters and subsequent knowledge spi
 10   & 1224 & 0.107445   & 0.0636253 \\ \hline
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:tab1}
 \end{table}
 
 Table 1, above,  presents the results from my local analysis on the lab agglomeration of all California based labs listed in the 1998 DART. The second column, "Mean Intensity P-Value" is the measure of the average resulting p-values, from the local analysis, of labs within each cluster. As is evident from the table, the values attenuate rapidly as the spatial scale of observation gets larger. The most intense clustering is occurring at a quarter mile with almost every single lab within those clusters being a maximally significant point at the confidence level of \(p=.005\). The third column, "HHI", reports the the Herfindahl-Hirschman index for labs contained within clusters at each radius. The index is calculated using the proportion of total labs doing research in each field in the clusters at each radius over the total number of labs contained within each cluster at each radius, as a substitute for market share. For the most part the HHI indices for each cluster radius are relatively constant and highly diverse\footnote{Perfect diversity using the same method of calculation would range from .003 for the quarter mile clusters to .0008 for the ten mile clusters}. Suggesting, that as the scale of observation reduces, the diversity present within those scales stays the same. I take this as an indicator that lab agglomeration is mostly heterogeneous and there isn't a significant agglomeration forces bringing like researchers in particular closer together. 
@@ -183,20 +183,20 @@ Mean P-value   & 0.487021 & 0.355727 & 0.301205 & 0.288767 & 0.285313 & 0.300814
 \end{tabular}
 }
 \caption{}
-\label{tab:my-table}
+\label{tab:2}
 \end{table}
 Table 2, above, reports the mean p-values for all labs tested in the general cluster analysis. The first row is each of the cluster radii which were tested, and the second row is the reported mean p-value over all labs tested at each cluster radius. I consider these mean p-values to be an indicator of the likelihood of observing a significant lab clustering at each spatial scale. Relatively speaking, the results in table 2 indicate that the most common scale for spatial clustering of labs in California is at one and two miles. Suggesting, that while lab clustering is most intense at the smaller spatial scales, those intense smaller clusters are not pulling in all labs. 
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{LA.png}
     \caption{5 and 10 Mile Clusters, San Diego, LA, and Santa Barbara}
-    \label{fig:my_label}
+    \label{fig:lab1}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{SF.png}
     \caption{5 and 10 mile clusters San Francisco}
-    \label{fig:my_label}
+    \label{fig:lab2}
 \end{figure}
 Figures 1 and 2 plot the locations of the clusters identified both at the five and ten mile spatial scales. As you can see the vast majority of the five mile clusters are held within the ten mile clusters. However, there are still pockets of independent five mile clusters such as in Northern Los Angeles. For the two ten mile clusters identified around Los Angeles, I think it is important to note that they are both on coastal areas away from the city center. In fact, all ten mile clusters identified in California reside on the coastline. This could largely be due to the fact that California's largest cities are all on the coast. Moreover, this serves to reinforce the use of these clusters as geographic boundaries for my knowledge spillover analysis since I am relying on the zip-code centroid of the \textbf{residential} address of inventors. If identified cluster locations significantly deviated from the largest population centers, clusters would serves as poor demarcations for the boundaries of localized knowledge spillovers since they wouldn't capture the patents that are actually being devised in the labs analyzed. 
 
@@ -205,13 +205,13 @@ Figures 1 and 2 plot the locations of the clusters identified both at the five a
     \centering
     \includegraphics[width=9cm]{RLA.png}
     \caption{10 mile general clusters with select 5 Mile Research Field Clusters in SD LA and SB}
-    \label{fig:my_label}
+    \label{fig:lab3}
 \end{figure}
 \begin{figure}[H]
     \centering
     \includegraphics[width=9cm]{RSF.png}
     \caption{10 mile general clusters with select 5 mile research field clusters in SF}
-    \label{fig:my_label}
+    \label{fig:lab4}
 \end{figure}
 \par 
 Figure 3 and 4 plot the 10 mile general clusters (large yellow outlines), the five mile clusters for the five research fields with the most labs\footnote{Full table with lab counts for each research field is in Table 8 in the appendix} in California (smaller multi-color outlines), and the five mile clusters for the five research fields with the fewest labs in California, above 30 (solid multi-color fill). From both figures it is apparent labs cluster intensely near similar labs. 
@@ -245,7 +245,7 @@ I report the results of the strength of knowledge spillovers within the five mil
 \end{tabular}
 }
 \caption{}
-\label{tab:my-table}
+\label{tab:3}
 \end{table}
 \par
 Of particular note, in table 3, are the differentials for Santa Barbara and Los Angeles North, both demonstrate location differentials of more than 20. Meaning that for those two particular clusters the treatment group cited a patent within the same cluster 20 times more often than the control group did. However, both of these clusters are relatively small when considering the number of patents and labs contained within them. On average the strength of the knowledge spillovers identified within the five mile general clusters is a location differential of 2.3 as reported by the \textbf{"Total"} row and \textbf{K} column. As such, the strength of knowledge spillovers identified here are significantly smaller than those identified by Buzard et al. 
@@ -310,7 +310,7 @@ Of particular note, in table 3, are the differentials for Santa Barbara and Los 
 \end{tabular}
 }
 \caption{}
-\label{tab:my-table}
+\label{tab:4}
 \end{table}
 
 Table 4 above reports the results for the knowledge spillover analysis done using clusters with a ten mile radius. All columns are organized in the same way as in table 3. The results of note here are mainly in Santa Barbara. The location differential for the ten mile cluster in Santa Barbara is still incredibly high. However, it has gone down significantly from the amount reported for the 5 mile cluster in table 3. I take this as an indicator that the strength of knowledge spillovers attenuate with distance. However, the total strength of knowledge spillovers at the 10 mile cluster radius is almost exactly the same as that foe the 5 mile clusters. Moreover, the strong knowledge spillovers that appeared in Los Angeles North disappear and have little affect on the strength of knowledge spillovers in Los Angeles when considering 10 mile clusters. This suggests that the attenuation of knowledge spillovers is more complicated than suggested by Buzard et al.. My results suggest that the attenuation of knowledge spillovers has to do with both the distance at which they are observed and the quantity of patents being issued in the space observed. 
@@ -326,7 +326,7 @@ Table 4 above reports the results for the knowledge spillover analysis done usin
 \end{tabular}%
 }
 \caption{}
-\label{tab:my-table}
+\label{tab:5}
 \end{table}
 Table 5 aggregates the results from tables 3 and 4 and presents the total number of originating and citing patents at each spatial scale. The \textbf{"Treatment Proportion"} and \textbf{"Control Proportion"} columns give the proportion of treatment and control patents which were attributed to an inventor living within the same cluster as the originating patent at each spatial scale. 
 Interestingly, as mentioned earlier, the location differentials are relatively constant when expanding the scale of observation from five to ten miles. The lack of attenuation in the strength of knowledge spillovers from one spatial scale to another indicates to me that by increasing the geographic area of analysis with more labs we may have reached a lower bound to the strength of knowledge spillovers within geographic boundaries. This is particularly reinforced by the fact that the location differentials I observe are comparable to those observed by JTH\footnote{In their seminal 1993 paper on knowledge spillovers, JTH find an average location differential at the state level of 2. Similar to my location differential at both five and ten miles.} at the state level, an even larger geographic boundary from what I have analyzed.  
@@ -347,7 +347,7 @@ In an attempt to further understand the driving forces behind lab agglomeration 
 5                    & other & 0.000257537 & 2.72713e-05 & 0.215238 & 0.174072 & 0.118359 & 0.881641 & 0.162128 & 0.837872 \\ \hline
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:6}
 \end{table}
 The results of my analysis are presented above in table 6. Columns \textbf{A} and \textbf{B} report the proportion of citing patents which cite a patent from the same cluster on a per lab basis. Essentially, this is the proportion of citations coming from the same cluster for each technology category adjusted for the amount of labs in each technology category. I take these results as indicators of the technological categories which are most driving the knowledge spillovers within the clusters at each scale. As is clear by the results in both columns \textbf{A} and \textbf{B}, innovation in chemicals technology is driving the knowledge spillovers I identify at five and ten miles. More importantly though, the two most significant contributors to knowledge spillovers, chemical technology and computational technology, both have drastically different proportions of labs within their technical clusters vs outside of those clusters as shown in columns
 \textbf{E, F, G} and \textbf{H}. I take this to indicate that different technology categories take advantage of different types of spillovers. Seeing as research into chemical technology gas more than 80\% of its labs outside of technical clusters I would claim that such research primarily takes advantage of heterogeneous Jacobs style knowledge spillovers. On the other hand, research into computational technology has only around 60\% of its labs outside of a technical cluster, indicating, such research may benefit more from the homogeneous MAR style spillovers. 
@@ -433,7 +433,7 @@ Steven Manson, Jonathan Schroeder, David Van Riper, Tracy Kugler, and Steven Rug
 \end{tabular}
 }
 \caption{}
-\label{tab:my-table}
+\label{tab:7}
 \end{table}
 
 \begin{table}[H]
@@ -478,10 +478,10 @@ RECR  & 8     \\
 TAXO  & 1     \\ \hline
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:8}
 \end{table}
 
-\begin{table}[]
+\begin{table}[tbp]
 \scriptsize
 \centering
 \begin{tabular}{rlrr}
@@ -523,7 +523,7 @@ TAXO  & 1     \\ \hline
 33 & TAXO  & 0         & 1         \\ \hline
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:9}
 \end{table}
 
 \begin{table}[H]
@@ -557,7 +557,7 @@ Technological Category &
   
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:10}
 \end{table}
 
 \begin{table}[H]
@@ -601,7 +601,7 @@ RECR  & RECREATION                     \\
 TAXO  & TAXONOMIC STUDIES             
 \end{tabular}
 \caption{}
-\label{tab:my-table}
+\label{tab:11}
 \end{table}
 \end{document}
 
