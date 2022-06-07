@@ -1,5 +1,5 @@
 ---
-title: "Cateloging ~ G-Drive"
+title: "Cataloging ~ G-Drive"
 output: pdf_document
 ---
 
@@ -13,7 +13,7 @@ Authors: Kirsten Riley and Jorge Valdebenito
 
 Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/webclient/> in the search bar.
 
-"G:\MAX-Filer\Collab\Labs-kbuzard-S18"
+"G:/MAX-Filer/Collab/Labs-kbuzard-S18" (you may have to change to backslashes)
 
 ## The ramosRivera Folder
 
