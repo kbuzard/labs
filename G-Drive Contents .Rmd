@@ -1,0 +1,130 @@
+---
+title: "Cateloging ~ G-Drive"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# The G-Drive Contents
+
+Authors: Kirsten Riley and Jorge Valdebenito
+
+Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/webclient/> in the search bar.
+
+"G:\MAX-Filer\Collab\Labs-kbuzard-S18"
+
+## The ramosRivera Folder
+
+### bg06_d00_shp Folder
+
+has three documents - content unknown, cannot open on my computer
+
+\~ shaping files open with python??
+
+-   **bd06_d00**
+
+-   **bg06_d00**
+
+-   **bg06_d00.shx**
+
+### DART_IRL Scans Folder
+
+Has two Pdfs copies of information on R&D labs and their location
+
+-   **1979IRL16** - Industrial Research Laboratories of the US, 16th Edition 1979
+
+    -   Original document containing information on the Industrial Research Laboratories of the US. Has information on 9,907 R&D facilities belonging to 6,323 organizations in 1979.
+
+-   **1989DART23** - Directory of American Research and Technology 1989, 23rd Edition
+
+    -   Original document containing information on organizations active in product development for business in American. Content includes information on 11,275 organizations in alphabetical order.
+
+### Summer2021_Dylan Folder
+
+Has eight documents all pertaining to the 1979 and 1989 data from IRL and DART pdfs
+
+-   **1979_Digitized** - digitized version of the 1979 IRL pdf
+
+-   **1979IRL16** - copy of the 1979IRL16 pdf in DART_IRL Scans folder
+
+-   **1989_Digitized** - digitized version of the 1989 DART pdf
+
+-   **1989DART23** - copy of the 1989DART23 pdf in DART_IRL Scans folder
+
+-   **corr_cattLabs97_Wgeocode 1-6200** - excel file with lines 1-6200 corrected by Dylan
+
+-   **corr_cattLabs97_Wgeocode** - original excel file before Dylan and Kelly worked on it
+
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765** - excel file with lines 6200-12765 corrected by Kelly
+
+-   **OCR_Result_NO_user** - Antonio's intial OCR scan.
+
+    -   This data was input into the corr_cattLabs97_Wgeocode excel sheets
+
+### Summer2021_Kelly Folder
+
+#### Task From Antonio 1 folder
+
+##### Original Material Folder
+
+-   **corr_cattLabs97_Wgeocode** - original excel file before Dylan and Kelly worked on it (duplicate)
+
+-   **letter_I\_cattell** - digitized version of the research labs starting with the letter "I"
+
+-   **letter_O\_cattell** - digitized version of the research labs starting with the letter "O"
+
+-   **letter_S\_cattell** - digitized version of the research labs starting with the letter "S"
+
+> this separation by letter section was done to make digitization process faster.
+
+-   **OCR_Result_NO_user** - Antonio's intial OCR scan. (duplicate)
+
+    -   This data was input into the corr_cattLabs97_Wgeocode excel sheets
+
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765** - excel file with lines 6200-12765 corrected by Kelly (duplicate)
+
+#### Task From Antonio 2 Folder
+
+-   **1979_Digitized** - digitized version of the 1979 IRL pdf (duplicate)
+
+#### Task From Antonio 3 Folder
+
+-   **1989_Digitized** - digitized version of the 1989 DART pdf (duplicate)
+
+-   **1989_OCR_Digitized** - digitized version of the 1989 DART pdf from the OCR machine (unedited)
+
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765** - excel file with lines 6200-12765 corrected by Kelly (duplicate)
+
+-   **OneDrive_2021-08-27** - zip drive that leads to the original material folder in Task From Antonio 1 folder (duplicate)
+
+### T-Burk Folder (Jorge)
+
+### tl_2010_06_zcta500 Folder
+
+Has five documents in different formats
+
+-   **tl_2010_06_zcta500.dbf** - cannot open (DBF file)
+
+-   **tl_2010_06_zcta500.prj** - cannot open (PRJ file)
+
+-   **tl_2010_06_zcta500.shp** - cannot open (SHP File)
+
+-   **tl_2010_06_zcta500.shp** - U.S Department of Commerce, U.S. Census Bureau, Geography Division 2010. (xml File)
+
+    -   Vector digital data from <http://www.census.gov/geo/www/tiger>
+
+-   **tl_2010_06_zcta500.shx** - cannot open (SHP File)
+
+### \~ Not in a Folder \~
+
+-   **cattell-all** - Stata Statistics and Data Science license and variables
+
+-   **Dylan & Kelly notes from Summer 2021** - (5/30/2022) Dylan and Kelly's documentation on their work
+
+-   **Dylan & Kelly notes from Summer 2021** - (6/3/2022) Dylan and Kelly's documentation on their work with notes from Jorge
+
+-   **field** - Stata Statistics and Data Science license and variables
+
+-   **pngwork** - will not open (python file)
