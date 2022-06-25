@@ -1,4 +1,3 @@
-
 06/01/2020
 - I had to work with ICT to resolve a corrupted file and disentagle conflicting dependancie. The corrupted file was renamed "C:\Apps-SU\Anaconda3-old" and ICT created new file "C:\Apps-SU\Anaconda3" with reinstall of Anaconda and all packages that had been installed to "C:\Apps-SU\Anaconda3-old" this includes the shapely package installed earlier but not geopandas 
 
@@ -503,7 +502,7 @@ I am not installing arcpy because it appears (see line 449) that a previous chan
 
 9/11/2020
 
-- corrected all geometries by changing the code in GoodLabs_CRS_Trans.py. I deleted lines 18 - 21 and replaced it with the following code...
+- corrected geometries by changing the code in GoodLabs_CRS_Trans.py. I deleted lines 18 - 21 and replaced it with the following code...
 
   "# Create GeoDataFrame with new CRS
      geometry = pFeatures.geometry
@@ -622,9 +621,9 @@ rsult2 = np.array(rsult2)
 
 10/4/2020
 
-- Thanks to a Syracuse University research computing initiative we have been given access to a GPU cluster with two processors (2 GPUs). The GPUs are AMD Ryzen 9 350x 16-Core with a 64bit OS. ICT Research team in Maxell school set up the cluster with Windows 10. Interaction with programs on cluster is the same as on CPU but code in our python scripts must be rewritten to take advatage of parrelization made possible by using a cluster of processing units (right now cluster is only 2 GPUs but could theoretically scale up )  
+- Thanks to a Syracuse University research computing initiative we have been given access to a GPU cluster with two processors (2 GPUs). The GPUs are AMD Ryzen 9 350x 16-Core with a 64bit OS. ICT Research team in Maxell school set up the cluster with Windows 10. Interaction with programs on cluster is the same as on CPU but code in our python scripts must be rewritten to take advatage of parrelization made possible by using a cluster of processing units (right now cluster is only 2 GPUs but could theoretically scale up ). Edit - The gpu cluster set up ends up changing significantly over time. Due to constraints Windows OS has in th realm of GPU computing and python script distribution to GPUs we end up using Nvidia GPUs running on a Linox OS.(See line 632 for more info and line ### for new set up instructions). 
 
-- python environment set up the same as procedure for CPUS see line 228
+- python environment set up the same as procedure for CPUS see line 228 (set up instructions become redundant until new hardware and OS introduced as set up on Linox with Nvidia is different. 
 
 10/6/2020
 
@@ -651,7 +650,7 @@ rsult2 = np.array(rsult2)
 
 10/18/2020
 
-- data files cleaned up in block level analysis folder. all old block data placed in Block Data file located at G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Block Data
+- data file cleaned up. all old block data placed in Block Data file located at G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Block Data
 and Zip code data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Zip Code Data and lab data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Lab Data
 
 10/21/2020
@@ -699,3 +698,51 @@ zFeatures = zFeatures.to_crs(crs = 4326)"
 - when running kfunction program local simulations are now distributed correctly within the geographic boundries set by block and zip data (for more details see lines 661 & 671)
 
 - after 9 simulations K-function Local_3Stage.py now produces more reasonable data. will run for 999 simulations (run time will be about 2.5 days)
+
+11/01/2020
+
+- back to trying to speed up program by running it on GPU cluster
+
+- after significant research it appears that the best way to move forward since we do not have NVIDIA GPUs would be to use the PyOpenCl python module instead of the Numba module. PyOpenCl is compatible with the AMD GPUs we are using and will help parrelize sequentail simulations and for loops. However, the drawback in comparison to Numba is that all operations that I want to make parallel will have to be rewritten in OpenCl. Will attempt to do with simple distance matrix calculation. (PyOpenCl no longer needed after shift to Linox OS and importantly Nvidia GPUs)
+
+- to use PyOpenCl I need to run the GPU cluster on Linux instead of current windows set up, have reached out to ICT about changing software. (PyOpenCl no longer needed after shift to Linox OS and importantly Nvidia GPUs) 
+
+11/02/2020
+
+- kfunction local program done running.
+
+- no cluster file exported.
+
+- when reviewing the data in the point file that gets exported there are a few peculiarities. First, the number of labs within a certain geographic radius of a particular lab (aka the lab count) never exceeds 9. Some labs have a max count of 9 labs for all count distances and then have a cluster significance of 1.
+
+- exploring for old data files to compare to exported point file discussed above. 
+
+11/04/2020
+
+- continuing to explore data in exported point file.
+
+- reading through python scripts k-function method program and k-function simulation program to see if my earlier CRS change may be part of the issue. No issues found.
+
+11/06/2020
+
+- meeting with prof buzard to trouble shoot point file projection on hr comp (i am not sure if we resovled this)
+
+- identified holes in the zip code data when overlayed on the block data
+
+- holes or missing zipcode geography could be result of earlier change when a find and replace had to be conducted on the file to remove XX and HH strings from some of the zipcode number inputs in the original zip code data file (see line 301 for more info on find and replace)
+
+11/07/2020
+
+- prof buzard's issue with projecting file makes me think that issue might lay in the way I am setting up the CRS of the data files
+
+- will again run through python scripts which are setting the CRS on our data files to ensure that all are being set correctly.
+
+- no clear issue identified however I will change up the CRS and see if same problems persist. (Main problems, trouble projecting exported point file, odd lab count data in exported point file, no cluster file being exported by k function simulation program) 
+
+11/08/2020
+
+- ICT was able to change OS on gpu cluster. In fact they have just given me an entirely new GPU cluster.
+
+- New cluster is an 8 core GPU cluster running on Nvidia RTX 5000 GPU (importantly Nvidia means we can use Numba to speed up program and not PyOpenCL. Numba has amuch richer development community and as such greater functionality) The cluster is running on Linox Ubuntu 18.04
+
+- will work on setting up remote connection to GPU cluster
