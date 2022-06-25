@@ -533,6 +533,7 @@ I am not installing arcpy because it appears (see line 449) that a previous chan
            inplace=True)
 "
 
+
 9/16/2020
 
 - block data geometry is being constructed from the following shapefile, CA_Blocl_2000.shp which comes from this website "..."
@@ -624,7 +625,6 @@ rsult2 = np.array(rsult2)
 
 - python environment set up the same as procedure for CPUS see line 228 (set up instructions become redundant until new hardware and OS introduced as set up on Linox with Nvidia is different. 
 
-
 10/6/2020
 
 - attemping to use NUMBA @jit decorator to distribute kfunction program methods to gpus but it keeps running into an incompatible type error.
@@ -652,7 +652,6 @@ rsult2 = np.array(rsult2)
 
 - data file cleaned up. all old block data placed in Block Data file located at G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Block Data
 and Zip code data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Zip Code Data and lab data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Lab Data
-
 
 10/21/2020
 
