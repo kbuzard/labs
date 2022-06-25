@@ -15,6 +15,18 @@ Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/w
 
 "G:/MAX-Filer/Collab/Labs-kbuzard-S18" (you may have to change to backslashes)
 
+## Opening the files:
+
++------------------+------------------------------------------------------------------------------+
+| File type        | How to Open                                                                  |
++==================+==============================================================================+
+| **.shp**         | open ArcGIS, open a blank map, add a layer, and open the file in the program |
++------------------+------------------------------------------------------------------------------+
+| **python files** | open using Spyder (Anaconda3)                                                |
++------------------+------------------------------------------------------------------------------+
+| **.xml**         | open using excel                                                             |
++------------------+------------------------------------------------------------------------------+
+
 ## The ramosRivera Folder
 
 ### bg06_d00_shp Folder
@@ -97,7 +109,7 @@ Has eight documents all pertaining to the 1979 and 1989 data from IRL and DART p
 
 -   **OneDrive_2021-08-27** - zip drive that leads to the original material folder in Task From Antonio 1 folder (duplicate)
 
-### T-Burk Folder (Jorge)
+### T-Burk Folder
 
 It has 11 folders:
 
@@ -105,7 +117,7 @@ It has 11 folders:
 
 -   **Converted_Graphics (.cpg, .dbf, .prj, .shp, .shx)** - it only shows a greeen rectangle
 
--   **Textile Labs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx)**
+-   **Textile Labs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx) -**
 
 -   **ZCTAs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx)** - Openning the files in ArcMap it shows California in the ZCTAs areas and the location of the labs (dots).
 
@@ -121,29 +133,29 @@ It has 11 folders:
 
 -   **ak_wac_S000_JT00_2002.csv.gz** - (This are 7.zip files. There is one for each state. The year vary for some states. I can open the cvs file in Excel. It is geocode)
 
--   **USA_block (.cpg, .dbf, .prj, .shp, .shx)**
+-   **USA_block (.cpg, .dbf, .prj, .shp, .shx)** - input and output for shapstich. Input file for USA_block_emp
 
--   **usa_blockEmp (.cpg, .dbf, .prj, .shp, .shx)** - I do not know what this is showing.
+-   **usa_blockEmp (.cpg, .dbf, .prj, .shp, .shx)** - I do not know what this is showing. Output file for USA_block_emp.
 
 #### k-function_local_results Folder
 
 -   **Manufa_Emp_C000_0.5_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
 
--   **Manufa_Emp_C000_0.25_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
+-   **Manufa_Emp_C000_0.25_Buffers_2 (.cpg, .dbf, .shp, .shx)** - input file for start_calc
 
 -   **Manufa_Emp_C000_0.75_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
 
 -   **Manufa_Emp_C000_1\_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
 
--   **Manufa_Emp_C000_2\_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
+-   **Manufa_Emp_C000_2\_Buffers_2 (.cpg, .dbf, .shp, .shx)** - input file for start_calc
 
 -   **Manufa_Emp_C000_5\_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
 
--   **Manufa_Emp_C000_10_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
+-   **Manufa_Emp_C000_10_Buffers_2 (.cpg, .dbf, .shp, .shx)** - input file for start_calc
 
 All the previous files have missing spatial reference information. The data can be drawn in ArcMap , but not projected. ArcMap doesn't show anything
 
--   **Manufa_Emp_C000_Points_2 (.cpg, .dbf, .shp, .shx)** -
+-   **Manufa_Emp_C000_Points_2 (.cpg, .dbf, .shp, .shx)** - input file for start_calc
 
 -   **Manufa_Emp_C000_local.txt** - This is a log file with the date (04/05/2021) and time slot of some code running.
 
@@ -151,7 +163,7 @@ The files show the location of Manufacturing employment clusters I belive in Cal
 
 #### LabData Folder
 
--   **cal_lab_fields** -- A folder for 34 different indutries i.e. AERO --AERO (.cpg, .dbf, .prj, .shp, .shx)
+-   **cal_lab_fields** -- A folder for 34 different indutries i.e. AERO --AERO (.cpg, .dbf, .prj, .shp, .shx). Output file for field_org.
 
 -   **comb_emp_C000_local** -
 
@@ -175,7 +187,7 @@ The files show the location of Manufacturing employment clusters I belive in Cal
 
 -   **Manufa_Emp_C000_local.txt** - This is a log file with the date (04/18/2021) and time slot of some code running.
 
--   **USA_labs_2000 (.cpg, .dbf, .prj, .shp, .shx)** -
+-   **USA_labs_2000 (.cpg, .dbf, .prj, .shp, .shx)** - output file form prep_Labs
 
 #### PatentData
 
@@ -187,7 +199,7 @@ This is probably used to replicate Buzard 2017.
 
 -   **CA Control_1\_ALT_ramos** (SAS Program)
 
--   **cite_same** (Excel)
+-   **cite_same** (Excel) - input file for start_calc
 
 -   **cite76_06** (SAS Data set)
 
@@ -249,7 +261,7 @@ This is probably used to replicate Buzard 2017.
 
 -   **letter_S\_cattell** (text) --
 
--   **OCR_Result** (text) --
+-   **OCR_Result** (text) -- input for Address_ID, output for OCR
 
 -   **OCR_Result_NO_user** (text) All this files looks like the registry of labs.
 
@@ -259,31 +271,31 @@ This is probably used to replicate Buzard 2017.
 
 -   **calLabs97** (Excel): File with company name, facility name, state, ID and address for 1997
 
--   **cattell_1997_raw** (STATA)
+-   **cattell_1997_raw** (STATA) - input file for state_code_rep
 
--   **Cattell_corr_list** (STATA)
+-   **Cattell_corr_list** (STATA) - input file for pngwork.
 
 -   **cattell-all** (STATA)
 
--   **cattLabs97** (Excel)
+-   **cattLabs97** (Excel) - input file for Address_ID, Geo_coder, and state_code_rep. Output file for pngwork
 
 -   **CattwithBuzID** (Excel)
 
--   **corr_cattLabs97** (Excel)
+-   **corr_cattLabs97** (Excel) - input file for field_org, firm_struc, and start_calc. Output files for state_code_rep.
 
 -   **corr_cattLabs97_Wgeocode** (Excel): This one has a column counting the observations. Only difference with the file below.
 
 -   **corr_cattLabs97_Wgeocode** (Excel)
 
--   **field** (STATA)
+-   **field** (STATA) - input file for field_org, pngwork, start_calc
 
 -   **field_lab_counts** (EXCEL): count by sector. There are no differences with the file below
 
 -   **field_lab_counts2** (EXCEL): count by sector
 
--   **field-master** (STATA)
+-   **field-master** (STATA) - input file for field_org
 
--   **geocoded_facilities (EXCEL)**: has 8,737 observations
+-   **geocoded_facilities (EXCEL)**: has 8,737 observations. Input file for prep_Labs. Input file for shapify. Output file for Geo_coder
 
 -   **geocoded_facilities_cal** (EXCEL): has 1,728 observations
 
@@ -295,7 +307,7 @@ This is probably used to replicate Buzard 2017.
 
 -   **id_dataString** (EXCEL): has the id, the full address and the buzzID
 
--   **matched_data** (EXCEL): has 8,941 obs. Not sure what is matching or with which file.
+-   **matched_data** (EXCEL): has 8,941 obs. input file for Geo_coder.
 
 -   **matched_data_I** (EXCEL): has 199 obs. Not sure what is matching or with which file.
 
@@ -307,75 +319,83 @@ This is probably used to replicate Buzard 2017.
 
 -   **pngbuzz** (EXCEL): has 2,951 obs. 39 variables. information from the entire US (by loking at the states)
 
--   **pngCatIDList** (EXCEL): has 11,313 obs. 5 variables.
+-   **pngCatIDList** (EXCEL): has 11,313 obs. 5 variables. Output for Address_ID.
 
--   **single_lab_firm** (EXCEL): has 7,430 obs. 21 variables.
+-   **single_lab_firm** (EXCEL): has 7,430 obs. 21 variables. Input file for firm_struc. Out file for pngwork.
 
 Next step is to go to png website and see which files are downloaded from there and which ones were created by Antonio.
 
 #### Python Scripts Folder
 
-I did not open them, I have to learn how to use python first.
-
 -   **.pylint.d** -
 
--   **stat_calc1.stats** (STATS): can't open --
+-   **stat_calc1.stats** (STATS):
 
--   **Address_ID** --
+-   **Address_ID** -- Preparing and cleaning addresses
 
--   **clust_pat_maker** --
+-   **clust_pat_maker** -- Python Script to read in patent data and conduct a spatial join with clusters then keep the patents that fall into those clusters as geodataframes and export them
 
--   **countSim_speedUP** --
+-   **countSim_speedUP** -- Point Count Simulation Computation. It turns the dictionary back into a dataframe.
 
--   **countSim_tester** --
+-   **countSim_tester** -- Same as "countSim_speedUpr:" but measure the time for each individual loop and the entire system (time it takes to preform the simulation).
 
--   **field_org --firm_struc** --
+-   **field_org** -- Read in 1997 cattell lab data as well as my geocoded data and combine the two to produce geodataframes (gdf) for each technology field in the cattell directory which then get saved as shapefile currently the program is set in such a way so as to produce gdfs for the country wide data and gdfs for california and the NE corridor the script will then take the dictionary containing the california labs by field and save each gdf as a shapefile.
 
--   **GeoCode_OCR --GeoCoder** --
+-   **firm_struc** -- Reads in the 1997 Catteell directory data produced by Ivan Png 2016. It takes the data in this data set of American R&D Labs and organizes it based on firm structure. The final product is an Exceell File that gets outputted.
 
--   **multiprocess_test2** --
+-   **GeoCode_OCR**
+
+-   **GeoCoder** -- Iterate through the address data and geocode each input address.
+
+-   **multiprocess_test2** -- processing time information
 
 -   **multiprocessing_tester** --
 
--   **OCR** --
+-   **OCR** -- imports images, edit them to use with "tesseract"
 
 -   **Pdf2Jpg.py** --
 
--   **pngwork** --
+-   **pngwork** -- create dataframe for firms that have at most 2 establishments, this will become the dataframe for firms with only one research establishment.
 
--   **Prep_Labs** --
+-   **Prep_Labs** -- python script which reads in two csv of geocoded labs and joins them resulting in a pandas dataframe. Then it takes the coordinates for the labs in the dataframe and creates a geometry column to turn the df into a geodataframe it then saves the resulting geodataframe as a shapefile.
 
--   **Prep_ZBP** --
+-   **Prep_ZBP** -- python script that uses pandas and geopandas packages to read in census manufacturing employment data at the ZCTA level and shapefile of all ZCTA bounderies in the contiguous US. The employment data is prepared and the merged into the shapefiles data table resulting in a geopandas geodataframe which gets saved as a shapefile.
 
--   **shapeStich** --
+-   **shapeStich** -- create the new geodataframe by appending all state level gdfs.
 
--   **shapify** --
+-   **shapify** -- Reads in a csv file that contains point data in latitude and longitude form and converts them into geopandas geodataframe the result is then exported as a shapefile.
 
--   **stat_calc** --
+-   **stat_calc** -- Read in the point file and associated cluster files produced after running the 3Stage_Local program and calculates various statistics from it. Different sections of this program produce different stats and have been partitioned and commented accordingly.
 
--   **state_code_rep** --
+-   **state_code_rep** -- Fix the state_code column of the cattell png data for 1997
 
--   **usa_vlock_emp** -
+-   **usa_block_emp** - reads in a list of csv files containing employment data at the block level. It then reads in a shape file of all US census block boundaries and merges the employment data into the shapefiles data table and saves the resulting geodataframe as a shapefile.
 
 #### Tables folder
 
 excel tables used in paper
 
--   **5_mile_LDS** - Shows Originating Patents, Citing Patents, From Same Cluster, Percent (C/B), Treatment Patents, Treatment Citing For Same Cluster, Percent (F/E), Control Patents, Control Citing From Same Cluster, Percent (I/H), Location Differential (G/J), and P-values for 5-mile cluster in California. (excel)
+-   **5_mile_LDS** - Shows Originating Patents, Citing Patents, From Same Cluster, Percent (C/B), Treatment Patents, Treatment Citing For Same Cluster, Percent (F/E), Control Patents, Control Citing From Same Cluster, Percent (I/H), Location Differential (G/J), and P-values for 5-mile cluster in California. (excel) Output file for stat_calc
 
--   **10_mile_LDS** - Shows Originating Patents, Citing Patents, From Same Cluster, Percent (C/B), Treatment Patents, Treatment Citing For Same Cluster, Percent (F/E), Control Patents, Control Citing From Same Cluster, Percent (I/H), Location Differential (G/J), and P-values for 10-mile cluster in California. (excel)
+-   **10_mile_LDS** - Shows Originating Patents, Citing Patents, From Same Cluster, Percent (C/B), Treatment Patents, Treatment Citing For Same Cluster, Percent (F/E), Control Patents, Control Citing From Same Cluster, Percent (I/H), Location Differential (G/J), and P-values for 10-mile cluster in California. (excel) Output file for stat_calc.
 
--   **Spatial_LDS** - Table that compares the 5 and 10 mile clusters (excel)
+-   **Spatial_LDS** - Table that compares the 5 and 10 mile clusters (excel) Output file for stat_calc.
 
 #### ZipData folder
 
-first two folders are dublicate folders of the "nhgis0005_csv" and "tl_2010_us_zcta500" folders found below
+first folder is a dublicate folder of the "nhgis0005_csv" folder found below
+
+##### tl_2010_us_ZCTA500 Folder
+
+-   **tl_2010_us_zcta500** (DBF, PRJ, Adobe, XML, SHX) - input file for prep_ZBP
+
+##### Not in folder
 
 -   **0SF3_geo_header** - Data dictionary, explains U.S. Abbreviations, Geographic Area Codes by region, divisions, state (census, state (FIPS), county size code, FIPS County Subdivisions Class Code, Place Size Code, etc. (Word document)
 
 -   **Employment** - SAS Graph document created to collect ZIP code employment data for California
 
--   **USA_ZCTA_emp(CPG, DBF, PRJ, SBN, SHX)** - Map of the US separated by ZCTA or zipcodes
+-   **USA_ZCTA_emp(CPG, DBF, PRJ, SBN, SHX)** - Map of the US separated by ZCTA or zipcodes, output for prep_ZBP.
 
 #### nhgis0005_shape Folder
 
@@ -397,7 +417,7 @@ Files will not open because the folders are compressed.
 
 NHGIS data from 2000
 
--   **nhgis0005_ds151_2000_zcta** - excel files with 55 variables but only 32 variables have observations. Contains GISJOIN from the year 2000.
+-   **nhgis0005_ds151_2000_zcta** - excel files with 55 variables but only 32 variables have observations. Contains GISJOIN from the year 2000. Input file for prep_ZBP.
 
 -   **nhgis0005_ds151_2000_zcta_codebook** - describes the variable labels in the nhgis0005_ds151_2000_zcta excel file and where the data was ciphered from.
 
@@ -428,3 +448,7 @@ Has five documents in different formats, builds map of California by census bloc
 -   **field** - Shows Stata data on the Cattell ID for R&D fields and R&D sub-fields, the year the data was on, and the facilities (Stata file).
 
 -   **pngwork** - python script that uses the cattel-all.dta, field.dta, and a file called "GoodLabs.shp" for points*(has not been found)*
+
+## ramosRivera - Backup062122 Folder
+
+This folder is a duplicate of the ramosRivera Folder created on June 21, 2022 as a backup to the original ramosRivera folder.
