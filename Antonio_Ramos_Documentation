@@ -527,12 +527,13 @@ I am not installing arcpy because it appears (see line 449) that a previous chan
 
 9/14/2020
 
-- automated find and replace on csv file used to create CA_ZCTA_New.shp with following code...
+- automated find and replace on csv file used to create CA_ZCTA_New.shp with following code... (see line 301 for problem that find and replace solves)
 "Tab2.replace(to_replace=[r'9[0123456789][0123456789][HX][HX]'],
            value=['0'],
            regex=True, 
            inplace=True)
 "
+
 
 9/16/2020
 
@@ -621,11 +622,9 @@ rsult2 = np.array(rsult2)
 
 10/4/2020
 
-- using GPU cluster for the first time.
+- Thanks to a Syracuse University research computing initiative we have been given access to a GPU cluster with two processors (2 GPUs). The GPUs are AMD Ryzen 9 350x 16-Core with a 64bit OS. ICT Research team in Maxell school set up the cluster with Windows 10. Interaction with programs on cluster is the same as on CPU but code in our python scripts must be rewritten to take advatage of parrelization made possible by using a cluster of processing units (right now cluster is only 2 GPUs but could theoretically scale up )  
 
-- exploring how to set up python environment
-
-- same process as used on cpu refer to lines 228 for set up procedure
+- python environment set up the same as procedure for CPUS see line 228
 
 10/6/2020
 
@@ -654,3 +653,49 @@ rsult2 = np.array(rsult2)
 
 - data files cleaned up in block level analysis folder. all old block data placed in Block Data file located at G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Block Data
 and Zip code data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Zip Code Data and lab data moved to G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\Lab Data
+
+10/21/2020
+
+- K-function Local_3Stage.py issue during point simulations. Simulated point patterns are not beging distrbuted within geographic boundries that should be set by data.
+
+- meaning issue could lie in code for pointSimulation function, countSimulation function, or still in the data.
+
+10/23/2020
+
+- working with Dr. Buzard to identify possible areas of conflict within pointSimulation and countSimulation function definitions
+
+10/25/2020
+
+- issue identified within data being fed into local program. While the geometry appears to be correct, the CRS on the ZCTA data file is not being set when the ZCTA_Manufa_Trans.py program creates the CA_ZCTA_Data.shp file. Meaning that when the program tries to project the spatial data from this file it has no reference system which it can use to understand how the spatial features should be projected.
+
+10/28/2020
+
+- working on how to set common CRS for all data files.
+
+- CRS with ESPG# 5070, used by Will Heikoff after Tony Smith recommendation, no longer present in Geopandas ESPG# reference guide (www.spatialreference.org) will use geopandas recommended CRS ESPG# 4326
+
+10/30/2020
+
+- continuing CRS work with no luck. When attempting to set CRS for ZCTA file to ESPG# 4326 I receive the following error "CRSError: Invalid projection: ESPG:4326: (Internal Proj Error: proj_create: crs not found)"
+
+- same issue is occuring for lab data file. May have to use alternative CRS from ESPG# 4326
+
+10/31/2020
+
+- CRS issue resovled for CA_ZCTA_Data.shp file. using the following code I was able to reproject the CRS for the shapefile to the stadard CRS we will use across all shapefiles.(Lines 38-41 of ZCTA_Manufa_Trans.py)
+"# Import Shapefile and change CRS 
+zips = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\tl_2010_06_zcta500.shp"
+zFeatures = gpd.read_file(zips).filter(['Manufa_Emp', 'ZCTA5CE00', 'geometry'], axis = 1)
+zFeatures = zFeatures.to_crs(crs = 4326)"
+
+- CRS gets reprojected because when using .set_crs which would just set without reprojecting I get an error that says a CRS already exists, however, when I try to check the CRS nothing gets returned indicating that the CRS it has after importation (before i change it) is not compatible with geopandas. Problem now solved by reprojecting CRS with .to_crs as shown in the preceeding code.
+
+- still must make sure that I can set CRS for CA_Lab_Data.shp and CA_Block_Data.shp to CRS with ESPG# 4326.
+
+- able to set CRS to ESPG# 4326 for lab data. used the same GeoDataFrame.to_crs(crs=4326) (exported file name stayed the same)
+
+- able to set CRS to ESPG# 4326 for block data. used the same GeoDataFrame.to_crs(crs=4326) (exported file name stayed the same)
+
+- when running kfunction program local simulations are now distributed correctly within the geographic boundries set by block and zip data (for more details see lines 661 & 671)
+
+- after 9 simulations K-function Local_3Stage.py now produces more reasonable data. will run for 999 simulations (run time will be about 2.5 days)
