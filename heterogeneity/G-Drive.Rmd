@@ -81,8 +81,6 @@ Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/w
 
 -   **pngwork.py** - python script that uses the cattel-all.dta, field.dta, and a file called "GoodLabs.shp" for points*(this file is from Prof. Buzard's earlier work)*
 
--   
-
 ### bg06_d00_shp subfolder
 
 has three documents - all of them make up the map of California used in paper.
@@ -127,6 +125,12 @@ Has eight documents all pertaining to the 1979 and 1989 data from IRL and DART p
 
 ### Summer2021_Kelly subfolder
 
+-   **1989_OCR_Digitized.txt** - digitized version of the 1989 DART pdf from the OCR machine (unedited)
+
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly.Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+
+-   [**OneDrive_2021-08-27**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Summer2021_Kelly\Task%20From%20Antonio%201\Original%20Material) - zip drive that leads to the original material folder in Task From Antonio 1 folder.
+
 #### Task From Antonio 1 folder
 
 ##### Original Material Folder
@@ -154,14 +158,6 @@ Has eight documents all pertaining to the 1979 and 1989 data from IRL and DART p
 #### Task From Antonio 3 Folder
 
 -   **1989_Digitized.txt** - digitized version of the 1989 DART pdf [Admin/ramosRivera/Summer2021_Dylan/1989_Digitized.pdf](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\Summer2021_Dylan\1989_Digitized.pdf)
-
-#### Not in a folder
-
--   **1989_OCR_Digitized.txt** - digitized version of the 1989 DART pdf from the OCR machine (unedited)
-
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly.Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
-
--   [**OneDrive_2021-08-27**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Summer2021_Kelly\Task%20From%20Antonio%201\Original%20Material) - zip drive that leads to the original material folder in Task From Antonio 1 folder.
 
 ### T-Burk subfolder
 
@@ -391,6 +387,8 @@ together these files make up the the US by census block. These files is most lik
 
 -   **WY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Wyoming by census block
 
+-   **USA_block** (.cpg, dbf, Adobe, .shx) - pngwork.py and input for shapeStich.py
+
 #### k-function_local_results Folder
 
 -   **Manufa_Emp_C000_0.5_Buffers_2 (.cpg, .dbf, .shp, .shx)** -
@@ -509,18 +507,6 @@ This is probably used to replicate Buzard 2017.
 
 #### PngData Folder
 
--   **OCR_Output_1998** --
-
--   **letter_I\_cattell.csv** (excel) -- not the same format as documents in Kelly
-
--   **letter_O\_cattell.csv** (excel) --
-
--   **letter_S\_cattell.csv** (excel) --
-
--   **OCR_Result** (text) -- input for Address_ID, output for OCR
-
--   **OCR_Result_NO_user** (text) All this files looks like the directory of labs.
-
 -   **1979 Digitized** (text): Directory of labs
 
 -   **1989_OCR_Digitized** (text): Directory of labs
@@ -531,7 +517,7 @@ This is probably used to replicate Buzard 2017.
 
 -   **Cattell_corr_list** (STATA) - input file for pngwork.
 
--   **cattell-all** (STATA)
+-   **cattell-all** (STATA) - input file for pngwork
 
 -   **cattLabs97** (Excel) - input file for Address_ID, Geo_coder, and state_code_rep. Output file for pngwork
 
@@ -580,6 +566,32 @@ This is probably used to replicate Buzard 2017.
 -   **single_lab_firm** (EXCEL): has 7,430 obs. 21 variables. Input file for firm_struc. Out file for pngwork.
 
 Next step is to go to png website and see which files are downloaded from there and which ones were created by Antonio.
+
+##### OCR Folder
+
+Moved from Census July 13, 2022 for OCR.py script. All files in this folder are tsv and txt files copied from [Ivan png website](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY). For further documentation refer to [File-list.docx](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY).
+
+##### **OCR_Output_1998** Folder 
+
+Input files for OCR.py
+
+-   **letter_I\_cattell.csv** (excel) --
+
+-   **letter_O\_cattell.csv** (excel) --
+
+-   **letter_S\_cattell.csv** (excel) --
+
+-   **OCR_Result** (text) -- input for Address_ID, output for OCR
+
+-   **OCR_Result_NO_user** (text) All this files looks like the directory of labs.
+
+##### ScanData Folder
+
+Created this folder July 13, 2022 for pdf2Jpg.py script. All files in here are the output of pdf2Jpg.py. They are images (jpg) of the pdfs in the Folder ScanData.
+
+##### Scan Folder
+
+Moved folder from the Census Folder on July 13, 2022 in order for the pdf2Jpg.py script to run. All files in this folder are pdfs scans copied from [Ivan png website](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY). For further documentation refer to [File-list.docx](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY).
 
 #### Python Scripts Folder
 
@@ -695,8 +707,4 @@ Has five documents in different formats, builds map of California by census bloc
 
 This folder is a duplicate of the ramosRivera Folder created on June 21, 2022 as a backup to the original ramosRivera folder.
 
-## Deleted or not in the Admin Folder
-
--   **OCR_output** - input for OCR
-
--   **ScanData** - input for pdf2Jpg.py
+## 
