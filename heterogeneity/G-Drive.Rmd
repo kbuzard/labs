@@ -11,22 +11,20 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 # Introduction
 
-This document catalogues all the files related to the labs--heterogeneity project.
+This Document catalogs all the files related to the labs--- heterogeneity project.
 
 Authors: Kirsten Riley and Jorge Valdebenito
 
 June 2022
-
 
 ## Opening the files:
 
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | File type                            | How to Open                                                                                                                                                                                                                            |
 +======================================+========================================================================================================================================================================================================================================+
-| **.shp**                             | open ArcGIS, open a blank map, add a layer, and open the file in the program. (These files might also show as adobe acrobat files in the G-drive.)                                                                                    |
+| **.shp**                             | open ArcGIS, open a blank map, add a layer, and open the file in the program. (These files might also show was adobe acrobat files in the G-drive.)                                                                                    |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **.cpg**, **.prj, .shx, .sbn, .sbx** | helper files to the shape file, cannot be opened independently.                                                                                                                                                                        |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -38,25 +36,24 @@ June 2022
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **.pdf**                             | adobe Acrobat                                                                                                                                                                                                                          |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.csv**                             | excel                                                                                                                                                                                                                                  |
+| **.cvs**                             | excel                                                                                                                                                                                                                                  |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **.sas**                             | Stata                                                                                                                                                                                                                                  |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **.sas7bdat**                        | import into Stata                                                                                                                                                                                                                      |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.gz**                              | Use this [link](https://stackoverflow.com/questions/39645804/open-a-csv-gz-file-in-python-and-print-first-100-rows) for more information on how to open in Python. (These zipped files are used in a python script and don't need to be opened independently.) |
+| **.gz**                              | Use this [link](https://stackoverflow.com/questions/39645804/open-a-csv-gz-file-in-python-and-print-first-100-rows) for more information on how to open in Python. (These zipped files support a python script, will not need to open) |
 +--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 # The G-Drive Contents
 
-For each folder in Labs-kbuzard-S18 that has files that are used in the heterogeneity project, there is a separate sub-heading below. 
+For each folder in Labs-kbuzard-S18 that has files that are used in the heterogeneity project, there is a separate sub-heading below. 
 
 Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/webclient/> in the search bar.
 
 "G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin" (you may have to change to backslashes)
 
-
-## Block Level analysis 
+## Block Level analysis
 
 -   **CA_Block_Data.shp** - inputs for countSim_speedUpr, CountSim_tester, and multiprocess_test2
 
@@ -72,21 +69,7 @@ Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/w
 
 ## The ramosRivera Folder
 
--   **cattell-all.sas** - 18 variables: Parent ID (new) *(referring to parent facility)*, year, parent ID (Cattell original) *(referring to pdf scans parent facility ID)*, Parent name, Facility name, Facility ID (Cattell original) *(referring to pdf scans facility ID)*, Facility ID (new), zipcode *(the zipcode the facility is in)*, Facility level, user, prof, doct, tech, parent name (alternative 2), parent name (alternative 3), parent name (alternative 4), state. (Stata file)
-
-    -   figure out what new vs cattell original is?
-
--   **Dylan & Kelly notes from Summer 2021.pdf** - (5/30/2022) Dylan and Kelly's documentation on their work
-
--   **Dylan & Kelly notes from Summer 2021.pdf** - (6/3/2022) Dylan and Kelly's documentation on their work with notes from Prof. Buzard
-
--   **field.sas** - Shows Stata data on the Cattell ID for R&D fields and R&D sub-fields, the year the data was on, and the facilities (Stata file).
-
--   **pngwork.py** - python script that uses the cattel-all.dta, field.dta, and a file called "GoodLabs.shp" for points*(this file is from Prof. Buzard's earlier work)*
-
-
-
-### bg06_d00_shp subfolder
+### bg06_d00_shp Folder
 
 has three documents - all of them make up the map of California used in paper.
 
@@ -94,7 +77,7 @@ has three documents - all of them make up the map of California used in paper.
 
 -   **bg06_d00 (.dbf, .shx)** - 9 observation: Area, Perimeter, BG06_D00, BG06_D00_I, State, County, Tract, BLKGROUP, and NAME. These make up the information needed to recreate the California map (opened in excel)
 
-### DART_IRL Scans subfolder
+### DART_IRL Scans Folder
 
 Has two Pdfs copies of information on R&D labs and their location
 
@@ -106,68 +89,69 @@ Has two Pdfs copies of information on R&D labs and their location
 
     -   Original document containing information on organizations active in product development for business in American. Content includes information on 11,275 organizations in alphabetical order.
 
-### Summer2021_Dylan subfolder
+### Summer2021_Dylan Folder
 
 Has eight documents all pertaining to the 1979 and 1989 data from IRL and DART pdfs
 
 -   **1979_Digitized.txt** - digitized version of the 1979 IRL pdf
 
--   **1979IRL16.pdf** - copy of the 1979IRL16 pdf in DART_IRL Scans folder. Refer to original [Admin/ramosRivera/DART_IRL Scans/1979IRL16](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\DART_IRL%20Scans/1979IRL16)
+-   [**1979IRL16.pdf**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\DART_IRL%20Scans/1979IRL16) - copy of the 1979IRL16 pdf in DART_IRL Scans folder.
 
 -   **1989_Digitized.txt** - digitized version of the 1989 DART pdf
 
--   **1989DART23.pdf** - copy of the 1989DART23 pdf in DART_IRL Scans folder. Refer to original [Admin/ramosRivera/DART_IRL Scans/1989DART23](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\1989DART23)
+-   [**1989DART23.pdf**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\1989DART23) - copy of the 1989DART23 pdf in DART_IRL Scans folder. R
 
--   **corr_cattLabs97_Wgeocode 1-6200.csv** - excel file with lines 1-6200 corrected by Dylan. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode 1-6200.cvs** - excel file with lines 1-6200 corrected by Dylan. excel file with lines 1-6200 corrected by Dylan.
 
--   **corr_cattLabs97_Wgeocode.csv** - original excel file before Dylan and Kelly worked on it. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   [**corr_cattLabs97_Wgeocode.cvs**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode) - original excel file before Dylan and Kelly worked on it.
 
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.csv** - excel file with lines 6200-12765 corrected by Kelly. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly.
 
--   **OCR_Result_NO_user.txt** - Antonio's intial OCR scan. Refer to original [Admin/ramosRivera/T-Burk/PngData/OCR_Result_NO_user](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user)
+-   [**OCR_Result_NO_user.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user) - Antonio's intial OCR scan.
 
     -   This data was input into the corr_cattLabs97_Wgeocode excel sheets
 
-### Summer2021_Kelly subfolder
+### Summer2021_Kelly Folder
 
 #### Task From Antonio 1 folder
 
 ##### Original Material Folder
 
--   **corr_cattLabs97_Wgeocode.csv** - original excel file before Dylan and Kelly worked on it. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   [**corr_cattLabs97_Wgeocode.cvs**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode) - original excel file before Dylan and Kelly worked on it.
 
--   **letter_I\_cattell.txt** - digitized version of the research labs starting with the letter "I." Refer to original [Admin/ramosRivera/T-Burk/PngData/letter_I\_cattell](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_I_cattell)
+-   [**letter_I\_cattell.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_I_cattell) - digitized version of the research labs starting with the letter "I."
 
--   **letter_O\_cattell.txt** - digitized version of the research labs starting with the letter "O." Refer to original [Admin/ramosRivera/T-Burk/PngData/letter_O\_cattell](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_O_cattell)
+-   [**letter_O\_cattell.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_O_cattell) - digitized version of the research labs starting with the letter "O."
 
--   **letter_S\_cattell.txt** - digitized version of the research labs starting with the letter "S." Refer to original [Admin/ramosRivera/T-Burk/PngData/letter_S\_cattell](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_S_cattell)
+-   [**letter_S\_cattell.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_S_cattell) - digitized version of the research labs starting with the letter "S."
 
 > this separation by letter section was done to make digitization process faster.
 
--   **OCR_Result_NO_user.txt** - Antonio's intial OCR scan. [Admin/ramosRivera/T-Burk/PngData/OCR_Result_NO_user](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user)
+-   [**OCR_Result_NO_user.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user) - Antonio's intial OCR scan.
 
     -   This data was input into the corr_cattLabs97_Wgeocode excel sheets
 
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.csv** - excel file with lines 6200-12765 corrected by Kelly. Refer to Original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly. Refer to Original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
 
 #### Task From Antonio 2 Folder
 
--   **1979_Digitized.pdf** - digitized version of the 1979 IRL pdf (duplicate)
+-   [**1979_Digitized.pdf**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\Summer2021_Dylan\1979_Digitized.pdf) - digitized version of the 1979 IRL pdf. For original refer to
 
 #### Task From Antonio 3 Folder
 
--   **1989_Digitized.txt** - digitized version of the 1989 DART pdf (duplicate)
+-   **1989_Digitized.txt** - digitized version of the 1989 DART pdf [Admin/ramosRivera/Summer2021_Dylan/1989_Digitized.pdf](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\Summer2021_Dylan\1989_Digitized.pdf)
 
 #### Not in a folder
 
 -   **1989_OCR_Digitized.txt** - digitized version of the 1989 DART pdf from the OCR machine (unedited)
 
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.csv** - excel file with lines 6200-12765 corrected by Kelly. [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly.Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
 
+-   [**OneDrive_2021-08-27**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Summer2021_Kelly\Task%20From%20Antonio%201\Original%20Material) - zip drive that leads to the original material folder in Task From Antonio 1 folder.
 
-### T-Burk subfolder
+### T-Burk Folder
 
-It has 11 (sub-sub-)folders:
+It has 11 folders:
 
 #### ArcMap Folder
 
@@ -175,7 +159,7 @@ It has 11 (sub-sub-)folders:
 
 -   **Textile Labs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx) -**
 
--   **ZCTAs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx)** - Opening the files in ArcMap it shows California in the ZCTAs areas and the location of the labs (dots).
+-   **ZCTAs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx)** - Openning the files in ArcMap it shows California in the ZCTAs areas and the location of the labs (dots).
 
 #### BlockData Folder
 
@@ -289,107 +273,107 @@ together these files make up the the US by census block. These files is most lik
 
 first 51 files are 7.zip files. There is one for each state + DC. You can open these files in python use this [link](https://stackoverflow.com/questions/39645804/open-a-csv-gz-file-in-python-and-print-first-100-rows) for how. All of the .gz files are input files for usa_block_emp.py.
 
--   **ak_wac_5000_JT00_2002.csv.gz**
+-   **ak_wac_5000_JT00_2002.cvs.gz**
 
--   **al_wac_5000_JT00_2002.csv.gz**
+-   **al_wac_5000_JT00_2002.cvs.gz**
 
--   **ar_wac_5000_JT00_2002.csv.gz**
+-   **ar_wac_5000_JT00_2002.cvs.gz**
 
--   **az_wac_5000_JT00_2002.csv.gz**
+-   **az_wac_5000_JT00_2002.cvs.gz**
 
--   **ca_wac_5000_JT00_2002.csv.gz**
+-   **ca_wac_5000_JT00_2002.cvs.gz**
 
--   **co_wac_5000_JT00_2002.csv.gz**
+-   **co_wac_5000_JT00_2002.cvs.gz**
 
--   **ct_wac_5000_JT00_2002.csv.gz**
+-   **ct_wac_5000_JT00_2002.cvs.gz**
 
--   **dc_wac_5000_JT00_2002.csv.gz**
+-   **dc_wac_5000_JT00_2002.cvs.gz**
 
--   **de_wac_5000_JT00_2002.csv.gz**
+-   **de_wac_5000_JT00_2002.cvs.gz**
 
--   **fl_wac_5000_JT00_2002.csv.gz**
+-   **fl_wac_5000_JT00_2002.cvs.gz**
 
--   **ga_wac_5000_JT00_2002.csv.gz**
+-   **ga_wac_5000_JT00_2002.cvs.gz**
 
--   **hi_wac_5000_JT00_2002.csv.gz**
+-   **hi_wac_5000_JT00_2002.cvs.gz**
 
--   **ia_wac_5000_JT00_2002.csv.gz**
+-   **ia_wac_5000_JT00_2002.cvs.gz**
 
--   **id_wac_5000_JT00_2002.csv.gz**
+-   **id_wac_5000_JT00_2002.cvs.gz**
 
--   **il_wac_5000_JT00_2002.csv.gz**
+-   **il_wac_5000_JT00_2002.cvs.gz**
 
--   **in_wac_5000_JT00_2002.csv.gz**
+-   **in_wac_5000_JT00_2002.cvs.gz**
 
--   **ks_wac_5000_JT00_2002.csv.gz**
+-   **ks_wac_5000_JT00_2002.cvs.gz**
 
--   **ky_wac_5000_JT00_2002.csv.gz**
+-   **ky_wac_5000_JT00_2002.cvs.gz**
 
--   **la_wac_5000_JT00_2002.csv.gz**
+-   **la_wac_5000_JT00_2002.cvs.gz**
 
--   **ma_wac_5000_JT00_2002.csv.gz**
+-   **ma_wac_5000_JT00_2002.cvs.gz**
 
--   **md_wac_5000_JT00_2002.csv.gz**
+-   **md_wac_5000_JT00_2002.cvs.gz**
 
--   **me_wac_5000_JT00_2002.csv.gz**
+-   **me_wac_5000_JT00_2002.cvs.gz**
 
--   **mi_wac_5000_JT00_2002.csv.gz**
+-   **mi_wac_5000_JT00_2002.cvs.gz**
 
--   **mn_wac_5000_JT00_2002.csv.gz**
+-   **mn_wac_5000_JT00_2002.cvs.gz**
 
--   **mo_wac_5000_JT00_2002.csv.gz**
+-   **mo_wac_5000_JT00_2002.cvs.gz**
 
--   **ms_wac_5000_JT00_2002.csv.gz**
+-   **ms_wac_5000_JT00_2002.cvs.gz**
 
--   **mt_wac_5000_JT00_2002.csv.gz**
+-   **mt_wac_5000_JT00_2002.cvs.gz**
 
--   **nc_wac_5000_JT00_2002.csv.gz**
+-   **nc_wac_5000_JT00_2002.cvs.gz**
 
--   **nd_wac_5000_JT00_2002.csv.gz**
+-   **nd_wac_5000_JT00_2002.cvs.gz**
 
--   **ne_wac_5000_JT00_2002.csv.gz**
+-   **ne_wac_5000_JT00_2002.cvs.gz**
 
--   **nh_wac_5000_JT00_2002.csv.gz**
+-   **nh_wac_5000_JT00_2002.cvs.gz**
 
--   **nj_wac_5000_JT00_2002.csv.gz**
+-   **nj_wac_5000_JT00_2002.cvs.gz**
 
--   **nm_wac_5000_JT00_2002.csv.gz**
+-   **nm_wac_5000_JT00_2002.cvs.gz**
 
--   **nv_wac_5000_JT00_2002.csv.gz**
+-   **nv_wac_5000_JT00_2002.cvs.gz**
 
--   **ny_wac_5000_JT00_2002.csv.gz**
+-   **ny_wac_5000_JT00_2002.cvs.gz**
 
--   **oh_wac_5000_JT00_2002.csv.gz**
+-   **oh_wac_5000_JT00_2002.cvs.gz**
 
--   **ok_wac_5000_JT00_2002.csv.gz**
+-   **ok_wac_5000_JT00_2002.cvs.gz**
 
--   **or_wac_5000_JT00_2002.csv.gz**
+-   **or_wac_5000_JT00_2002.cvs.gz**
 
--   **pa_wac_5000_JT00_2002.csv.gz**
+-   **pa_wac_5000_JT00_2002.cvs.gz**
 
--   **ri_wac_5000_JT00_2002.csv.gz**
+-   **ri_wac_5000_JT00_2002.cvs.gz**
 
--   **sc_wac_5000_JT00_2002.csv.gz**
+-   **sc_wac_5000_JT00_2002.cvs.gz**
 
--   **sd_wac_5000_JT00_2002.csv.gz**
+-   **sd_wac_5000_JT00_2002.cvs.gz**
 
--   **tn_wac_5000_JT00_2002.csv.gz**
+-   **tn_wac_5000_JT00_2002.cvs.gz**
 
--   **tx_wac_5000_JT00_2002.csv.gz**
+-   **tx_wac_5000_JT00_2002.cvs.gz**
 
--   **ut_wac_5000_JT00_2002.csv.gz**
+-   **ut_wac_5000_JT00_2002.cvs.gz**
 
--   **va_wac_5000_JT00_2002.csv.gz**
+-   **va_wac_5000_JT00_2002.cvs.gz**
 
--   **vt_wac_5000_JT00_2002.csv.gz**
+-   **vt_wac_5000_JT00_2002.cvs.gz**
 
--   **wa_wac_5000_JT00_2002.csv.gz**
+-   **wa_wac_5000_JT00_2002.cvs.gz**
 
--   **wi_wac_5000_JT00_2002.csv.gz**
+-   **wi_wac_5000_JT00_2002.cvs.gz**
 
--   **wv_wac_5000_JT00_2002.csv.gz**
+-   **wv_wac_5000_JT00_2002.cvs.gz**
 
--   **wy_wac_5000_JT00_2002.csv.gz**
+-   **wy_wac_5000_JT00_2002.cvs.gz**
 
 -   **USA_block (.cpg, .dbf, .prj, .shp, .shx)** - input and output for shapstich. Input file for USA_block_emp
 
@@ -515,19 +499,19 @@ This is probably used to replicate Buzard 2017.
 
 -   **OCR_Output_1998** --
 
--   **letter_I\_cattell.csv** (excel) -- not the same as documents in Kelly
+-   **letter_I\_cattell.cvs** (excel) -- not the same format as documents in Kelly
 
--   **letter_O\_cattell.csv** (excel) --
+-   **letter_O\_cattell.cvs** (excel) --
 
--   **letter_S\_cattell.csv** (excel) --
+-   **letter_S\_cattell.cvs** (excel) --
 
 -   **OCR_Result** (text) -- input for Address_ID, output for OCR
 
--   **OCR_Result_NO_user** (text) All this files looks like the directory of labs.
+-   **OCR_Result_NO_user** (text) All this files looks like the registry of labs.
 
--   **1979 Digitized** (text): Directory of labs
+-   **1979 Digitized** (text): Registry of labs
 
--   **1989_OCR_Digitized** (text): Directory of labs
+-   **1989_OCR_Digitized** (text): Registry of labs
 
 -   **calLabs97** (Excel): File with company name, facility name, state, ID and address for 1997
 
@@ -587,9 +571,9 @@ Next step is to go to png website and see which files are downloaded from there 
 
 #### Python Scripts Folder
 
--   **.pylint.d** - subfolder that contains only
+-   **.pylint.d** -
 
-    -   **stat_calc1.stats** (STATS):
+-   **stat_calc1.stats** (STATS):
 
 -   **Address_ID** -- Preparing and cleaning addresses
 
@@ -643,7 +627,7 @@ excel tables used in paper
 
 #### ZipData folder
 
-first folder is a duplicate folder of the "nhgis0005_csv" folder found below
+first folder is a dublicate folder of the "nhgis0005_csv" folder found below
 
 ##### tl_2010_us_ZCTA500 Folder
 
@@ -695,6 +679,19 @@ Has five documents in different formats, builds map of California by census bloc
 
     -   Vector digital data from <http://www.census.gov/geo/www/tiger>
 
+### \~ Not in a Folder \~
+
+-   **cattell-all.sas** - 18 variables: Parent ID (new) *(referring to parent facility)*, year, parent ID (Cattell original) *(referring to pdf scans parent facility ID)*, Parent name, Facility name, Facility ID (Cattell original) *(referring to pdf scans facility ID)*, Facility ID (new), zipcode *(the zipcode the facility is in)*, Facility level, user, prof, doct, tech, parent name (alternative 2), parent name (alternative 3), parent name (alternative 4), state. (Stata file)
+
+    -   figure out what new vs cattell original is?
+
+-   **Dylan & Kelly notes from Summer 2021.pdf** - (5/30/2022) Dylan and Kelly's documentation on their work
+
+-   **Dylan & Kelly notes from Summer 2021.pdf** - (6/3/2022) Dylan and Kelly's documentation on their work with notes from Prof. Buzard
+
+-   **field.sas** - Shows Stata data on the Cattell ID for R&D fields and R&D sub-fields, the year the data was on, and the facilities (Stata file).
+
+-   **pngwork.py** - python script that uses the cattel-all.dta, field.dta, and a file called "GoodLabs.shp" for points*(this file is from Prof. Buzard's earlier work)*
 
 ## ramosRivera - Backup062122 Folder
 
@@ -702,10 +699,6 @@ This folder is a duplicate of the ramosRivera Folder created on June 21, 2022 as
 
 ## Deleted or not in the Admin Folder
 
--   **pdf2image** - output for pdf2Jpg.py
-
 -   **OCR_output** - input for OCR
 
 -   **ScanData** - input for pdf2Jpg.py
-
--   **Cattell-all.dta** - input for pngwork
