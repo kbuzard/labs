@@ -11,52 +11,49 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-
 # Introduction
 
-This document catalogues all the files related to the labs--heterogeneity project.
+This Document catalogs all the files related to the labs-- heterogeneity project.
 
 Authors: Kirsten Riley and Jorge Valdebenito
 
 June 2022
 
-
 ## Opening the files:
 
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| File type                            | How to Open                                                                                                                                                                                                                            |
-+======================================+========================================================================================================================================================================================================================================+
-| **.shp**                             | open ArcGIS, open a blank map, add a layer, and open the file in the program. (These files might also show as adobe acrobat files in the G-drive.)                                                                                    |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.cpg**, **.prj, .shx, .sbn, .sbx** | helper files to the shape file, cannot be opened independently.                                                                                                                                                                        |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.xml**                             | Helper file to shape files, can open using excel.                                                                                                                                                                                      |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.dbf**                             | Helper file to shape files, can open using excel.                                                                                                                                                                                      |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.py**                              | python scripts, open using Spyder (Anaconda3)                                                                                                                                                                                          |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.pdf**                             | adobe Acrobat                                                                                                                                                                                                                          |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.csv**                             | excel                                                                                                                                                                                                                                  |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.sas**                             | Stata                                                                                                                                                                                                                                  |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| **.sas7bdat**                        | import into Stata                                                                                                                                                                                                                      |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| File type                            | How to Open                                                                                                                                                                                                                                                    |
++======================================+================================================================================================================================================================================================================================================================+
+| **.shp**                             | open ArcGIS, open a blank map, add a layer, and open the file in the program. (These files might also show as adobe acrobat files in the G-drive.)                                                                                                             |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.cpg**, **.prj, .shx, .sbn, .sbx** | helper files to the shape file, cannot be opened independently.                                                                                                                                                                                                |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.xml**                             | Helper file to shape files, can open using excel.                                                                                                                                                                                                              |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.dbf**                             | Helper file to shape files, can open using excel.                                                                                                                                                                                                              |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.py**                              | python scripts, open using Spyder (Anaconda3)                                                                                                                                                                                                                  |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.pdf**                             | adobe Acrobat                                                                                                                                                                                                                                                  |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.csv**                             | excel                                                                                                                                                                                                                                                          |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.sas**                             | Stata                                                                                                                                                                                                                                                          |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **.sas7bdat**                        | import into Stata                                                                                                                                                                                                                                              |
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **.gz**                              | Use this [link](https://stackoverflow.com/questions/39645804/open-a-csv-gz-file-in-python-and-print-first-100-rows) for more information on how to open in Python. (These zipped files are used in a python script and don't need to be opened independently.) |
-+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 # The G-Drive Contents
 
-For each folder in Labs-kbuzard-S18 that has files that are used in the heterogeneity project, there is a separate sub-heading below. 
+For each folder in Labs-kbuzard-S18 that has files that are used in the heterogeneity project, there is a separate sub-heading below. 
 
 Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/webclient/> in the search bar.
 
 "G:/MAX-Filer/Collab/Labs-kbuzard-S18/Admin" (you may have to change to backslashes)
 
-
-## Block Level analysis 
+## Block Level analysis
 
 -   **CA_Block_Data.shp** - inputs for countSim_speedUpr, CountSim_tester, and multiprocess_test2
 
@@ -84,8 +81,6 @@ Copy and Paste this short cut to find the folder on <https://rds.syr.edu/rdweb/w
 
 -   **pngwork.py** - python script that uses the cattel-all.dta, field.dta, and a file called "GoodLabs.shp" for points*(this file is from Prof. Buzard's earlier work)*
 
-
-
 ### bg06_d00_shp subfolder
 
 has three documents - all of them make up the map of California used in paper.
@@ -112,62 +107,61 @@ Has eight documents all pertaining to the 1979 and 1989 data from IRL and DART p
 
 -   **1979_Digitized.txt** - digitized version of the 1979 IRL pdf
 
--   **1979IRL16.pdf** - copy of the 1979IRL16 pdf in DART_IRL Scans folder. Refer to original [Admin/ramosRivera/DART_IRL Scans/1979IRL16](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\DART_IRL%20Scans/1979IRL16)
+-   [**1979IRL16.pdf**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\DART_IRL%20Scans/1979IRL16) - copy of the 1979IRL16 pdf in DART_IRL Scans folder.
 
 -   **1989_Digitized.txt** - digitized version of the 1989 DART pdf
 
--   **1989DART23.pdf** - copy of the 1989DART23 pdf in DART_IRL Scans folder. Refer to original [Admin/ramosRivera/DART_IRL Scans/1989DART23](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\1989DART23)
+-   [**1989DART23.pdf**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\1989DART23) - copy of the 1989DART23 pdf in DART_IRL Scans folder. R
 
--   **corr_cattLabs97_Wgeocode 1-6200.csv** - excel file with lines 1-6200 corrected by Dylan. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode 1-6200.cvs** - excel file with lines 1-6200 corrected by Dylan. excel file with lines 1-6200 corrected by Dylan.
 
--   **corr_cattLabs97_Wgeocode.csv** - original excel file before Dylan and Kelly worked on it. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   [**corr_cattLabs97_Wgeocode.cvs**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode) - original excel file before Dylan and Kelly worked on it.
 
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.csv** - excel file with lines 6200-12765 corrected by Kelly. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly.
 
--   **OCR_Result_NO_user.txt** - Antonio's intial OCR scan. Refer to original [Admin/ramosRivera/T-Burk/PngData/OCR_Result_NO_user](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user)
+-   [**OCR_Result_NO_user.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user) - Antonio's intial OCR scan.
 
     -   This data was input into the corr_cattLabs97_Wgeocode excel sheets
 
 ### Summer2021_Kelly subfolder
 
+-   **1989_OCR_Digitized.txt** - digitized version of the 1989 DART pdf from the OCR machine (unedited)
+
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly.Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+
+-   [**OneDrive_2021-08-27**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Summer2021_Kelly\Task%20From%20Antonio%201\Original%20Material) - zip drive that leads to the original material folder in Task From Antonio 1 folder.
+
 #### Task From Antonio 1 folder
 
 ##### Original Material Folder
 
--   **corr_cattLabs97_Wgeocode.csv** - original excel file before Dylan and Kelly worked on it. Refer to original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   [**corr_cattLabs97_Wgeocode.cvs**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode) - original excel file before Dylan and Kelly worked on it.
 
--   **letter_I\_cattell.txt** - digitized version of the research labs starting with the letter "I." Refer to original [Admin/ramosRivera/T-Burk/PngData/letter_I\_cattell](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_I_cattell)
+-   [**letter_I\_cattell.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_I_cattell) - digitized version of the research labs starting with the letter "I."
 
--   **letter_O\_cattell.txt** - digitized version of the research labs starting with the letter "O." Refer to original [Admin/ramosRivera/T-Burk/PngData/letter_O\_cattell](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_O_cattell)
+-   [**letter_O\_cattell.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_O_cattell) - digitized version of the research labs starting with the letter "O."
 
--   **letter_S\_cattell.txt** - digitized version of the research labs starting with the letter "S." Refer to original [Admin/ramosRivera/T-Burk/PngData/letter_S\_cattell](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_S_cattell)
+-   [**letter_S\_cattell.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\letter_S_cattell) - digitized version of the research labs starting with the letter "S."
 
 > this separation by letter section was done to make digitization process faster.
 
--   **OCR_Result_NO_user.txt** - Antonio's intial OCR scan. [Admin/ramosRivera/T-Burk/PngData/OCR_Result_NO_user](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user)
+-   [**OCR_Result_NO_user.txt**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\OCR_Result_NO_user) - Antonio's intial OCR scan.
 
     -   This data was input into the corr_cattLabs97_Wgeocode excel sheets
 
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.csv** - excel file with lines 6200-12765 corrected by Kelly. Refer to Original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
+-   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.cvs** - excel file with lines 6200-12765 corrected by Kelly. Refer to Original [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
 
 #### Task From Antonio 2 Folder
 
--   **1979_Digitized.pdf** - digitized version of the 1979 IRL pdf (duplicate)
+-   [**1979_Digitized.pdf**](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\Summer2021_Dylan\1979_Digitized.pdf) - digitized version of the 1979 IRL pdf. For original refer to
 
 #### Task From Antonio 3 Folder
 
--   **1989_Digitized.txt** - digitized version of the 1989 DART pdf (duplicate)
-
-#### Not in a folder
-
--   **1989_OCR_Digitized.txt** - digitized version of the 1989 DART pdf from the OCR machine (unedited)
-
--   **corr_cattLabs97_Wgeocode_Line 6200 to Line 12765.csv** - excel file with lines 6200-12765 corrected by Kelly. [Admin/ramosRivera/T-Burk/PngData/corr_cattLabs97_Wgeocode](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\pngData\corr_cattLabs97_Wgeocode)
-
+-   **1989_Digitized.txt** - digitized version of the 1989 DART pdf [Admin/ramosRivera/Summer2021_Dylan/1989_Digitized.pdf](G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\Summer2021_Dylan\1989_Digitized.pdf)
 
 ### T-Burk subfolder
 
-It has 11 (sub-sub-)folders:
+It has 11 (sub-sub) folders:
 
 #### ArcMap Folder
 
@@ -178,114 +172,6 @@ It has 11 (sub-sub-)folders:
 -   **ZCTAs (.cpg, .dbf, .prj, .sbn, .sbx, .shp, .shx)** - Opening the files in ArcMap it shows California in the ZCTAs areas and the location of the labs (dots).
 
 #### BlockData Folder
-
-##### **nhgis0003_shapefiles_tl2000_560_block_2000**
-
-together these files make up the the US by census block. These files is most likely the input for USA_block_emp.
-
--   **AK_block_2000 (.dbf, .prj, .sbn, .sbx, .shp, .shx)** - Alaska by census block
-
--   **AL_block_2000** **(.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Alabama by census block
-
--   **AR_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Arkansas by census block
-
--   **AZ_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Arizona by census block
-
--   **CA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - California by census block
-
--   **CO_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Colorado by census block
-
--   **CT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Connecticut by census block
-
--   **DC_block10_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Washington DC by census block
-
--   **DE_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Delaware by census block
-
--   **FL-block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Florida by census block
-
--   **GA_block_2000(.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Georgia by census block
-
--   **HI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Hawaii by census block
-
--   **IA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Iowa by census block
-
--   **ID_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Idaho by census block
-
--   **IL_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Illinois by census block
-
--   **IN_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Indiana by census block
-
--   **KS_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Kansas by census block
-
--   **KY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Kentucky by census block
-
--   **LA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Louisiana by census block
-
--   **MA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Massachusetts by census block
-
--   **MD_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Maryland by census block
-
--   **ME_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Maine by census block
-
--   **MI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Michigan by census block
-
--   **MN_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Minnesota by census block
-
--   **MO_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Missouri by census block
-
--   **MS_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Mississippi by census block
-
--   **MT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Montana by census block
-
--   **NC_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - North Carolina by census block
-
--   **ND_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - North Dakota by census block
-
--   **NE_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Nebraska by census block
-
--   **NH_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New Hampshire by census block
-
--   **NJ_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New Jersey by census block
-
--   **NM_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New Mexico by census block
-
--   **NV_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Nevada by census block
-
--   **NY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New York by census block
-
--   **OH_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Ohio by census block
-
--   **OK_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Oklahoma by census block
-
--   **OR_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Oregon by census block
-
--   **PA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Pennsylvania by census block
-
--   **RI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Rhode Island by census block
-
--   **SC_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - South Carolina by census block
-
--   **SD_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - South Dakota by census block
-
--   **TN_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Tennessee by census block
-
--   **TX_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Texas by census block
-
--   **UT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Utah by census block
-
--   **VA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Virginia by census block
-
--   **VT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Vermont by census block
-
--   **WA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Washington by census block
-
--   **WI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Wisconsin by census block
-
--   **WV_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - West Virginia by census block
-
--   **WY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Wyoming by census block
-
-##### Not in a folder
 
 first 51 files are 7.zip files. There is one for each state + DC. You can open these files in python use this [link](https://stackoverflow.com/questions/39645804/open-a-csv-gz-file-in-python-and-print-first-100-rows) for how. All of the .gz files are input files for usa_block_emp.py.
 
@@ -394,6 +280,114 @@ first 51 files are 7.zip files. There is one for each state + DC. You can open t
 -   **USA_block (.cpg, .dbf, .prj, .shp, .shx)** - input and output for shapstich. Input file for USA_block_emp
 
 -   **usa_blockEmp (.cpg, .dbf, .prj, .shp, .shx)** - I do not know what this is showing. Output file for USA_block_emp.
+
+##### **nhgis0003_shapefiles_tl2000_560_block_2000**
+
+together these files make up the the US by census block. These files is most likely the input for USA_block_emp.
+
+-   **AK_block_2000 (.dbf, .prj, .sbn, .sbx, .shp, .shx)** - Alaska by census block
+
+-   **AL_block_2000** **(.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Alabama by census block
+
+-   **AR_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Arkansas by census block
+
+-   **AZ_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Arizona by census block
+
+-   **CA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - California by census block
+
+-   **CO_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Colorado by census block
+
+-   **CT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Connecticut by census block
+
+-   **DC_block10_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Washington DC by census block
+
+-   **DE_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Delaware by census block
+
+-   **FL-block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Florida by census block
+
+-   **GA_block_2000(.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Georgia by census block
+
+-   **HI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Hawaii by census block
+
+-   **IA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Iowa by census block
+
+-   **ID_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Idaho by census block
+
+-   **IL_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Illinois by census block
+
+-   **IN_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Indiana by census block
+
+-   **KS_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Kansas by census block
+
+-   **KY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Kentucky by census block
+
+-   **LA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Louisiana by census block
+
+-   **MA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Massachusetts by census block
+
+-   **MD_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Maryland by census block
+
+-   **ME_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Maine by census block
+
+-   **MI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Michigan by census block
+
+-   **MN_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Minnesota by census block
+
+-   **MO_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Missouri by census block
+
+-   **MS_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Mississippi by census block
+
+-   **MT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Montana by census block
+
+-   **NC_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - North Carolina by census block
+
+-   **ND_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - North Dakota by census block
+
+-   **NE_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Nebraska by census block
+
+-   **NH_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New Hampshire by census block
+
+-   **NJ_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New Jersey by census block
+
+-   **NM_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New Mexico by census block
+
+-   **NV_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Nevada by census block
+
+-   **NY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - New York by census block
+
+-   **OH_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Ohio by census block
+
+-   **OK_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Oklahoma by census block
+
+-   **OR_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Oregon by census block
+
+-   **PA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Pennsylvania by census block
+
+-   **RI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Rhode Island by census block
+
+-   **SC_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - South Carolina by census block
+
+-   **SD_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - South Dakota by census block
+
+-   **TN_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Tennessee by census block
+
+-   **TX_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Texas by census block
+
+-   **UT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Utah by census block
+
+-   **VA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Virginia by census block
+
+-   **VT_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Vermont by census block
+
+-   **WA_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Washington by census block
+
+-   **WI_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Wisconsin by census block
+
+-   **WV_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - West Virginia by census block
+
+-   **WY_block_2000 (.dbf, xml, .sbn, shx, dbf, prj, adobe, shp)** - Wyoming by census block
+
+-   **USA_block** (.cpg, dbf, Adobe, .shx) - pngwork.py and input for shapeStich.py
 
 #### k-function_local_results Folder
 
@@ -513,18 +507,6 @@ This is probably used to replicate Buzard 2017.
 
 #### PngData Folder
 
--   **OCR_Output_1998** --
-
--   **letter_I\_cattell.csv** (excel) -- not the same as documents in Kelly
-
--   **letter_O\_cattell.csv** (excel) --
-
--   **letter_S\_cattell.csv** (excel) --
-
--   **OCR_Result** (text) -- input for Address_ID, output for OCR
-
--   **OCR_Result_NO_user** (text) All this files looks like the directory of labs.
-
 -   **1979 Digitized** (text): Directory of labs
 
 -   **1989_OCR_Digitized** (text): Directory of labs
@@ -535,7 +517,7 @@ This is probably used to replicate Buzard 2017.
 
 -   **Cattell_corr_list** (STATA) - input file for pngwork.
 
--   **cattell-all** (STATA)
+-   **cattell-all** (STATA) - input file for pngwork
 
 -   **cattLabs97** (Excel) - input file for Address_ID, Geo_coder, and state_code_rep. Output file for pngwork
 
@@ -585,11 +567,37 @@ This is probably used to replicate Buzard 2017.
 
 Next step is to go to png website and see which files are downloaded from there and which ones were created by Antonio.
 
+##### OCR Folder
+
+Moved from Census July 13, 2022 for OCR.py script. All files in this folder are tsv and txt files copied from [Ivan png website](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY). For further documentation refer to [File-list.docx](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY).
+
+##### **OCR_Output_1998** Folder 
+
+Input files for OCR.py
+
+-   **letter_I\_cattell.csv** (excel) --
+
+-   **letter_O\_cattell.csv** (excel) --
+
+-   **letter_S\_cattell.csv** (excel) --
+
+-   **OCR_Result** (text) -- input for Address_ID, output for OCR
+
+-   **OCR_Result_NO_user** (text) All this files looks like the directory of labs.
+
+##### ScanData Folder
+
+Created this folder July 13, 2022 for pdf2Jpg.py script. All files in here are the output of pdf2Jpg.py. They are images (jpg) of the pdfs in the Folder ScanData.
+
+##### Scan Folder
+
+Moved folder from the Census Folder on July 13, 2022 in order for the pdf2Jpg.py script to run. All files in this folder are pdfs scans copied from [Ivan png website](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY). For further documentation refer to [File-list.docx](https://drive.google.com/drive/folders/1JVsX1yhCptfCGsrSNeTNlpvdbO84eyQY).
+
 #### Python Scripts Folder
 
--   **.pylint.d** - subfolder that contains only
+-   **.pylint.d** - sub folder that contains only
 
-    -   **stat_calc1.stats** (STATS):
+-   **stat_calc1.stats** (STATS):
 
 -   **Address_ID** -- Preparing and cleaning addresses
 
@@ -695,17 +703,8 @@ Has five documents in different formats, builds map of California by census bloc
 
     -   Vector digital data from <http://www.census.gov/geo/www/tiger>
 
-
 ## ramosRivera - Backup062122 Folder
 
 This folder is a duplicate of the ramosRivera Folder created on June 21, 2022 as a backup to the original ramosRivera folder.
 
-## Deleted or not in the Admin Folder
-
--   **pdf2image** - output for pdf2Jpg.py
-
--   **OCR_output** - input for OCR
-
--   **ScanData** - input for pdf2Jpg.py
-
--   **Cattell-all.dta** - input for pngwork
+## 
