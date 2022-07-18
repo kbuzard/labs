@@ -1,0 +1,113 @@
+This file will document how to install and run the Python Scripts in the RamosRivera folder necessary for this project.
+
+## Create a new environment called Test_Jorge on Python:
+
+1) In Anaconda Command Prompt type:
+
+* conda create --name Test_Jorge python=3.7 
+* conda activate Test_Jorge
+
+2) Install the packages you will use in Anaconda Command Prompt:
+
+* conda install -c esri arcgis
+* conda install -c conda-forge mkl-service (because of error)
+* conda install -c conda-forge plotnine
+* conda install -c conda-forge geopandas
+* conda install -c conda-forge geopy
+* conda install -c conda-forge opencv-python
+* conda install -c conda-forge pytesseract
+* conda install -c conda-forge pyap
+* conda install -c conda-forge tabulate
+
+
+Note: Every time you need to install a package, you do it in Anaconda Command Prompt.
+
+3) Go to the "Anaconda Navigator" on the Start Menu:
+
+* On Anaconda Navigator go to environment and select "Test_Jorge" 
+* Once "Test_Jorge" is installed, go to Home and install "Spyder". If "Spyder" is already installed, then click "Launch".
+
+4) In Spyder, open the script you need to work. 
+
+Note: If the console gets stuck on "connecting to kernel" do the following:
+4.1) Go to "Environments" in the Anaconda Navigator.
+4.2) Search for pyzmq
+4.3) Click on the green tick box and select version 16.0.4
+4.4) Click on "Apply"
+4.5) Reopen Spyder
+
+Now you have set up your environment. Go to Spyder and run the scripts. 
+
+## Order of the Python Scripts. 
+
+## Diagram for Clarification 
+
+At the moment there are two independent chains of scripts 
+
+### First Chain:
+shapipy.py -----------------------------------------------------------------------------------> stat_calc.py
+shapipy.py ------------------------> field_org.py---------------------------------------------> stat_calc.py
+pngwork.py --> state_code_rep.py --> field_org.py
+               state_code_rep.py -------------------------------------------------------------> stat_calc.py
+
+
+###Second chain (unfinished):
+Pdf2Jpg.py --> OCR.py --> Address_ID.py (outputs "pngCatIDList.csv")
+                      --> C.py (no output)
+
+pngwork.py --> GeoCoder.py   --> Prep_Labs.py (outputs "USA_Labs_2000.shp")
+shapify.py --> GeoCoder.py   --> Multiproccess_test2.py
+
+shapeStich.py ------------------------------------------------------------> USA_block_emp.py (outputs "usa_blockEmp.shp")
+
+
+## Independent Programs (Not using data created by other python scripts)
+Prep_ZBP.py (outputs "USA_ZCTA_emp.shp")
+
+
+Run the Scripts in the following order:
+First Chain:
+*pngwork.py X
+*shapify.py
+*state_code_rep.py
+*field_org.py
+*stat_calc.py
+
+Second Chain:
+*pngwork.py X
+*shapify.py
+*GeoCoder.py X
+*Prep_Labs.py
+
+Independent:
+*pdf2jpg.py
+*OCR.py X 
+*AddresID.py 
+*c.py
+
+Independent:
+*shapeStich.py
+*USA_block_emp.py
+*Prep_ZBP.py
+
+
+
+
+
+
+
+
+
+
+
+## The following are programs used for tests:
+* countSim_speedUp
+* countSim_tester
+* clust_pat_maker
+* multiprocess_test2
+* multiprocessing_tester
+
+
+
+
+
