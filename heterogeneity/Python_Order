@@ -10,7 +10,7 @@ This file will document how to install and run the Python Scripts in the RamosRi
 2) Install the packages you will use in Anaconda Command Prompt:
 
 * conda install -c esri arcgis
-* conda install -c conda-forge mkl-service (because of error)
+* conda install -c conda-forge mkl-service
 * conda install -c conda-forge plotnine
 * conda install -c conda-forge geopandas
 * conda install -c conda-forge geopy
@@ -18,6 +18,7 @@ This file will document how to install and run the Python Scripts in the RamosRi
 * conda install -c conda-forge pytesseract
 * conda install -c conda-forge pyap
 * conda install -c conda-forge tabulate
+* conda install -c conda-forge openpyxls (if do not work try "pip install openpyxls")
 
 
 Note: Every time you need to install a package, you do it in Anaconda Command Prompt.
@@ -40,15 +41,19 @@ Now you have set up your environment. Go to Spyder and run the scripts.
 
 ## Order of the Python Scripts. 
 
-## Diagram for Clarification 
+## Diagram for Clarification
+ 
+From "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions"
 
-At the moment there are two independent chains of scripts 
+kfunction_3Stage_JIT---------------> K-function Local_3Stage_JIT
+
+From "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts"
+At the moment there are two independent chains of scripts:
 
 ### First Chain:
-shapipy.py -----------------------------------------------------------------------------------> stat_calc.py
-shapipy.py ------------------------> field_org.py---------------------------------------------> stat_calc.py
-pngwork.py --> state_code_rep.py --> field_org.py
-               state_code_rep.py -------------------------------------------------------------> stat_calc.py
+shapipy.py ------------------------> field_org.py------------------------> stat_calc.py
+pngwork.py --> state_code_rep.py --> field_org.py 
+               state_code_rep.py ----------------------------------------> stat_calc.py
 
 
 ###Second chain (unfinished):
@@ -66,6 +71,8 @@ Prep_ZBP.py (outputs "USA_ZCTA_emp.shp")
 
 
 Run the Scripts in the following order:
+* kfunction_3Stage_JIT
+* K-function Local_3Stage_JIT
 First Chain:
 *pngwork.py X
 *shapify.py
@@ -91,15 +98,6 @@ Independent:
 *Prep_ZBP.py
 
 
-
-
-
-
-
-
-
-
-
 ## The following are programs used for tests:
 * countSim_speedUp
 * countSim_tester
@@ -108,6 +106,24 @@ Independent:
 * multiprocessing_tester
 
 
+K function folder:
+There is no clarification in Antonio's documentation about what file he is running. There are several python scripts called 3stage_local.py. 
+First: I start by looking at the files in the following folder "G: ...\Admin\kfunctions\Three Stage K-functions"
+
+* kfunction_3Stage (12/13/20): Construct functions necessary for 3 Stage Global/Local K-function estimation
+* kfunction_3Stage_JIT (10/19/20): Construct functions necessary for 3 Stage Global/Local K-function estimation
+
+kfunction_3Stage_JIT only difference with kfunction_3Stage is that the first uses "from numba import njit". The rest of the code is the same. 
+
+Note: We need to run one of these to then run the "Local" script. 
+
+* K-function Local_3Stage (5/8/21): Estimates Local K-function for a vector of distances and simulates a set of point patterns relative/proportional to a given reference measure. Outputs are a set of P-values, K-counts and Buffer Cluster saved to ESRI Shapefiles.
+  ** In line 34 its using the following file "...\LabData\cal_lab_fields\PLAS\PLAS.shp". Therefore, it is only using the Plastic industry (looks like). The rest of the code is pretty much the same as "K-function Local_3Stage_JIT"
+  
+* K-function Local_3Stage_JIT (10/19/20):  Estimates Local K-function for a vector of distances and simulates a set of point patterns relative/proportional to a given reference measure. Outputs are a set of P-values, K-counts and Buffer Cluster saved to ESRI Shapefiles.
+  ** I changed line 36 in the code, the folder being called was wrong, I added /Block Data/ to the address. Originally it was "blocks = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\CA_Block_New.shp"
+  The program run after that, faster than the "K-function Local_3Stage.py"
+  
 
 
 
