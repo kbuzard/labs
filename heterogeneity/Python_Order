@@ -45,15 +45,19 @@ Now you have set up your environment. Go to Spyder and run the scripts.
  
 From "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions"
 
-kfunction_3Stage_JIT---------------> K-function Local_3Stage_JIT
+K-function Local_3Stage.py---------------> stat_calc.py
 
 From "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts"
 At the moment there are two independent chains of scripts:
 
 ### First Chain:
-shapipy.py ------------------------> field_org.py------------------------> stat_calc.py
+shapify.py ------------------------> field_org.py------------------------> stat_calc.py
 pngwork.py --> state_code_rep.py --> field_org.py 
                state_code_rep.py ----------------------------------------> stat_calc.py
+
+
+The chain should be like this: 
+pngwork.py --> GeoCoder.py --> state_code_rep.py --> field_org.py --> Shapify.py--> K-function Local_3Stage.py--> stat_calc.py
 
 
 ###Second chain (unfinished):
