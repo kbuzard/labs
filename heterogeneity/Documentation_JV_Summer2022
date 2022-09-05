@@ -1,0 +1,194 @@
+Summary of the work perform during the Summer of 2022 by Jorge Valdebenito on the Labs project. 
+
+This project revisit the work of Antonio Ramos Rivera and looks to replicate his draft for the California labs project. 
+The goal is to replicate his work and extend it to the entire country. Unfortunately, given the lack of documentation this was not possible during the summer. 
+We were only able to partially replicate the results for California. 
+Most of the work consisted on running the python scripts in the correct order and troubleshoot the possible mistakes and missing information we found on the pythion scripts. 
+Most of the work was made in Python using the Spyder app. 
+
+The topics I worked are the following:
+1)	Creating a working environment in Python 
+2)	Order of the python scripts 
+3)	Input and output of every python script  
+4)	Running time consuming scripts in the SU cluster.
+5)  Where my work ended.
+I will write a description for each with the proper procedure.
+
+1)	Creating a working environment in Python 
+
+The following steps create the environment called ‘Test_Jorge’, any other name would do. 
+This environment is created only in the remote computer I was using. Professor Buzard is looking into creating the environment for every computer.
+
+1) In Anaconda Command Prompt typed:
+* conda create --name Test_Jorge python=3.7
+* conda activate Test_Jorge
+
+2) Install the packages in Anaconda Command Prompt:
+* conda install -c esri arcgis
+* conda install -c conda-forge mkl-service
+* conda install -c conda-forge plotnine
+* conda install -c conda-forge geopandas
+* conda install -c conda-forge geopy
+* conda install -c conda-forge opencv-python
+* conda install -c conda-forge pytesseract
+* conda install -c conda-forge pyap
+* conda install -c conda-forge tabulate
+* conda install -c conda-forge openpyxls (if do not work try "pip install openpyxls")
+
+Note: Every time you need to install a new package, do it in Anaconda Command Prompt.
+
+3) Go to the "Anaconda Navigator" on the Start Menu:
+
+* On Anaconda Navigator go to environment and select "Test_Jorge" 
+* Once "Test_Jorge" is installed, go to Home and install "Spyder". If "Spyder" is already installed, then click "Launch".
+
+4) In Spyder, open the script you need. 
+
+Note: If Spyder gets stuck on "connecting to kernel", then close Spyder and do the following:
+4.1) Go to "Environments" in the Anaconda Navigator.
+4.2) Search for pyzmq
+4.3) Click on the green tick box and select version 16.0.4
+4.4) Click on "Apply"
+4.5) Reopen Spyder
+
+Now you have set up your environment. Go to Spyder and run the scripts. 
+
+## Order of the Python Scripts. 
+
+## Diagram for Clarification
+
+2)	Order of the python scripts
+
+First, all the python scripts are located in:
+G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts
+
+To help understand what we are doing is good to start with the intuition of the procedure. 
+First, we are digitalizing the addresses of the labs. 
+Second, we are Geocoding those address to be able to locate them in a map using ArcMap. 
+Third, we are creating the clusters by running simulations. 
+Fourth, we are calculating the agglomerations effects. 
+
+Next, the python scripts should be run in the following order:
+
+###Chain to run:
+Pdf2Jpg.py --> OCR.py --> pngwork.py --> Address_ID.py --> state_code_rep.py --> GeoCoder.py -->  field_org.py --> Shapify.py--> K-function Local_3Stage.py--> stat_calc.py
+                      
+
+
+3)	Input and output of every python script  
+input--> python script--> output 
+
+"G:...ramosRivera\T-Burk\PngData\Scans\1998DART32.pdf" --> Pdf2Jpg.py --> "G:...ramosRivera\T-Burk\PngData\Scans\Page_.jpg"
+
+"G:...\ramosRivera\T-Burk\PngData\ScanData\Page_.jpg" (from Pdf2Jpg.py) --> OCR.py --> "G:...\PngData\OCR_Output_1998\OCR_Results.txt"
+
+pngwork.py imports several other datasets, I am only documenting the ones that are used in the program. 
+"G:...\T-Burk\PngData\cattell-all.dta"       --> pngwork.py --> 
+"G:...\T-Burk\PngData\Cattell_corr_list.dta" --> pngwork.py --> "G:...\T-Burk\PngData\cattLabs97.csv"
+
+"G:...\T-Burk\PngData\cattLabs97.csv"                  --> Address_ID.py --> "G:...\T-Burk\PngData\pngCatIDList.csv"
+"G:...\T-Burk\PngData\OCR_Output_1998\OCR_Result.txt"  --> Address_ID.py --> "G:...\1989\Address_ID89.csv" (this is taken from Kirsten's work on 1989. There is no output in the original file)
+
+C.py --> This script is a continuation from Address_ID.py. Check the 1989 folder for a complete description.
+
+"G:...\T-Burk\PngData\cattLabs97.csv"       --> state_code_rep.py --> 
+"G:...\T-Burk\PngData\cattell_1997_raw.dta" --> state_code_rep.py --> "G:...\T-Burk\PngData\corr_cattLabs97.csv"
+
+"G:...\T-Burk\PngData\matched_data.csv" --> GeoCoder.py --> "G:...\T-Burk\PngData\geocoded_facilities.csv"
+"G:...\T-Burk\PngData\cattLabs97.csv"   --> GeoCoder.py --> "G:...\T-Burk\LabData\cal_labs.shp"
+"G:...\Admin\Census\Labs1998.csv"       --> GeoCoder.py --> The scripts is missing the last part, no output after importing Labs1998.csv
+
+
+"G:...\T-Burk\PngData\corr_cattLabs97.csv" --> field_org.py --> 
+"G:...\T-Burk\LabData\cal_labs.shp"        --> field_org.py --> 
+"G:...\T-Burk\PngData\field.dta"           --> field_org.py -->
+"G:...\T-Burk\PngData\field-master.dta"    --> field_org.py --> "G:...\T-Burk\\LabData\\cal_lab_fields\\" + field"
+
+
+"G:...\T-Burk\PngData\geocoded_facilities_cal.csv" --> Shapify.py--> "G:...\T-Burk\LabData\cal_labs.shp"
+
+"G:...\T-Burk\LabData\cal_labs.shp" --> K-function Local_3Stage.py --> 5 and 10 mile buffers and points
+"G:...\Admin\Block Level Analysis\CA_Block_Data.shp" --> K-function Local_3Stage.py-->  "G:...\T-Burk\LabData\_Points_cal0.shp"
+"G:...\Admin\Block Level Analysis\CA_ZCTA_Data.shp" --> K-function Local_3Stage.py--> "G:...\T-Burk\LabData\_Buffers_cal0.shp"
+
+"G:...\T-Burk\LabData\cal_labs.shp"                        --> stat_calc.py -->
+"G:...\T-Burk\PngData\corr_cattLabs97.csv"                 --> stat_calc.py -->
+"G:...\T-Burk\PngData\field.dta"                           --> stat_calc.py -->
+"G:...\T-Burk\LabData\Manufa_Emp_C000_Points_cal0.shp"     --> stat_calc.py -->
+"G:...\T-Burk\LabData\Manufa_Emp_C000_5_Buffers_cal0.shp"  --> stat_calc.py -->
+This is a different shapefile for each buffer 0.25, 0.5, 0.75, 1, 2, 5, 10
+"G:...\T-Burk\PngData\field_lab_counts2.csv"               --> stat_calc.py -->
+"G:...\T-Burk\PatentData\cite_same.csv"                    --> stat_calc.py --> Print a table of the pvals and hhi indices for each cluster radius
+
+
+
+Next is a list of the programs that are in the python script folder, but they are not used in the previous chain:
+
+"G:...\T-Burk\BlockData\nhgis0003_shape\nhgis0003_shapefile_tl2000_560_block_2000\USA_block.shp"--> shapeStich.py --> "G:...\BlockData\USA_block.shp"
+
+"G:...\T-Burk\PngData\corr_cattLabs97.csv"      --> firm_struc.py --> 
+"G:...\T-Burk\PngData\single_lab_firm.csv"      --> firm_struc.py --> no output
+
+"G:...\T-Burk\BlockData"               --> USA_block_emp.py --> 
+"G:...\T-Burk\BlockData\USA_block.shp" --> USA_block_emp.py --> "G:...\T-Burk\BlockData\usa_blockEmp.shp"
+
+"G:...\T-Burk\ZipData\nhgis0005_ds151_2000_zcta.csv"      --> Prep_ZBP.py -->
+"G:...\ZipData\tl_2010_us_zcta500\tl_2010_us_zcta500.shp" --> Prep_ZBP.py --> "G:...\ZipData\USA_ZCTA_emp.shp"
+
+
+"G:...\T-Burk\PngData\geocoded_facilities.csv"          --> Prep_Labs.py --> 
+"G:...\Admin\Census\Labs1998.csv"                       --> Prep_Labs.py --> "G:...\T-Burk\LabData\USA_Labs_2000.shp"
+
+
+## The following are programs used for tests:
+* countSim_speedUp
+* countSim_tester
+* clust_pat_maker
+* multiprocess_test2
+* multiprocessing_tester
+
+
+4)	Running time consuming scripts in the SU cluster.
+
+I got in contact with ICT to try to run the K-function Local_3Stage.py script in the SU cluster. This program takes a long time given that it is performing
+999 simulations. I was able to get access to the cluster and run the script. There are still several questions regarding the use of the cluster, for instance,
+where is the cluster sending the output of the program?, is actually faster or not that running in it in the resgular spyder? Can it just be run once or do I need
+to run the program everytime we create a new environment in python?
+ICT is very helpful and fast in answering questions. 
+
+5)  Where my work ended.
+
+The last python script I worked on was stat_calc.py. 
+Next is a description of the error and my troubleshooting proceses for future reference. 
+
+In line 810, I get and error that stops the loop.
+I think the error is coming from the append command.
+catL5_dict only has 7 elements, and these elements are coming from the clustList variable created in line 807.
+The error comes when we append Ldict_5 to catL5_dict inside the loop.
+Ldict_5 has 9 elements and catL5_dict has 7.
+This is why the loop is not finding element 8. 
+At first, we thought the problem was that after running the simulations, we were encountering more clusters than the ones Antonio found.
+I tryed to fix this by adding cluster 8, 9 in the clustList variable. This did not solved the problem. 
+
+I added ",8,9" in lines 804, 903, 929.
+The code runs until line 903. Where only the first 5 elements of the variable cat5_hhi_dict have the second column hhi created.
+I not know why the 5 mile cluster is not working and the 10 mile is.
+Line 903 is running the 5 mile cluster process and line 916 runs the same code for the 10 mile.
+
+I went line by line checking the number of clusters and the internal process of the loop, but I can't find the answer.
+The problem is in line 910.
+The loop start by going in catL5_dict. This variable is created before and it is created correctly. 
+It has all the columns we need, the 10 clusters we get from the simulations and it has the same format as the 10 mile cluster (that works).
+The loop in 910, goes into catL5_dict and then goes into each element of the array.
+It is calling the function hhi_calc created at the very beginning of the script. 
+I checked this function and it has no restriction on the number of clusters, it should go inside with no problem.
+
+My biggest issue is that it runs perfectly for the 10 mile cluster, which uses the exact same code. 
+The process for the 5 mile cluster works for the first 5 elements, so why not for cluster 6 to 10?. 
+The original code had 7 clusters, so it is still bigger than the first 5, therefore it should have run with no problem.
+
+Everytime I had to change something in a python script, I commented out the original code (did not delete it) and add the new. 
+Everything should be clear in the comments for each script.
+
+The summer ended while I was working on this problem. 
+
