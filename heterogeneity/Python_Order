@@ -1,14 +1,13 @@
 This file will document how to install and run the Python Scripts in the RamosRivera folder necessary for this project.
+This enviroment is only been created for the G drive in my personal computer. 
 
 ## Create a new environment called Test_Jorge on Python:
 
-1) In Anaconda Command Prompt type:
-
-* conda create --name Test_Jorge python=3.7 
+a) In Anaconda Command Prompt typed:
+* conda create --name Test_Jorge python=3.7
 * conda activate Test_Jorge
 
-2) Install the packages you will use in Anaconda Command Prompt:
-
+b) Install the packages in Anaconda Command Prompt:
 * conda install -c esri arcgis
 * conda install -c conda-forge mkl-service
 * conda install -c conda-forge plotnine
@@ -20,22 +19,21 @@ This file will document how to install and run the Python Scripts in the RamosRi
 * conda install -c conda-forge tabulate
 * conda install -c conda-forge openpyxls (if do not work try "pip install openpyxls")
 
+Note: Every time you need to install a new package, do it in Anaconda Command Prompt.
 
-Note: Every time you need to install a package, you do it in Anaconda Command Prompt.
-
-3) Go to the "Anaconda Navigator" on the Start Menu:
+c) Go to the "Anaconda Navigator" on the Start Menu:
 
 * On Anaconda Navigator go to environment and select "Test_Jorge" 
 * Once "Test_Jorge" is installed, go to Home and install "Spyder". If "Spyder" is already installed, then click "Launch".
 
-4) In Spyder, open the script you need to work. 
+d) In Spyder, open the script you need. 
 
-Note: If the console gets stuck on "connecting to kernel" do the following:
-4.1) Go to "Environments" in the Anaconda Navigator.
-4.2) Search for pyzmq
-4.3) Click on the green tick box and select version 16.0.4
-4.4) Click on "Apply"
-4.5) Reopen Spyder
+Note: If Spyder gets stuck on "connecting to kernel", then close Spyder and do the following:
+i) Go to "Environments" in the Anaconda Navigator.
+ii) Search for pyzmq
+iii) Click on the green tick box and select version 16.0.4
+iv) Click on "Apply"
+v) Reopen Spyder
 
 Now you have set up your environment. Go to Spyder and run the scripts. 
 
@@ -43,63 +41,20 @@ Now you have set up your environment. Go to Spyder and run the scripts.
 
 ## Diagram for Clarification
  
-From "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\kfunctions\Three Stage K-functions"
+First, all the python scripts are located in:
+G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts
 
-K-function Local_3Stage.py---------------> stat_calc.py
+To help understand what we are doing is good to start with the intuition of the procedure. 
+First, we are digitalizing the addresses of the labs. 
+Second, we are Geocoding those address to be able to locate them in a map using ArcMap. 
+Third, we are creating the clusters by running simulations. 
+Fourth, we are calculating the agglomerations effects. 
 
-From "G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts"
-At the moment there are two independent chains of scripts:
+In order to carry out the above four tasks the python scripts should be run in the following order:
 
-### First Chain:
-shapify.py ------------------------> field_org.py------------------------> stat_calc.py
-pngwork.py --> state_code_rep.py --> field_org.py 
-               state_code_rep.py ----------------------------------------> stat_calc.py
-
-
-The chain should be like this: 
-pngwork.py --> GeoCoder.py --> state_code_rep.py --> field_org.py --> Shapify.py--> K-function Local_3Stage.py--> stat_calc.py
-
-
-###Second chain (unfinished):
-Pdf2Jpg.py --> OCR.py --> Address_ID.py (outputs "pngCatIDList.csv")
-                      --> C.py (no output)
-
-pngwork.py --> GeoCoder.py   --> Prep_Labs.py (outputs "USA_Labs_2000.shp")
-shapify.py --> GeoCoder.py   --> Multiproccess_test2.py
-
-shapeStich.py ------------------------------------------------------------> USA_block_emp.py (outputs "usa_blockEmp.shp")
-
-
-## Independent Programs (Not using data created by other python scripts)
-Prep_ZBP.py (outputs "USA_ZCTA_emp.shp")
-
-
-Run the Scripts in the following order:
-* kfunction_3Stage_JIT
-* K-function Local_3Stage_JIT
-First Chain:
-*pngwork.py X
-*shapify.py
-*state_code_rep.py
-*field_org.py
-*stat_calc.py
-
-Second Chain:
-*pngwork.py X
-*shapify.py
-*GeoCoder.py X
-*Prep_Labs.py
-
-Independent:
-*pdf2jpg.py
-*OCR.py X 
-*AddresID.py 
-*c.py
-
-Independent:
-*shapeStich.py
-*USA_block_emp.py
-*Prep_ZBP.py
+###Chain to run:
+Pdf2Jpg.py --> OCR.py --> pngwork.py --> Address_ID.py --> state_code_rep.py --> GeoCoder.py -->  field_org.py --> Shapify.py--> K-function Local_3Stage.py--> stat_calc.py
+                      
 
 
 ## The following are programs used for tests:
@@ -111,6 +66,10 @@ Independent:
 
 
 K function folder:
+The only k function file we need to run is "kfunction_3Stage.py" 
+
+This is a descripton of what each other script is doing. Only take it as clarification. 
+
 There is no clarification in Antonio's documentation about what file he is running. There are several python scripts called 3stage_local.py. 
 First: I start by looking at the files in the following folder "G: ...\Admin\kfunctions\Three Stage K-functions"
 
@@ -119,7 +78,6 @@ First: I start by looking at the files in the following folder "G: ...\Admin\kfu
 
 kfunction_3Stage_JIT only difference with kfunction_3Stage is that the first uses "from numba import njit". The rest of the code is the same. 
 
-Note: We need to run one of these to then run the "Local" script. 
 
 * K-function Local_3Stage (5/8/21): Estimates Local K-function for a vector of distances and simulates a set of point patterns relative/proportional to a given reference measure. Outputs are a set of P-values, K-counts and Buffer Cluster saved to ESRI Shapefiles.
   ** In line 34 its using the following file "...\LabData\cal_lab_fields\PLAS\PLAS.shp". Therefore, it is only using the Plastic industry (looks like). The rest of the code is pretty much the same as "K-function Local_3Stage_JIT"
