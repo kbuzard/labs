@@ -7,57 +7,22 @@ Most of the work consisted on running the python scripts in the correct order an
 Most of the work was made in Python using the Spyder app. 
 
 The topics I worked are the following:
-1)	Creating a working environment in Python 
-2)	Order of the python scripts 
-3)	Input and output of every python script  
-4)	Running time consuming scripts in the SU cluster.
-5)  Where my work ended.
+I)	Creating a working environment in Python 
+II)	Order of the python scripts 
+III)	Input and output of every python script  
+IV)	Running time consuming scripts in the SU cluster.
+V)  Where my work ended.
 I will write a description for each with the proper procedure.
 
-1)	Creating a working environment in Python 
+I)	Creating a working environment in Python to be used by all the users 
 
-The following steps create the environment called ‘Test_Jorge’, any other name would do. 
-This environment is created only in the remote computer I was using. Professor Buzard is looking into creating the environment for every computer.
+For a complete description of the necessary packages and the how to set up your local environment see the file "Python Order"
 
-1) In Anaconda Command Prompt typed:
-* conda create --name Test_Jorge python=3.7
-* conda activate Test_Jorge
-
-2) Install the packages in Anaconda Command Prompt:
-* conda install -c esri arcgis
-* conda install -c conda-forge mkl-service
-* conda install -c conda-forge plotnine
-* conda install -c conda-forge geopandas
-* conda install -c conda-forge geopy
-* conda install -c conda-forge opencv-python
-* conda install -c conda-forge pytesseract
-* conda install -c conda-forge pyap
-* conda install -c conda-forge tabulate
-* conda install -c conda-forge openpyxls (if do not work try "pip install openpyxls")
-
-Note: Every time you need to install a new package, do it in Anaconda Command Prompt.
-
-3) Go to the "Anaconda Navigator" on the Start Menu:
-
-* On Anaconda Navigator go to environment and select "Test_Jorge" 
-* Once "Test_Jorge" is installed, go to Home and install "Spyder". If "Spyder" is already installed, then click "Launch".
-
-4) In Spyder, open the script you need. 
-
-Note: If Spyder gets stuck on "connecting to kernel", then close Spyder and do the following:
-4.1) Go to "Environments" in the Anaconda Navigator.
-4.2) Search for pyzmq
-4.3) Click on the green tick box and select version 16.0.4
-4.4) Click on "Apply"
-4.5) Reopen Spyder
-
-Now you have set up your environment. Go to Spyder and run the scripts. 
-
-## Order of the Python Scripts. 
-
-## Diagram for Clarification
+I will include an explanaition on how to set up a general environment to be access by every user. 
 
 2)	Order of the python scripts
+
+The order of the python scripts to be run are detailed in the file "Python Order" 
 
 First, all the python scripts are located in:
 G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts
@@ -68,48 +33,82 @@ Second, we are Geocoding those address to be able to locate them in a map using 
 Third, we are creating the clusters by running simulations. 
 Fourth, we are calculating the agglomerations effects. 
 
-Next, the python scripts should be run in the following order:
+In order to carry out the above four tasks the python scripts should be run in the following order:
 
 ###Chain to run:
 Pdf2Jpg.py --> OCR.py --> pngwork.py --> Address_ID.py --> state_code_rep.py --> GeoCoder.py -->  field_org.py --> Shapify.py--> K-function Local_3Stage.py--> stat_calc.py
                       
 
 
-3)	Input and output of every python script  
-input--> python script--> output 
+3)	Input and output of every python script
 
+This section detail the inputs and outputs for every python script to make it easy to understand. 
+The diagram is constructed using the following order: 
+
+input that the script received --> python script--> output that the script produce. 
+
+i) Pdf2Jpg.py
 "G:...ramosRivera\T-Burk\PngData\Scans\1998DART32.pdf" --> Pdf2Jpg.py --> "G:...ramosRivera\T-Burk\PngData\Scans\Page_.jpg"
 
 "G:...\ramosRivera\T-Burk\PngData\ScanData\Page_.jpg" (from Pdf2Jpg.py) --> OCR.py --> "G:...\PngData\OCR_Output_1998\OCR_Results.txt"
 
-pngwork.py imports several other datasets, I am only documenting the ones that are used in the program. 
+ii) pngwork.py 
+This script imports several datasets, some of which are not used in the program. I am only documenting the ones that are being used. 
+
 "G:...\T-Burk\PngData\cattell-all.dta"       --> pngwork.py --> 
 "G:...\T-Burk\PngData\Cattell_corr_list.dta" --> pngwork.py --> "G:...\T-Burk\PngData\cattLabs97.csv"
 
-"G:...\T-Burk\PngData\cattLabs97.csv"                  --> Address_ID.py --> "G:...\T-Burk\PngData\pngCatIDList.csv"
-"G:...\T-Burk\PngData\OCR_Output_1998\OCR_Result.txt"  --> Address_ID.py --> "G:...\1989\Address_ID89.csv" (this is taken from Kirsten's work on 1989. There is no output in the original file)
+I do not know where the dataset "Cattell_corr_list.dta" is created. 
 
-C.py --> This script is a continuation from Address_ID.py. Check the 1989 folder for a complete description.
+iii) Address_ID.py
+This script is incomplete and it doesn't produce the output that it supposed to. Kirsten is working with the 1989 data and she has written an output file.
+Check the python script of 1989 for how the output should look. Here I document the output that Kirsten created for 1989. 
+
+"G:...\T-Burk\PngData\cattLabs97.csv"                  --> Address_ID.py --> "G:...\T-Burk\PngData\pngCatIDList.csv"
+"G:...\T-Burk\PngData\OCR_Output_1998\OCR_Result.txt"  --> Address_ID.py --> "G:...\1989\Address_ID89.csv" 
+
+iv) C.py 
+This script is a continuation from Address_ID.py. Check the 1989 folder for a complete description and see how Kirsten has put C.py and Address_ID.py together. 
+
+v) state_code_rep.py
 
 "G:...\T-Burk\PngData\cattLabs97.csv"       --> state_code_rep.py --> 
 "G:...\T-Burk\PngData\cattell_1997_raw.dta" --> state_code_rep.py --> "G:...\T-Burk\PngData\corr_cattLabs97.csv"
+
+I do not know where the dataset "cattell_1997_raw.dta" is created.
+
+vi) GeoCoder.py
 
 "G:...\T-Burk\PngData\matched_data.csv" --> GeoCoder.py --> "G:...\T-Burk\PngData\geocoded_facilities.csv"
 "G:...\T-Burk\PngData\cattLabs97.csv"   --> GeoCoder.py --> "G:...\T-Burk\LabData\cal_labs.shp"
 "G:...\Admin\Census\Labs1998.csv"       --> GeoCoder.py --> The scripts is missing the last part, no output after importing Labs1998.csv
 
+I do not know where the dataset "matched_data.csv" is created.
+
+vii) field_org.py
 
 "G:...\T-Burk\PngData\corr_cattLabs97.csv" --> field_org.py --> 
 "G:...\T-Burk\LabData\cal_labs.shp"        --> field_org.py --> 
 "G:...\T-Burk\PngData\field.dta"           --> field_org.py -->
 "G:...\T-Burk\PngData\field-master.dta"    --> field_org.py --> "G:...\T-Burk\\LabData\\cal_lab_fields\\" + field"
 
+I do not know where the dataset "field.dta" is created.
+I do not know where the dataset "field-master.dta" is created.
+
+viii) Shapify.py
 
 "G:...\T-Burk\PngData\geocoded_facilities_cal.csv" --> Shapify.py--> "G:...\T-Burk\LabData\cal_labs.shp"
+
+It is not clear where "geocoded_facilities_cal.csv" is created. I believed it is comming from a manual manipulation of the output of GeoCoder.py. 
+
+ix) K-function Local_3Stage.py
 
 "G:...\T-Burk\LabData\cal_labs.shp" --> K-function Local_3Stage.py --> 5 and 10 mile buffers and points
 "G:...\Admin\Block Level Analysis\CA_Block_Data.shp" --> K-function Local_3Stage.py-->  "G:...\T-Burk\LabData\_Points_cal0.shp"
 "G:...\Admin\Block Level Analysis\CA_ZCTA_Data.shp" --> K-function Local_3Stage.py--> "G:...\T-Burk\LabData\_Buffers_cal0.shp"
+
+
+x)  stat_calc.py
 
 "G:...\T-Burk\LabData\cal_labs.shp"                        --> stat_calc.py -->
 "G:...\T-Burk\PngData\corr_cattLabs97.csv"                 --> stat_calc.py -->
@@ -120,25 +119,36 @@ This is a different shapefile for each buffer 0.25, 0.5, 0.75, 1, 2, 5, 10
 "G:...\T-Burk\PngData\field_lab_counts2.csv"               --> stat_calc.py -->
 "G:...\T-Burk\PatentData\cite_same.csv"                    --> stat_calc.py --> Print a table of the pvals and hhi indices for each cluster radius
 
+I do not know where the dataset "field_lab_counts2.csv" is created.
+I do not know where the dataset "cite_same.csv" is created.
 
 
-Next is a list of the programs that are in the python script folder, but they are not used in the previous chain:
+The next section it is a list of the programs that are in the python script folder, but they are not used in the previous chain:
 
+i) shapeStich.py
 "G:...\T-Burk\BlockData\nhgis0003_shape\nhgis0003_shapefile_tl2000_560_block_2000\USA_block.shp"--> shapeStich.py --> "G:...\BlockData\USA_block.shp"
+
+ii) firm_struc.py
 
 "G:...\T-Burk\PngData\corr_cattLabs97.csv"      --> firm_struc.py --> 
 "G:...\T-Burk\PngData\single_lab_firm.csv"      --> firm_struc.py --> no output
 
+iii)  USA_block_emp.py
+
 "G:...\T-Burk\BlockData"               --> USA_block_emp.py --> 
 "G:...\T-Burk\BlockData\USA_block.shp" --> USA_block_emp.py --> "G:...\T-Burk\BlockData\usa_blockEmp.shp"
+
+iv) Prep_ZBP.py
 
 "G:...\T-Burk\ZipData\nhgis0005_ds151_2000_zcta.csv"      --> Prep_ZBP.py -->
 "G:...\ZipData\tl_2010_us_zcta500\tl_2010_us_zcta500.shp" --> Prep_ZBP.py --> "G:...\ZipData\USA_ZCTA_emp.shp"
 
+v) Prep_Labs.py
 
 "G:...\T-Burk\PngData\geocoded_facilities.csv"          --> Prep_Labs.py --> 
 "G:...\Admin\Census\Labs1998.csv"                       --> Prep_Labs.py --> "G:...\T-Burk\LabData\USA_Labs_2000.shp"
 
+I used "USA_Labs_2000.shp" to create the US map for all the labs in ArcMap. 
 
 ## The following are programs used for tests:
 * countSim_speedUp
