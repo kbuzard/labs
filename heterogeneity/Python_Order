@@ -1,7 +1,9 @@
 This file will document how to install and run the Python Scripts in the RamosRivera folder necessary for this project.
 This enviroment is only been created for the G drive in my personal computer. 
 
-## Create a new environment called Test_Jorge on Python:
+I) Create a new environment called Test_Jorge on Python:
+
+This procedure creates a local (in your session) environment:
 
 a) In Anaconda Command Prompt typed:
 * conda create --name Test_Jorge python=3.7
@@ -37,9 +39,9 @@ v) Reopen Spyder
 
 Now you have set up your environment. Go to Spyder and run the scripts. 
 
-## Order of the Python Scripts. 
+II) Order of the Python Scripts. 
 
-## Diagram for Clarification
+Diagram for Clarification
  
 First, all the python scripts are located in:
 G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\ramosRivera\T-Burk\Python Scripts
@@ -52,40 +54,9 @@ Fourth, we are calculating the agglomerations effects.
 
 In order to carry out the above four tasks the python scripts should be run in the following order:
 
-###Chain to run:
+Chain to run:
 Pdf2Jpg.py --> OCR.py --> pngwork.py --> Address_ID.py --> state_code_rep.py --> GeoCoder.py -->  field_org.py --> Shapify.py--> K-function Local_3Stage.py--> stat_calc.py
                       
-
-
-## The following are programs used for tests:
-* countSim_speedUp
-* countSim_tester
-* clust_pat_maker
-* multiprocess_test2
-* multiprocessing_tester
-
-
-K function folder:
-The only k function file we need to run is "kfunction_3Stage.py" 
-
-This is a descripton of what each other script is doing. Only take it as clarification. 
-
-There is no clarification in Antonio's documentation about what file he is running. There are several python scripts called 3stage_local.py. 
-First: I start by looking at the files in the following folder "G: ...\Admin\kfunctions\Three Stage K-functions"
-
-* kfunction_3Stage (12/13/20): Construct functions necessary for 3 Stage Global/Local K-function estimation
-* kfunction_3Stage_JIT (10/19/20): Construct functions necessary for 3 Stage Global/Local K-function estimation
-
-kfunction_3Stage_JIT only difference with kfunction_3Stage is that the first uses "from numba import njit". The rest of the code is the same. 
-
-
-* K-function Local_3Stage (5/8/21): Estimates Local K-function for a vector of distances and simulates a set of point patterns relative/proportional to a given reference measure. Outputs are a set of P-values, K-counts and Buffer Cluster saved to ESRI Shapefiles.
-  ** In line 34 its using the following file "...\LabData\cal_lab_fields\PLAS\PLAS.shp". Therefore, it is only using the Plastic industry (looks like). The rest of the code is pretty much the same as "K-function Local_3Stage_JIT"
-  
-* K-function Local_3Stage_JIT (10/19/20):  Estimates Local K-function for a vector of distances and simulates a set of point patterns relative/proportional to a given reference measure. Outputs are a set of P-values, K-counts and Buffer Cluster saved to ESRI Shapefiles.
-  ** I changed line 36 in the code, the folder being called was wrong, I added /Block Data/ to the address. Originally it was "blocks = r"G:\MAX-Filer\Collab\Labs-kbuzard-S18\Admin\Block Level Analysis\CA_Block_New.shp"
-  The program run after that, faster than the "K-function Local_3Stage.py"
-  
 
 
 
